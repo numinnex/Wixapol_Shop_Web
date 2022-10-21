@@ -1,0 +1,125 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.footer[b-gw8st0tpdd] {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+}
+
+.top-link {
+    border: 1px solid white;
+}
+
+    .top-link:hover {
+        border-bottom: 1px solid #e95420;
+    }
+
+.frgt-password-link:hover {
+    text-decoration: underline;
+}
+
+
+.separator-decorated {
+    position: relative;
+    text-align: center;
+}
+
+    .separator-decorated::before {
+        content: "";
+        height: 1px;
+        left: 0px;
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        background: rgb(242, 242, 242);
+    }
+
+    .separator-decorated > .text {
+        font-size: 18px;
+        position: relative;
+        z-index: 1;
+        background: rgb(255, 255, 255);
+        padding: 0px 20px;
+    }
+
+.dropdown-new {
+    position: relative;
+}
+
+.dropdown-settings {
+    background: #fff;
+    border: 1px solid #cbcbcb;
+    border-radius: 0 8px 8px 8px;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 10%);
+    left: 0;
+    min-height: 55px;
+    overflow: hidden;
+    position: absolute;
+    top: 68px;
+    width: 200px;
+    z-index: 5;
+    display: none;
+}
+
+    .dropdown-settings li a {
+        color: #0d0d0d;
+        display: block;
+        font-size: 15px;
+        font-weight: 400;
+        letter-spacing: .4px;
+        line-height: 1.45;
+        padding: 6px 18px;
+        position: relative;
+        text-decoration: none;
+    }
+
+.dropdown-content li.dropdown-item-logout a {
+    background: #f2f2f2;
+    padding: 17px 18px;
+}
+
+.dropdown-content li {
+    position: relative;
+}
+
+.dropdown-content {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown-item:hover {
+    background: #f2f2f2;
+}
+
+.dropdown-item-account:hover {
+    background: #f2f2f2;
+}
+
+.dropdown-item-account {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 19px;
+}
+
+.dropdown-item-logout {
+    margin-top: 20px;
+}
