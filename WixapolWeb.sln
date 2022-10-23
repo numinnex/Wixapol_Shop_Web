@@ -5,6 +5,8 @@ VisualStudioVersion = 17.3.32804.467
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WixapolShop", "WixapolShop\WixapolShop.csproj", "{4CE13143-6A10-4626-8A28-6ECE907E36D5}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "WixapolDB", "WixapolDB\WixapolDB.sqlproj", "{B852FB75-0C35-4B2D-A5BD-E4C07260A9C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,12 @@ Global
 		{4CE13143-6A10-4626-8A28-6ECE907E36D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CE13143-6A10-4626-8A28-6ECE907E36D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CE13143-6A10-4626-8A28-6ECE907E36D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B852FB75-0C35-4B2D-A5BD-E4C07260A9C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B852FB75-0C35-4B2D-A5BD-E4C07260A9C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B852FB75-0C35-4B2D-A5BD-E4C07260A9C7}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{B852FB75-0C35-4B2D-A5BD-E4C07260A9C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B852FB75-0C35-4B2D-A5BD-E4C07260A9C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B852FB75-0C35-4B2D-A5BD-E4C07260A9C7}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
