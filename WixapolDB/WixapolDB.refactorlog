@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="a121e97f-30d0-4e57-8afa-cb0a6afbf8d9" ChangeDateTime="10/23/2022 08:23:26">
+    <Property Name="ElementName" Value="[db_product].[Producent].[AdvancedSpecName]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[db_product].[Producent]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Name" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f5c5d1a4-7495-46cc-8705-cbf21ec10ecd" ChangeDateTime="10/23/2022 08:23:34">
+    <Property Name="ElementName" Value="[db_product].[Producent].[AdvancedSpecValues]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[db_product].[Producent]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ProducentCode" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6d15b197-b9c0-4c20-bc80-e2ed46523486" ChangeDateTime="10/23/2022 08:49:56">
+    <Property Name="ElementName" Value="[db_product].[BaseSpecValues].[BaseSpec]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[db_product].[BaseSpecValues]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="BaseSpecValues" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d7ac8d1a-d0ec-4b25-9a7e-5953cf01b4cb" ChangeDateTime="10/23/2022 08:56:37">
+    <Property Name="ElementName" Value="[db_product].[SaleDetail].[wa]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[db_product].[SaleDetail]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="WarrantyExpiration" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="dfa93e7f-4817-4a70-8773-0c33bd95c075" ChangeDateTime="10/23/2022 12:09:43">
+    <Property Name="ElementName" Value="[db_product].[Inventory].[ItemId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[db_product].[Inventory]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ProductId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="432b87e9-1511-4839-a3b1-6aace417a8e9" ChangeDateTime="10/23/2022 12:20:29">
+    <Property Name="ElementName" Value="[db_product].[Inventory].[PurhchasePrice]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[db_product].[Inventory]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PurchasePrice" />
+  </Operation>
+</Operations>

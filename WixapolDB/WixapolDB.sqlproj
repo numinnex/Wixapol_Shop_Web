@@ -77,8 +77,23 @@
     <Build Include="dbo\Tables\AspNetUserRoles.sql" />
     <Build Include="dbo\Tables\AspNetUserTokens.sql" />
     <Build Include="db_product\Scripts\CreateSchema_db_product.sql" />
+    <Build Include="db_product\Tables\Product.sql" />
+    <Build Include="db_product\Tables\Producent.sql" />
+    <Build Include="db_product\Tables\AdvancedSpecification.sql" />
+    <Build Include="db_product\Tables\PhysicalSpecification.sql" />
+    <Build Include="db_product\Tables\Inventory.sql" />
+    <Build Include="db_product\Tables\Category.sql" />
+    <Build Include="db_product\Tables\BaseSpecification.sql" />
+    <Build Include="db_product\Tables\BaseSpecValues.sql" />
+    <Build Include="db_product\Tables\Sale.sql" />
+    <Build Include="db_product\Tables\SaleDetail.sql" />
+    <Build Include="db_product\Tables\Rate.sql" />
+    <Build Include="db_product\Tables\RateComment.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishLocation\WixapolDB.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="WixapolDB.refactorlog" />
   </ItemGroup>
 </Project>
