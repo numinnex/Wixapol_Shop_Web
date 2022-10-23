@@ -123,3 +123,58 @@ body {
 .dropdown-item-logout {
     margin-top: 20px;
 }
+
+.categories-header {
+    align-items: center;
+    color: #ff503c;
+    display: block;
+    display: flex;
+    font-size: 14px;
+    font-weight: 600;
+    height: 100%;
+    justify-content: center;
+    letter-spacing: -.6px;
+    line-height: 1.5;
+    padding: 16px 15px;
+    text-align: center;
+}
+
+.horizontal-navigation {
+    flex: 0 0 calc(100% - 260px);
+    width: calc(100% - 260px);
+}
+
+    .horizontal-navigation ul {
+        align-items: flex-end;
+        display: flex;
+        justify-content: space-between;
+        list-style: none;
+        margin: 0;
+    }
+
+        .horizontal-navigation ul li a {
+            color: #0d0d0d;
+            display: block;
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: -.6px;
+            line-height: 1.5;
+            padding: 16px 24px;
+            position: relative;
+            text-align: center;
+            text-decoration: none;
+        }
+
+.h-line {
+    background: #ff503c;
+    border-radius: 8px;
+    bottom: 0;
+    height: 0px;
+    left: 0;
+    position: absolute;
+    right: 0;
+}
+
+.horizontal-nav-link:hover .h-line {
+    height: 3px;
+}
