@@ -6,6 +6,7 @@
     [ProducentId] INT NOT NULL, 
     [AdvancedSpecId] INT NOT NULL, 
     [PhysicalSpecId] INT NULL, 
+    [BaseSpecId] INT NOT NULL, 
     [ShortDescription] NVARCHAR(300) NOT NULL, 
     [LongDescription] NVARCHAR(MAX) NOT NULL, 
     [ProductImage] NVARCHAR(300) NULL,
@@ -18,7 +19,8 @@
     [WarrantyLength] NVARCHAR(50) NOT NULL, 
 	CONSTRAINT [FK_Produt_ToCategory] FOREIGN KEY (CategoryId) REFERENCES db_product.Category(Id),
 	CONSTRAINT [FK_Product_ToProducent] FOREIGN KEY (ProducentId) REFERENCES db_product.Producent(Id),
-	CONSTRAINT [FK_Product_ToAvancedSpec] FOREIGN KEY (AdvancedSpecId) REFERENCES db_product.AdvancedSpecification(Id),
+	CONSTRAINT [FK_Product_ToAdvancedSpec] FOREIGN KEY (AdvancedSpecId) REFERENCES db_product.AdvancedSpecification(Id),
+	CONSTRAINT [FK_Product_ToBaseSpec] FOREIGN KEY (BaseSpecId) REFERENCES db_product.BaseSpecification(Id),
 	CONSTRAINT [FK_Product_ToPhysicalSpec] FOREIGN KEY (PhysicalSpecId) REFERENCES db_product.PhysicalSpecification(Id),
 
 )

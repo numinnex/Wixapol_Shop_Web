@@ -84,7 +84,6 @@
     <Build Include="db_product\Tables\Inventory.sql" />
     <Build Include="db_product\Tables\Category.sql" />
     <Build Include="db_product\Tables\BaseSpecification.sql" />
-    <Build Include="db_product\Tables\BaseSpecValues.sql" />
     <Build Include="db_product\Tables\Sale.sql" />
     <Build Include="db_product\Tables\SaleDetail.sql" />
     <Build Include="db_product\Tables\Rate.sql" />
