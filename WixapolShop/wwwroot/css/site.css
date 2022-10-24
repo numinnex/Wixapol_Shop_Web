@@ -178,3 +178,14 @@ body {
 .horizontal-nav-link:hover .h-line {
     height: 3px;
 }
+
+@media (max-width: 576px) {
+    .collapse-sm {
+          font-size:14px;
+    }
+}
+@media (min-width: 576px) {
+    .collapse-sm {
+        font-size: 23px;
+    }
+}

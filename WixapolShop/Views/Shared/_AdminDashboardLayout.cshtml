@@ -15,17 +15,54 @@
             white-space: nowrap;
             line-height: 60px;
         }
+
+        .nav-side-link {
+            text-decoration: none;
+            color: #56504D;
+        }
+
+            .nav-side-link:hover {
+                color: #948883;
+            }
+
     </style>
 
 </head>
 <body>
     <header>
         <partial name="_MainNavigationBar" />
+
+
     </header>
-    <div>
-        @RenderBody()
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light" style="">
+                <div class="d-flex flex-column align-items-center align-items-sm-start  px-3 pt-2 min-vh-100">
+                    <ul class="nav flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                        <li class="d-flex flex-column align-items-center align-items-sm-start">
+                            <a href="#submenu1" data-bs-toggle="collapse" class="nav-side-link px-0 align-middle">
+                                <span class="fs-3  bi bi-bookmark"></span> <span class="ms-1 d-none d-sm-inline fs-5">Category</span>
+                            </a>
+                            <ul class="collapse show nav flex-column ms-0 m-sm-2" id="submenu1" data-bs-parent="#menu">
+                                <li class="w-100">
+                                    <a asp-area="Admin" asp-controller="Category" asp-action="Create" class="nav-side-link px-0"> <span class="me-sm-2 "><i class=" collapse-sm  bi bi-plus-circle" st"></i></span><span class="fs-6 d-none d-sm-inline">Creation</span></a>
+                                </li>
+                                <li class="">
+                                    <a asp-area="Admin" asp-controller="Category" asp-action="Managmenet" class="nav-side-link px-0"> <span class="me-sm-2"><i class=" collapse-sm bi bi-gear"></i></span><span class="fs-6 d-none d-sm-inline">Managment</span>  </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <hr>
+                </div>
+            </div>
+            <div class="col py-3">
+                Content area...
+                @RenderBody()
+            </div>
+        </div>
     </div>
-    <footer class="border-top footer text-muted bg-white">
+    <footer class="border-top footer text-muted bg-white ">
         <div class="container">
             &copy; 2022 - Wixapol Tuchola - <a asp-area="Customer" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
@@ -35,6 +72,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     <script>
+        //Dropdown on user information in navbar hover
         $(document).ready(function () {
             $('.dropdown-new').hover(function () {
                 $(this).find('.dropdown-settings').stop(true, true).delay(10).fadeIn(180);
