@@ -1,7 +1,4 @@
-﻿@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
-
-
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,92 +15,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light shadow-sm bg-white">
-            <div class="container">
-                <a class="navbar-brand" style="color:#4c2715" href="#">WIXAPOL</a>
-                <form class="d-flex">
-                    <input class="form-control me-sm-2" type="search" placeholder="Search" />
-                    <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
-                </form>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarColor03">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link text-black" href="#">Features</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-black" href="#">Pricing</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-black" href="#">About</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav g-3 align-items-lg-center ">
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            //TODO - Change later to admin
-                            @if (User.IsInRole("user"))
-                            {
-                                <li class="nav-item">
-                                    <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="nav-link text-black d-flex align-items-center">
-                                        <i class="bi bi-clipboard" style="font-size:2rem; color:#4c2715;"></i>
-                                        <div class="text-center mx-2">
-                                            <span>Admin</span>
-                                            <br />
-                                            <span>Dashboard</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            }
-                            <li class="nav-item dropdown-new">
-                                <a asp-area="Identity" asp-controller="UserAuthentication" asp-action="Profile" class="nav-link text-black d-flex align-items-center">
-                                    <i class="bi bi-person" style="font-size:2.4rem; color:#4c2715;"></i>
-                                    <div class="text-start mx-2 ">
-                                        <span>Welcome</span>
-                                        <br />
-                                        <span>@UserManager.GetUserName(User)</span>
-                                    </div>
-
-                                </a>
-                                <div class="dropdown-settings">
-                                    <ul class="dropdown-content">
-                                        <li class="dropdown-item-account py-2"><a asp-area="Identity" asp-controller="UserAuthentication" asp-action="Profile" class="">Your Profile</a></li>
-                                        <li class="dropdown-item"><a href="" class="">Placeholder</a></li>
-                                        <li class="dropdown-item"><a href="" class="">Placeholder</a></li>
-                                        <li class="dropdown-item"><a href="" class="">Placeholder</a></li>
-                                        <li class="dropdown-item"><a href="" class="">Placeholder</a></li>
-                                        <li class="dropdown-item-logout"><a asp-area="Identity" asp-controller="UserAuthentication" asp-action="Logout" class="">Logout</a></li>
-                                    </ul>
-                                </div>
-
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a asp-area="Identity" asp-controller="UserAuthentication" asp-action="Login" class="nav-link text-black d-flex align-items-center">
-                                    <i class="bi bi-person" style="font-size:2.3rem; color:#4c2715;"></i>
-                                    <div class="text-center mx-2">
-                                        <span>Login</span>
-                                        <br />
-                                        <span>Register</span>
-                                    </div>
-                                </a>
-                            </li>
-                        }
-                        <li class="nav-item">
-                            <a href="" class="nav-link text-black d-flex align-items-center">
-                                <i class="bi bi-cart3" style="font-size:2rem; color:#4c2715;"></i>
-
-                                <span class="mx-2">$0.00</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <partial name="_MainNavigationBar" />
         <div class="navigation">
             <div class="container-fluid bg-white shadow-sm">
                 <div class="d-flex position-relative align-items-stretch mx-5">
