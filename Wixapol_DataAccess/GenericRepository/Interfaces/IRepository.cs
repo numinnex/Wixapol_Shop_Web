@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Wixapol_DataAccess.GenericRepository.Implementation
+namespace Wixapol_DataAccess.GenericRepository.Interfaces
 {
     public interface IRepository<T> where T : class
     {
         List<T> GetAll(string storedProcedure, string connectionStringName);
         void SaveData(string storedProcedure, T parameters, string connectionStringName);
         void RemoveData(string storedProcedure, int id, string connectionStringName);
+        void RemoveRange<U>(string storedProcedure, U parameters, string connectionStringName);
     }
 }
