@@ -8,8 +8,8 @@ namespace Wixapol_DataAccess.GenericRepository.Interfaces
 {
     public interface IRepository<T> where T : class
     {
-        List<T> GetAll(string storedProcedure, string connectionStringName);
-        void SaveData(string storedProcedure, T parameters, string connectionStringName);
+        List<T> LoadData<U>(string storedProcedure, U parameters, string connectionStringName);
+        void SaveData<U>(string storedProcedure, U parameters, string connectionStringName);
         void RemoveData(string storedProcedure, int id, string connectionStringName);
         void RemoveRange<U>(string storedProcedure, U parameters, string connectionStringName);
     }

@@ -88,6 +88,11 @@
     <Build Include="db_product\Tables\SaleDetail.sql" />
     <Build Include="db_product\Tables\Rate.sql" />
     <Build Include="db_product\Tables\RateComment.sql" />
+    <Build Include="db_product\Stored Procedures\spCategory_GetAll.sql" />
+    <Build Include="db_product\Stored Procedures\spCategory_InsertCategory.sql" />
+    <Build Include="db_product\Stored Procedures\spCategory_GetById.sql" />
+    <Build Include="db_product\Stored Procedures\spCategory_Update.sql" />
+    <Build Include="db_product\Stored Procedures\spCategory_DeleteCategory.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishLocation\WixapolDB.publish.xml" />

@@ -25,10 +25,13 @@
 
 	<ItemGroup>
 		<Folder Include="Areas\Admin\Data\" />
-		<Folder Include="Areas\Admin\Models\" />
 		<Folder Include="Areas\Customer\Data\" />
 		<Folder Include="Areas\Customer\Models\" />
 		<Folder Include="Migrations\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Wixapol_DataAccess\Wixapol_DataAccess.csproj" />
 	</ItemGroup>
 
 </Project>

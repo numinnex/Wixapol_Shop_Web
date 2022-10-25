@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Wixapol_DataAccess.UnitOfWork.Implementation;
+using Wixapol_DataAccess.UnitOfWork.Interface;
 using WixapolShop.Areas.Identity.Models.Domain;
 using WixapolShop.AuthenticationRepository.Implementation;
 using WixapolShop.IdentityRepository.Interfaces;
@@ -23,6 +25,8 @@ namespace WixapolShop
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefualtConnection"));
 
             });
+
+            builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             //IDENTITY
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()

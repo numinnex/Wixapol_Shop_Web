@@ -25,13 +25,13 @@ namespace Wixapol_DataAccess.GenericRepository.Implementation
             return _config.GetConnectionString(name);
         }
 
-        public List<T> GetAll(string storedProcedure, string connectionStringName)
+        public List<T> LoadData<U>(string storedProcedure, U parameters, string connectionStringName)
         {
             string connectionString = GetConnectionString(connectionStringName);
 
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
-                List<T> rows = connection.Query<T>(storedProcedure, commandType: CommandType.StoredProcedure).ToList();
+                List<T> rows = connection.Query<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure).ToList();
 
                 return rows;
             }
@@ -46,7 +46,6 @@ namespace Wixapol_DataAccess.GenericRepository.Implementation
                 connection.Execute(storedProcedure, id, commandType: CommandType.StoredProcedure);
             }
 
-
         }
 
         public void RemoveRange<U>(string storedProcedure, U parameters, string connectionStringName)
@@ -60,7 +59,7 @@ namespace Wixapol_DataAccess.GenericRepository.Implementation
             }
         }
 
-        public void SaveData(string storedProcedure, T parameters, string connectionStringName)
+        public void SaveData<U>(string storedProcedure, U parameters, string connectionStringName)
         {
             string connectionString = GetConnectionString(connectionStringName);
 

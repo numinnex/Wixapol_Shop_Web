@@ -1,15 +1,13 @@
 ﻿@model Category
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
 }
-
-
 
 <div class="container">
     <div class="row border border-1">
         <div class="col-12">
-            <h1 class="mt-2 text-primary text-center">Category Creation</h1>
+            <h1 class="mt-2 text-primary text-center">Edit Category</h1>
             <form method="post">
                 <div class="d-flex align-items-center justify-content-center">
                     <label asp-for="Name" class="form-label me-2 pt-1">Name:</label>
@@ -17,7 +15,8 @@
                     <span class="text-danger" asp-validation-for="Name"></span>
                 </div>
                 <div class="mt-2 text-center mb-3">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-success">Update</button>
+                    <button asp-action="Managment" class="btn btn-info">Back</button>
                 </div>
             </form>
         </div>
