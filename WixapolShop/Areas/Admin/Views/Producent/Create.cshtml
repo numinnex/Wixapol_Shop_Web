@@ -1,0 +1,52 @@
+﻿@model Producent
+@{
+    ViewData["Title"] = "Create Producent";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+
+<form method="post">
+<div class="container border border-1">
+    <h1 class="mt-2 text-primary text-center">Producent Creation</h1>
+<div class="row justify-content-center">
+    <div class="row w-100 ">
+        <div class="mb-1 row g-1 justify-content-center align-items-center">
+            <div class="col-4 text-end">
+                <label asp-for="Name" class=""></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Name" type="text" class="form-control w-50" />
+            </div>
+        </div>
+                <span class="text-danger text-center" asp-validation-for="Name"></span>
+        <div class="mb-1 row g-1 justify-content-center align-items-center">
+            <div class="col-4 text-end">
+                <label asp-for="ProducentCode" class=""></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="ProducentCode" type="text" class="form-control w-50" />
+            </div>
+        </div>
+                <span class="text-danger text-center " asp-validation-for="ProducentCode"></span>
+        <div class="mb-1 row g-1 justify-content-center align-items-center">
+            <div class="col-4 text-end">
+                <label asp-for="EAN" class=""></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="EAN" type="text" class="form-control w-50" />
+            </div>
+        </div>
+                <span class="text-danger text-center" asp-validation-for="EAN"></span>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3 mb-3 w-25">Submit</button>
+</div>
+</div>
+
+</form>
+
+@section Scripts
+    {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    }
