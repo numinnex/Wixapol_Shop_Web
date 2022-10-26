@@ -93,6 +93,11 @@
     <Build Include="db_product\Stored Procedures\spCategory_GetById.sql" />
     <Build Include="db_product\Stored Procedures\spCategory_Update.sql" />
     <Build Include="db_product\Stored Procedures\spCategory_DeleteCategory.sql" />
+    <Build Include="db_product\Stored Procedures\spProducent_GetAll.sql" />
+    <Build Include="db_product\Stored Procedures\spProducent_GetById.sql" />
+    <Build Include="db_product\Stored Procedures\spProducent_DeleteProducent.sql" />
+    <Build Include="db_product\Stored Procedures\spProducent_Insert.sql" />
+    <Build Include="db_product\Stored Procedures\spProducent_Update.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishLocation\WixapolDB.publish.xml" />

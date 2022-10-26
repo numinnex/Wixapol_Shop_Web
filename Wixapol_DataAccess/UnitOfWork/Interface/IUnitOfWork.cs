@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Wixapol_DataAccess.CategoryRepository.Interface;
 using Wixapol_DataAccess.GenericRepository.Interfaces;
+using Wixapol_DataAccess.ProducentRepository.Interface;
 
 namespace Wixapol_DataAccess.UnitOfWork.Interface
 {
     public interface IUnitOfWork
     {
         ICategoryRepository Category { get; }
+        IProducentRepository Producent { get; }
 
     }
 }
