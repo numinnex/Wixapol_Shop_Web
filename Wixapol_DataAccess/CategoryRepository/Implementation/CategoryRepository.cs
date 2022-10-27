@@ -33,7 +33,7 @@ namespace Wixapol_DataAccess.CategoryRepository.Implementation
         }
         public Category GetById(int? id)
         {
-            return LoadData<dynamic>("db_product.spCategory_GetById", new { Id = id }, "DefualtConnection").First();
+            return LoadData<dynamic>("db_product.spCategory_GetById", new { Id = id }, "DefualtConnection").FirstOrDefault();
         }
 
         public void UpdateCategory(Category category)

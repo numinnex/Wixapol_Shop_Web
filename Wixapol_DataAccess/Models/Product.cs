@@ -9,6 +9,7 @@ namespace Wixapol_DataAccess.Models
 {
     public class Product
     {
+        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
@@ -21,7 +22,6 @@ namespace Wixapol_DataAccess.Models
         public int BaseSpecId { get; set; }
         [Required]
         public int AdvancedSpecId { get; set; }
-        [Required]
         public int? PhysicalSpecId { get; set; }
         [Required]
         [MaxLength(50)]
@@ -30,9 +30,8 @@ namespace Wixapol_DataAccess.Models
         [Required]
         [Display(Name = "Long Description")]
         public string LongDescription { get; set; }
-        [Required]
         [Display(Name = "Product Image")]
-        public string ProductImage { get; set; }
+        public string? ProductImage { get; set; }
         [Required]
         [Display(Name = "Is The Product Discounted")]
         public bool IsDiscounted { get; set; }
@@ -41,6 +40,7 @@ namespace Wixapol_DataAccess.Models
         public double? DiscountAmount { get; set; }
         [Display(Name = "Discount Code")]
         public string? DiscountCode { get; set; }
+        [Required]
         [Display(Name = "Quantity")]
         public int QuantityInStock { get; set; } = 1;
         [Required]
@@ -50,7 +50,10 @@ namespace Wixapol_DataAccess.Models
         [Required]
         [Range(0.01, 10000000, ErrorMessage = "Retail Price Must be positive and lower than 10000000")]
         [Display(Name = "Product Price")]
-        public double RetailPrice { get; set; }
+        public decimal RetailPrice { get; set; }
+        [Required]
+        [Display(Name = "Product Price")]
+        public string RetailPriceStringify { get; set; }
         [Required]
         [Display(Name = "Warranty Length")]
         public string WarrantyLength { get; set; }

@@ -10,6 +10,7 @@ namespace Wixapol_DataAccess.GenericRepository.Interfaces
     {
         List<T> LoadData<U>(string storedProcedure, U parameters, string connectionStringName);
         void SaveData<U>(string storedProcedure, U parameters, string connectionStringName);
+        int SaveDataWithReturn<U>(string storedProcedure, U parameters, string connectionStringName);
         void RemoveData(string storedProcedure, int id, string connectionStringName);
         void RemoveRange<U>(string storedProcedure, U parameters, string connectionStringName);
     }

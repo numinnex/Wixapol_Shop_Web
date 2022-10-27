@@ -4,17 +4,18 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Wixapol_DataAccess.Models.Abstractions;
 
 namespace Wixapol_DataAccess.Models
 {
-    public class PhysicalSpecification
+    public class PhysicalSpecification : ISpecification
     {
-        public int Id { get; set; }
-        [Required]
+        public int? Id { get; set; }
         [Display(Name = "Physical Specification Values")]
-        public string PhysicalSpecName { get; set; }
-        [Required]
+        [MinLength(2)]
+        public string? SpecName { get; set; }
         [Display(Name = "Physical Specification Details")]
-        public string PhysicalSpecValues { get; set; }
+        [MinLength(2)]
+        public string? SpecValues { get; set; }
     }
 }

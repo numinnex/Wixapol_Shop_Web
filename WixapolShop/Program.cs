@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
+using Wixapol_DataAccess.MappingHelpers;
 using Wixapol_DataAccess.UnitOfWork.Implementation;
 using Wixapol_DataAccess.UnitOfWork.Interface;
 using WixapolShop.Areas.Identity.Models.Domain;
@@ -17,6 +19,8 @@ namespace WixapolShop
 
             var builder = WebApplication.CreateBuilder(args);
 
+
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
@@ -26,6 +30,7 @@ namespace WixapolShop
 
             });
 
+            builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             //IDENTITY
@@ -64,6 +69,7 @@ namespace WixapolShop
             app.MapControllerRoute(
                  name: "default",
                  pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
+
 
             app.Run();
         }

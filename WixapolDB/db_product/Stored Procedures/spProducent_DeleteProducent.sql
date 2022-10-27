@@ -6,6 +6,5 @@ begin
 	set nocount on;
 	delete from db_product.Producent where Producent.Id = @Id;
 
-
 end
 

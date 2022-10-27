@@ -3,6 +3,6 @@
 AS
 begin
 	set nocount on;
-	insert into db_product.Category(Name)
+	insert into db_product.Category([Name])
 	values (@Name);
 end

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Wixapol_DataAccess.CategoryRepository.Interface;
 using Wixapol_DataAccess.GenericRepository.Interfaces;
 using Wixapol_DataAccess.ProducentRepository.Interface;
+using Wixapol_DataAccess.ProductRepository.Interfaces;
+using Wixapol_DataAccess.SpecificationRepository.Interfaces;
 
 namespace Wixapol_DataAccess.UnitOfWork.Interface
 {
@@ -13,6 +15,8 @@ namespace Wixapol_DataAccess.UnitOfWork.Interface
     {
         ICategoryRepository Category { get; }
         IProducentRepository Producent { get; }
+        ISpecificationRepository Specification { get; }
+        IProductRepository Product { get; }
 
     }
 }

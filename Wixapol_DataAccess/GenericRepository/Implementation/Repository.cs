@@ -68,5 +68,15 @@ namespace Wixapol_DataAccess.GenericRepository.Implementation
                 connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
         }
+
+        public int SaveDataWithReturn<U>(string storedProcedure, U parameters, string connectionStringName)
+        {
+            string connectionString = GetConnectionString(connectionStringName);
+
+            using (IDbConnection connection = new SqlConnection(connectionString))
+            {
+                return connection.ExecuteScalar<int>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+        }
     }
 }

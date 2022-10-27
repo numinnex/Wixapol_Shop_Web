@@ -40,7 +40,7 @@ namespace Wixapol_DataAccess.ProducentRepository.Implementation
         }
         public Producent GetById(int? id)
         {
-            return LoadData<dynamic>("db_product.spProducent_GetById", new { Id = id }, "DefualtConnection").First();
+            return LoadData<dynamic>("db_product.spProducent_GetById", new { Id = id }, "DefualtConnection").FirstOrDefault();
         }
 
         public void UpdateProducent(Producent producent)

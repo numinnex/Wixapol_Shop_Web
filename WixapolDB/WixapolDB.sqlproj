@@ -9,8 +9,7 @@
     <ProjectGuid>{b852fb75-0c35-4b2d-a5bd-e4c07260a9c7}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
-    <RootPath>
-    </RootPath>
+    <RootPath />
     <RootNamespace>WixapolDB</RootNamespace>
     <AssemblyName>WixapolDB</AssemblyName>
     <ModelCollation>1033,CI</ModelCollation>
@@ -50,7 +49,6 @@
   </PropertyGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
-    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
     <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
     <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
   </PropertyGroup>
@@ -98,6 +96,26 @@
     <Build Include="db_product\Stored Procedures\spProducent_DeleteProducent.sql" />
     <Build Include="db_product\Stored Procedures\spProducent_Insert.sql" />
     <Build Include="db_product\Stored Procedures\spProducent_Update.sql" />
+    <Build Include="db_product\Stored Procedures\spSpecification_AddBasicSpecification.sql" />
+    <Build Include="db_product\Stored Procedures\spSpecification_AddAdvancedSpecification.sql" />
+    <Build Include="db_product\Stored Procedures\spSpecification_AddPhysicalSpecification.sql" />
+    <Build Include="db_product\Stored Procedures\spSpecification_UpdateBaseSpecification.sql" />
+    <Build Include="db_product\Stored Procedures\spSpecification_UpdateAdvancedSpecification.sql" />
+    <Build Include="db_product\Stored Procedures\spSpecification_UpdatePhysicalSpecification.sql" />
+    <Build Include="db_product\Stored Procedures\spSpecification_BaseSpecificationGetAll.sql" />
+    <Build Include="db_product\Stored Procedures\spSpecification_AdvancedSpecificationGetAll.sql" />
+    <Build Include="db_product\Stored Procedures\spSpecification_PhysicalSpecificationGetAll.sql" />
+    <Build Include="db_product\Stored Procedures\spSpecification_BaseSpecificationGetById.sql" />
+    <Build Include="db_product\Stored Procedures\spSpecification_AdvancedSpecificationGetById.sql" />
+    <Build Include="db_product\Stored Procedures\spSpecification_PhysicalSpecificationGetById.sql" />
+    <Build Include="db_product\Stored Procedures\spSpecification_DeleteBaseSpecification.sql" />
+    <Build Include="db_product\Stored Procedures\spSpecification_DeleteAdvancedSpecification.sql" />
+    <Build Include="db_product\Stored Procedures\spSpecification_DeletePhysicalSpecification.sql" />
+    <Build Include="db_product\Stored Procedures\spProduct_GetAll.sql" />
+    <Build Include="db_product\Stored Procedures\spProduct_Insert.sql" />
+    <Build Include="db_product\Stored Procedures\spProduct_Update.sql" />
+    <Build Include="db_product\Stored Procedures\spProduct_GetById.sql" />
+    <Build Include="db_product\Stored Procedures\spProduct_Delete.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishLocation\WixapolDB.publish.xml" />

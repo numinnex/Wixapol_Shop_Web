@@ -9,7 +9,7 @@
     [BaseSpecId] INT NOT NULL, 
     [ShortDescription] NVARCHAR(100) NOT NULL, 
     [LongDescription] NVARCHAR(MAX) NOT NULL, 
-    [ProductImage] NVARCHAR(300) NULL,
+    [ProductImage] NVARCHAR(300) NOT NULL,
     [IsDiscounted] BIT NOT NULL,
     [DiscountAmount] FLOAT NULL, 
     [DiscountCode] NVARCHAR(50) NULL, 
