@@ -37,6 +37,7 @@ namespace WixapolShop.Areas.Admin.Controllers
                 return NotFound();
             }
             _unitOfWork.Producent.DeleteProducent(id);
+            TempData["success"] = "Successfully deleted producent";
             return RedirectToAction("Managment");
 
         }

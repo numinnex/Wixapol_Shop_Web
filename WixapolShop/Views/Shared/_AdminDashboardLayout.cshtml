@@ -53,7 +53,7 @@
                         </li>
                         <li class="d-flex flex-column align-items-center align-items-sm-start mt-1">
                             <a href="#submenu2" data-bs-toggle="collapse" class="nav-side-link px-0 align-middle">
-                                <span class="fs-3  bi bi-hammer"></span><span class="ms-1 d-none d-sm-inline fs-5">Producent</span>
+                                <span class="fs-3  bi bi-hammer"></span><span class="ms-2 d-none d-sm-inline fs-5">Producent</span>
                             </a>
                             <ul class="collapse nav flex-column ms-0 m-sm-2" id="submenu2" data-bs-parent="#menu">
                                 <li class="w-100">
@@ -61,6 +61,19 @@
                                 </li>
                                 <li class="">
                                     <a asp-area="Admin" asp-controller="Producent" asp-action="Managment" class="nav-side-link px-0"> <span class="me-sm-2"><i class=" collapse-sm bi bi-gear"></i></span><span class="fs-6 d-none d-sm-inline">Managment</span>  </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="d-flex flex-column align-items-center align-items-sm-start mt-1">
+                            <a href="#submenu3" data-bs-toggle="collapse" class="nav-side-link px-0 align-middle">
+                                <span class="fs-3  bi bi-box2"></span><span class="ms-2 d-none d-sm-inline fs-5">Product</span>
+                            </a>
+                            <ul class="collapse nav flex-column ms-0 m-sm-2" id="submenu3" data-bs-parent="#menu">
+                                <li class="w-100">
+                                    <a asp-area="Admin" asp-controller="Product" asp-action="Create" class="nav-side-link px-0"> <span class="me-sm-2 "><i class=" collapse-sm  bi bi-plus-circle" st"></i></span><span class="fs-6 d-none d-sm-inline">Creation</span></a>
+                                </li>
+                                <li class="">
+                                    <a asp-area="Admin" asp-controller="Product" asp-action="Managment" class="nav-side-link px-0"> <span class="me-sm-2"><i class=" collapse-sm bi bi-gear"></i></span><span class="fs-6 d-none d-sm-inline">Managment</span>  </a>
                                 </li>
                             </ul>
                         </li>

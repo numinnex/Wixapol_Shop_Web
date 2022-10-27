@@ -7,7 +7,7 @@
     [AdvancedSpecId] INT NOT NULL, 
     [PhysicalSpecId] INT NULL, 
     [BaseSpecId] INT NOT NULL, 
-    [ShortDescription] NVARCHAR(300) NOT NULL, 
+    [ShortDescription] NVARCHAR(100) NOT NULL, 
     [LongDescription] NVARCHAR(MAX) NOT NULL, 
     [ProductImage] NVARCHAR(300) NULL,
     [IsDiscounted] BIT NOT NULL,
