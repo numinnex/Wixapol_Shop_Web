@@ -53,6 +53,7 @@ namespace WixapolShop.Areas.Admin.Controllers
         public IActionResult Create(ProductVM obj, IFormFile file)
         {
 
+            // Cheat to fix incorrect decimal value seperation
             var cultureInfo = new CultureInfo("pl-PL");
             cultureInfo.NumberFormat.NumberDecimalSeparator = ".";
             cultureInfo.NumberFormat.CurrencyDecimalSeparator = ".";
@@ -61,7 +62,7 @@ namespace WixapolShop.Areas.Admin.Controllers
             ModelState.Remove("Product.RetailPrice");
             if (!Decimal.TryParse(obj.Product.RetailPriceStringify, out decimal price))
             {
-                ModelState.AddModelError("RetailPrice", "Invalid Retail Price");
+                ModelState.AddModelError("Product.RetailPriceStringify", "Invalid Product Price");
             }
             else
             {

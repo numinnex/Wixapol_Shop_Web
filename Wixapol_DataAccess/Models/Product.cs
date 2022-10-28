@@ -30,6 +30,7 @@ namespace Wixapol_DataAccess.Models
         [Required]
         [Display(Name = "Long Description")]
         public string LongDescription { get; set; }
+        [Required]
         [Display(Name = "Product Image")]
         public string? ProductImage { get; set; }
         [Required]
@@ -41,14 +42,15 @@ namespace Wixapol_DataAccess.Models
         [Display(Name = "Discount Code")]
         public string? DiscountCode { get; set; }
         [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Quantity must be higher than 0!")]
         [Display(Name = "Quantity")]
-        public int QuantityInStock { get; set; } = 1;
+        public int QuantityInStock { get; set; }
         [Required]
-        [Range(1, 100, ErrorMessage = "Discount Amount must be between 1 and 100!")]
+        [Range(1, 100, ErrorMessage = "Tax Rate must be between 1 and 100!")]
         [Display(Name = "Tax Rate")]
         public double TaxRate { get; set; }
         [Required]
-        [Range(0.01, 10000000, ErrorMessage = "Retail Price Must be positive and lower than 10000000")]
+        [Range(0.01, 10000000, ErrorMessage = "Product Price Must be positive and lower than 10000000")]
         [Display(Name = "Product Price")]
         public decimal RetailPrice { get; set; }
         [Required]
