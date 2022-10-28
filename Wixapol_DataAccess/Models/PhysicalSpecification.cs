@@ -16,6 +16,6 @@ namespace Wixapol_DataAccess.Models
         public string? SpecName { get; set; }
         [Display(Name = "Physical Specification Details")]
         [MinLength(2)]
-        public string? SpecValues { get; set; }
+        public string? SpecValue { get; set; }
     }
 }

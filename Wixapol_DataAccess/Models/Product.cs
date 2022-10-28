@@ -15,9 +15,11 @@ namespace Wixapol_DataAccess.Models
         [Required]
         [Display(Name = "Category")]
         public int CategoryId { get; set; }
+        public Category? Category { get; set; }
         [Required]
         [Display(Name = "Producent")]
         public int ProducentId { get; set; }
+        public Producent? Producent { get; set; }
         [Required]
         public int BaseSpecId { get; set; }
         [Required]
@@ -30,7 +32,6 @@ namespace Wixapol_DataAccess.Models
         [Required]
         [Display(Name = "Long Description")]
         public string LongDescription { get; set; }
-        [Required]
         [Display(Name = "Product Image")]
         public string? ProductImage { get; set; }
         [Required]

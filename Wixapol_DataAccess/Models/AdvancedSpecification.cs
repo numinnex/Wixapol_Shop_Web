@@ -19,6 +19,6 @@ namespace Wixapol_DataAccess.Models
         [Required]
         [MinLength(3)]
         [Display(Name = "Advanced Specification Details")]
-        public string SpecValues { get; set; }
+        public string SpecValue { get; set; }
     }
 }

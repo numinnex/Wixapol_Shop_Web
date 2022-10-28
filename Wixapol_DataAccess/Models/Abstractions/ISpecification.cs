@@ -12,6 +12,6 @@ namespace Wixapol_DataAccess.Models.Abstractions
     {
         public int? Id { get; set; }
         public string SpecName { get; set; }
-        public string SpecValues { get; set; }
+        public string SpecValue { get; set; }
     }
 }

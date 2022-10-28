@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Wixapol_DataAccess.GenericRepository.Interfaces;
+using Wixapol_Utils;
 
 namespace Wixapol_DataAccess.GenericRepository.Implementation
 {
@@ -20,13 +21,39 @@ namespace Wixapol_DataAccess.GenericRepository.Implementation
         {
             _config = config;
         }
-        protected string GetConnectionString(string name)
+        private string GetConnectionString(string name)
         {
             return _config.GetConnectionString(name);
         }
 
+        public List<T> LoadDataWithJoin<U, V>(string storedProcedure, Func<T, U, V, T> del, string splitValue, string connectionStringName)
+        {
+            string connectionString = GetConnectionString(connectionStringName);
+
+            using (IDbConnection connection = new SqlConnection(connectionString))
+            {
+                List<T> rows = connection.Query(storedProcedure, del, splitOn: splitValue, commandType: CommandType.StoredProcedure).ToList();
+
+                return rows;
+            }
+        }
+        public List<V> LoadDataWithParams<U, V>(string storedProcedure, U parameters, string connectionStringName)
+        {
+            //var d = typeof(T).GetImplementingTypes();
+
+            string connectionString = GetConnectionString(connectionStringName);
+
+            using (IDbConnection connection = new SqlConnection(connectionString))
+            {
+                List<V> rows = connection.Query<V>(storedProcedure, parameters, commandType: CommandType.StoredProcedure).ToList();
+
+                return rows;
+            }
+        }
         public List<T> LoadData<U>(string storedProcedure, U parameters, string connectionStringName)
         {
+            var d = typeof(T).GetImplementingTypes();
+
             string connectionString = GetConnectionString(connectionStringName);
 
             using (IDbConnection connection = new SqlConnection(connectionString))
@@ -75,7 +102,7 @@ namespace Wixapol_DataAccess.GenericRepository.Implementation
 
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
-                return connection.ExecuteScalar<int>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                return connection.QuerySingle<int>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
         }
     }

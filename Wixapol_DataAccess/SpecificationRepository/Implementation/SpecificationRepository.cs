@@ -27,19 +27,19 @@ namespace Wixapol_DataAccess.SpecificationRepository.Implementation
                     return SaveDataWithReturn<dynamic>("db_product.spSpecification_AddBasicSpecification", new
                     {
                         SpecName = (specification as BaseSpecification)!.SpecName,
-                        SpecValue = (specification as BaseSpecification)!.SpecValues,
+                        SpecValue = (specification as BaseSpecification)!.SpecValue,
                     }, "DefualtConnection");
                 case Specification.Advanced:
                     return SaveDataWithReturn<dynamic>("db_product.spSpecification_AddAdvancedSpecification", new
                     {
                         SpecName = (specification as AdvancedSpecification)!.SpecName,
-                        SpecValue = (specification as AdvancedSpecification)!.SpecValues,
+                        SpecValue = (specification as AdvancedSpecification)!.SpecValue,
                     }, "DefualtConnection");
                 case Specification.Physical:
                     return SaveDataWithReturn<dynamic>("db_product.spSpecification_AddPhysicalSpecification", new
                     {
                         SpecName = (specification as PhysicalSpecification)!.SpecName,
-                        SpecValue = (specification as PhysicalSpecification)!.SpecValues,
+                        SpecValue = (specification as PhysicalSpecification)!.SpecValue,
                     }, "DefualtConnection");
                 default:
                     throw new ArgumentException("Invalid Specification Type!");
@@ -51,13 +51,13 @@ namespace Wixapol_DataAccess.SpecificationRepository.Implementation
             switch (specType)
             {
                 case Specification.Basic:
-                    SaveData<dynamic>("db_product.spSpecification_DeleteBaseSpecification", new { }, "DefualtConnection");
+                    SaveData<dynamic>("db_product.spSpecification_DeleteBaseSpecification", new { Id = id }, "DefualtConnection");
                     break;
                 case Specification.Advanced:
-                    SaveData<dynamic>("db_product.spSpecification_DeleteAdvancedSpecification", new { }, "DefualtConnection");
+                    SaveData<dynamic>("db_product.spSpecification_DeleteAdvancedSpecification", new { Id = id }, "DefualtConnection");
                     break;
                 case Specification.Physical:
-                    SaveData<dynamic>("db_product.spSpecification_DeletePhysicalSpecification", new { }, "DefualtConnection");
+                    SaveData<dynamic>("db_product.spSpecification_DeletePhysicalSpecification", new { Id = id }, "DefualtConnection");
                     break;
                 default:
                     throw new ArgumentException("Invalid Specification Type!");
@@ -85,11 +85,11 @@ namespace Wixapol_DataAccess.SpecificationRepository.Implementation
             switch (specType)
             {
                 case Specification.Basic:
-                    return LoadData("db_product.spSpecification_BaseSpecificationGetById", new { Id = id }, "DefualtConnection").FirstOrDefault();
+                    return LoadDataWithParams<dynamic, BaseSpecification>("db_product.spSpecification_BaseSpecificationGetById", new { Id = id }, "DefualtConnection").FirstOrDefault();
                 case Specification.Advanced:
-                    return LoadData("db_product.spSpecification_AdvancedSpecificationGetById", new { Id = id }, "DefualtConnection").FirstOrDefault();
+                    return LoadDataWithParams<dynamic, AdvancedSpecification>("db_product.spSpecification_AdvancedSpecificationGetById", new { Id = id }, "DefualtConnection").FirstOrDefault();
                 case Specification.Physical:
-                    return LoadData("db_product.spSpecification_PhysicalSpecificationGetById", new { Id = id }, "DefualtConnection").FirstOrDefault();
+                    return LoadDataWithParams<dynamic, PhysicalSpecification>("db_product.spSpecification_PhysicalSpecificationGetById", new { Id = id }, "DefualtConnection").FirstOrDefault();
                 default:
                     throw new ArgumentException("Invalid Specification Type!");
             }
@@ -104,7 +104,7 @@ namespace Wixapol_DataAccess.SpecificationRepository.Implementation
                     {
                         Id = (specification as BaseSpecification)!.Id,
                         SpecName = (specification as BaseSpecification)!.SpecName,
-                        SpecValue = (specification as BaseSpecification)!.SpecValues,
+                        SpecValue = (specification as BaseSpecification)!.SpecValue,
                     }, "DefualtConnection");
                     break;
                 case Specification.Advanced:
@@ -112,7 +112,7 @@ namespace Wixapol_DataAccess.SpecificationRepository.Implementation
                     {
                         Id = (specification as AdvancedSpecification)!.Id,
                         SpecName = (specification as AdvancedSpecification)!.SpecName,
-                        SpecValue = (specification as AdvancedSpecification)!.SpecValues,
+                        SpecValue = (specification as AdvancedSpecification)!.SpecValue,
 
                     }, "DefualtConnection");
                     break;
@@ -121,7 +121,7 @@ namespace Wixapol_DataAccess.SpecificationRepository.Implementation
                     {
                         Id = (specification as PhysicalSpecification)!.Id,
                         SpecName = (specification as PhysicalSpecification)!.SpecName,
-                        SpecValue = (specification as PhysicalSpecification)!.SpecValues,
+                        SpecValue = (specification as PhysicalSpecification)!.SpecValue,
 
                     }, "DefualtConnection");
                     break;

@@ -14,6 +14,7 @@ namespace Wixapol_DataAccess.MappingHelpers
         public AutoMapperProfiles()
         {
             CreateMap<Product, ProductDTO>();
+            CreateMap<Product, ProductDTOWithId>();
         }
     }
 }

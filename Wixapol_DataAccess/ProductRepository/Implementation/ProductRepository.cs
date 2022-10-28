@@ -30,12 +30,22 @@ namespace Wixapol_DataAccess.ProductRepository.Implementation
 
         public void DeleteProduct(int? id)
         {
-            SaveData("db_product.spProduct_Delete", new { }, "DefualtConnection");
+            SaveData("db_product.spProduct_Delete", new { Id = id }, "DefualtConnection");
         }
 
         public List<Product> GetAll()
         {
-            return LoadData("db_product.spProduct_GetAll", new { }, "DefualtConnection");
+            return LoadDataWithJoin<Category, Producent>("db_product.spProduct_GetAll", (Product, Category, Producent) =>
+            {
+                Product.Category = Category;
+                //Product.CategoryId = Category.Id;
+
+                Product.Producent = Producent;
+                //Product.ProducentId = Producent.Id;
+
+                return Product;
+
+            }, "CategoryId,ProducentId", "DefualtConnection");
         }
 
         public Product GetById(int? id)
@@ -45,7 +55,8 @@ namespace Wixapol_DataAccess.ProductRepository.Implementation
 
         public void UpdateProduct(Product product)
         {
-            SaveData("db_product.spProduct_Update", product, "DefualtConnection");
+            var productDTO = _mapper.Map<ProductDTOWithId>(product);
+            SaveData("db_product.spProduct_Update", productDTO, "DefualtConnection");
 
         }
     }

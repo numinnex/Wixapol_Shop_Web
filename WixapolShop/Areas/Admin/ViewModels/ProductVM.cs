@@ -14,7 +14,8 @@ namespace WixapolShop.Areas.Admin.Models
         public PhysicalSpecification? PhysicalSpec { get; set; }
         public List<SelectListItem>? CategoryList { get; set; }
         public List<SelectListItem>? ProducentList { get; set; }
-
+        public Category? Category { get; set; }
+        public Producent? Producent { get; set; }
 
     }
 }

@@ -3,5 +3,5 @@
 AS
 begin
 	set nocount on;
-	select * from db_product.BaseSpecification where Id = @Id;
+	select * from db_product.BaseSpecification where BaseSpecification.Id = @Id;
 end

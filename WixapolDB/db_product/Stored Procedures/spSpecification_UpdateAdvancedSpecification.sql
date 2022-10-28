@@ -7,7 +7,7 @@ AS
 begin
 	set nocount on;
 	update db_product.AdvancedSpecification	
-	set AdvancedSpecName = @SpecName , AdvancedSpecValue = @SpecValue
+	set SpecName = @SpecName , SpecValue = @SpecValue
 	where Id = @Id
 end
 

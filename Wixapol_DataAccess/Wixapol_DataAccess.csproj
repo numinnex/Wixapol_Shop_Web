@@ -14,4 +14,8 @@
 		<PackageReference Include="System.Data.SqlClient" Version="4.8.4" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Wixapol_Utils\Wixapol_Utils.csproj" />
+	</ItemGroup>
+
 </Project>

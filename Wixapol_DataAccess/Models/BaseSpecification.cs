@@ -20,6 +20,6 @@ namespace Wixapol_DataAccess.Models
         [MinLength(3)]
         [MaxLength(800)]
         [Display(Name = "Base Specification Details")]
-        public string SpecValues { get; set; }
+        public string SpecValue { get; set; }
     }
 }

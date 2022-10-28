@@ -5,10 +5,10 @@
 AS
 begin
 	set nocount on;
-	insert into db_product.PhysicalSpecification(PhysicalSpecName , PhysicalSpecValue)
+	insert into db_product.PhysicalSpecification(SpecName , SpecValue)
+	output inserted.Id
 	values(@SpecName , @SpecValue)
 
-	SELECT SCOPE_IDENTITY()
 
 end
 
