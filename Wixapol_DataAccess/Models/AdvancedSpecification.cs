@@ -8,7 +8,7 @@ using Wixapol_DataAccess.Models.Abstractions;
 
 namespace Wixapol_DataAccess.Models
 {
-    public class AdvancedSpecification : ISpecification
+    public sealed class AdvancedSpecification : ISpecification
     {
         public int? Id { get; set; }
         [Required]

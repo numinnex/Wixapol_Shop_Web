@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Wixapol_DataAccess.Models
 {
-    public class Product
+    public sealed class Product
     {
         public int Id { get; set; }
         [Required]
@@ -53,7 +53,7 @@ namespace Wixapol_DataAccess.Models
         [Required]
         [Range(0.01, 10000000, ErrorMessage = "Product Price Must be positive and lower than 10000000")]
         [Display(Name = "Product Price")]
-        public decimal RetailPrice { get; set; }
+        public double RetailPrice { get; set; }
         [Required]
         [Display(Name = "Product Price")]
         public string RetailPriceStringify { get; set; }

@@ -14,7 +14,7 @@ using Wixapol_DataAccess.UnitOfWork.Interface;
 
 namespace Wixapol_DataAccess.UnitOfWork.Implementation
 {
-    public class UnitOfWork : IUnitOfWork
+    public sealed class UnitOfWork : IUnitOfWork
     {
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;

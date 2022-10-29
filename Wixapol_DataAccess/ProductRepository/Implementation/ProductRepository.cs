@@ -12,7 +12,7 @@ using Wixapol_DataAccess.ProductRepository.Interfaces;
 
 namespace Wixapol_DataAccess.ProductRepository.Implementation
 {
-    public class ProductRepository : Repository<Product>, IProductRepository
+    public sealed class ProductRepository : Repository<Product>, IProductRepository
     {
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;

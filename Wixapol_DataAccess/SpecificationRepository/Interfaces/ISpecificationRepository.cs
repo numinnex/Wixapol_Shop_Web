@@ -11,7 +11,7 @@ namespace Wixapol_DataAccess.SpecificationRepository.Interfaces
     public interface ISpecificationRepository
     {
         public int CreateSpecification(ISpecification specification, Specification specType);
-        public void UpdateSpcification(ISpecification specification, Specification specType);
+        public void UpdateSpecification(ISpecification specification, Specification specType);
         public void DeleteSpecification(int? id, Specification specType);
         public List<ISpecification> GetAll(Specification specType);
         public ISpecification GetById(int? id, Specification specType);

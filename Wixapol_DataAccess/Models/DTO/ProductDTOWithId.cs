@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Wixapol_DataAccess.Models.DTO
 {
-    public class ProductDTOWithId
+    public sealed class ProductDTOWithId
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -23,7 +23,7 @@ namespace Wixapol_DataAccess.Models.DTO
         public string? DiscountCode { get; set; }
         public int QuantityInStock { get; set; } = 1;
         public double TaxRate { get; set; }
-        public decimal RetailPrice { get; set; }
+        public double RetailPrice { get; set; }
         public string WarrantyLength { get; set; }
     }
 }

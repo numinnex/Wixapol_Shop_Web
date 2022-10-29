@@ -11,7 +11,7 @@ using Wixapol_DataAccess.SpecificationRepository.Interfaces;
 
 namespace Wixapol_DataAccess.SpecificationRepository.Implementation
 {
-    public class SpecificationRepository : Repository<ISpecification>, ISpecificationRepository
+    public sealed class SpecificationRepository : Repository<ISpecification>, ISpecificationRepository
     {
         private readonly IConfiguration _config;
         public SpecificationRepository(IConfiguration config) : base(config)
@@ -95,7 +95,7 @@ namespace Wixapol_DataAccess.SpecificationRepository.Implementation
             }
         }
 
-        public void UpdateSpcification(ISpecification specification, Specification specType)
+        public void UpdateSpecification(ISpecification specification, Specification specType)
         {
             switch (specType)
             {

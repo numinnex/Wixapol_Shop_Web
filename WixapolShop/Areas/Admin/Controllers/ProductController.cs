@@ -57,7 +57,7 @@ namespace WixapolShop.Areas.Admin.Controllers
             // Cheat to fix incorrect decimal value seperation
 
             ModelState.Remove("Product.RetailPrice");
-            if (!Decimal.TryParse(obj.Product.RetailPriceStringify, out decimal price))
+            if (!Double.TryParse(obj.Product.RetailPriceStringify, out double price))
             {
                 ModelState.AddModelError("Product.RetailPriceStringify", "Invalid Product Price");
             }
@@ -118,7 +118,7 @@ namespace WixapolShop.Areas.Admin.Controllers
             // Cheat to fix incorrect decimal value seperation
 
             ModelState.Remove("Product.RetailPrice");
-            if (!Decimal.TryParse(obj.Product.RetailPriceStringify, out decimal price))
+            if (!Double.TryParse(obj.Product.RetailPriceStringify, out double price))
             {
                 ModelState.AddModelError("Product.RetailPriceStringify", "Invalid Product Price");
             }
@@ -139,15 +139,15 @@ namespace WixapolShop.Areas.Admin.Controllers
                     obj.Product.ProductImage = imagePath;
                 }
 
-                _unitofWork.Specification.UpdateSpcification(obj.BaseSpec, Specification.Basic);
-                _unitofWork.Specification.UpdateSpcification(obj.AdvancedSpec, Specification.Advanced);
+                _unitofWork.Specification.UpdateSpecification(obj.BaseSpec, Specification.Basic);
+                _unitofWork.Specification.UpdateSpecification(obj.AdvancedSpec, Specification.Advanced);
                 if (obj.PhysicalSpec.Id is null)
                 {
                     obj.Product.PhysicalSpecId = _unitofWork.Specification.CreateSpecification(obj.PhysicalSpec, Specification.Physical);
                 }
                 else
                 {
-                    _unitofWork.Specification.UpdateSpcification(obj.PhysicalSpec, Specification.Physical);
+                    _unitofWork.Specification.UpdateSpecification(obj.PhysicalSpec, Specification.Physical);
                 }
 
                 _unitofWork.Product.UpdateProduct(obj.Product);

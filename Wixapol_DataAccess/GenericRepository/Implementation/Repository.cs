@@ -9,7 +9,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Wixapol_DataAccess.GenericRepository.Interfaces;
-using Wixapol_Utils;
 
 namespace Wixapol_DataAccess.GenericRepository.Implementation
 {
@@ -39,7 +38,6 @@ namespace Wixapol_DataAccess.GenericRepository.Implementation
         }
         public List<V> LoadDataWithParams<U, V>(string storedProcedure, U parameters, string connectionStringName)
         {
-            //var d = typeof(T).GetImplementingTypes();
 
             string connectionString = GetConnectionString(connectionStringName);
 
@@ -52,7 +50,6 @@ namespace Wixapol_DataAccess.GenericRepository.Implementation
         }
         public List<T> LoadData<U>(string storedProcedure, U parameters, string connectionStringName)
         {
-            var d = typeof(T).GetImplementingTypes();
 
             string connectionString = GetConnectionString(connectionStringName);
 

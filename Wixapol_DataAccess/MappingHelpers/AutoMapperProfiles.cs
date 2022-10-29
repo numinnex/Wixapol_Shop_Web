@@ -9,7 +9,7 @@ using Wixapol_DataAccess.Models.DTO;
 
 namespace Wixapol_DataAccess.MappingHelpers
 {
-    public class AutoMapperProfiles : Profile
+    public sealed class AutoMapperProfiles : Profile
     {
         public AutoMapperProfiles()
         {

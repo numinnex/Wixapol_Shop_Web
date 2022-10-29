@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Wixapol_DataAccess.Models
 {
-    public class Producent
+    public sealed class Producent
     {
         public int Id { get; set; }
         [Required]

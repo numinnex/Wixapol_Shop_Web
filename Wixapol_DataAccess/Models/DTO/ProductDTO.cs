@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace Wixapol_DataAccess.Models.DTO
 {
-    public class ProductDTO
+    public sealed class ProductDTO
     {
         public string Name { get; set; }
         public int CategoryId { get; set; }
@@ -24,7 +24,7 @@ namespace Wixapol_DataAccess.Models.DTO
         public string? DiscountCode { get; set; }
         public int QuantityInStock { get; set; } = 1;
         public double TaxRate { get; set; }
-        public decimal RetailPrice { get; set; }
+        public double RetailPrice { get; set; }
         public string WarrantyLength { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WixapolShop.Areas.Identity.Models.DTO
 {
-    public class LoginModel
+    public sealed class LoginModel
     {
         [Required]
         [Display(Name = "Username")]

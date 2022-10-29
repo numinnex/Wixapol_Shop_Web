@@ -5,10 +5,9 @@ using Wixapol_DataAccess.Models.Abstractions;
 
 namespace WixapolShop.Areas.Admin.Models
 {
-    public class ProductVM
+    public sealed class ProductVM
     {
         public Product Product { get; set; }
-        //TODO - remove later
         public BaseSpecification BaseSpec { get; set; }
         public AdvancedSpecification AdvancedSpec { get; set; }
         public PhysicalSpecification? PhysicalSpec { get; set; }

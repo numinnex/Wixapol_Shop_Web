@@ -7,7 +7,7 @@ using WixapolShop.IdentityRepository.Interfaces;
 
 namespace WixapolShop.AuthenticationRepository.Implementation
 {
-    public class UserAuthenticationService : IUserAuthenticationService
+    public sealed class UserAuthenticationService : IUserAuthenticationService
     {
         private readonly SignInManager<ApplicationUser> _signInManger;
         private readonly UserManager<ApplicationUser> _userManager;

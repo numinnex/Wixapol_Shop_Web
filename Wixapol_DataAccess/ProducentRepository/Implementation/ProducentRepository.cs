@@ -11,7 +11,7 @@ using Wixapol_DataAccess.ProducentRepository.Interface;
 
 namespace Wixapol_DataAccess.ProducentRepository.Implementation
 {
-    public class ProducentRepository : Repository<Producent>, IProducentRepository
+    public sealed class ProducentRepository : Repository<Producent>, IProducentRepository
     {
         private readonly IConfiguration _config;
         public ProducentRepository(IConfiguration config) : base(config)

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WixapolShop.Areas.Identity.Models.DTO
 {
-    public class RegisterModel
+    public sealed class RegisterModel
     {
         public string? Name { get; set; }
         [Required]
