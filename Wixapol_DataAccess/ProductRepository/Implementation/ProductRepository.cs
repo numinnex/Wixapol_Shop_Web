@@ -47,6 +47,34 @@ namespace Wixapol_DataAccess.ProductRepository.Implementation
 
             }, "CategoryId,ProducentId", "DefualtConnection");
         }
+        public List<Product> GetAllByCategory(int categoryId)
+        {
+            return LoadDataWithJoinParams<Category, Producent, dynamic>("db_product.spProduct_GetByCategory", (Product, Category, Producent) =>
+            {
+                Product.Category = Category;
+                //Product.CategoryId = Category.Id;
+
+                Product.Producent = Producent;
+                //Product.ProducentId = Producent.Id;
+
+                return Product;
+
+            }, new { categoryId }, "CategoryId,ProducentId", "DefualtConnection");
+        }
+        public List<Product> GetAllByNamePattern(string pattern)
+        {
+            return LoadDataWithJoinParams<Category, Producent, dynamic>("db_product.spProduct_GetByNamePattern", (Product, Category, Producent) =>
+            {
+                Product.Category = Category;
+                //Product.CategoryId = Category.Id;
+
+                Product.Producent = Producent;
+                //Product.ProducentId = Producent.Id;
+
+                return Product;
+
+            }, new { NamePattern = pattern }, "CategoryId,ProducentId", "DefualtConnection");
+        }
 
         public Product GetById(int? id)
         {

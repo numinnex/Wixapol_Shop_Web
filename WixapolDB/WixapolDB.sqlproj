@@ -116,6 +116,8 @@
     <Build Include="db_product\Stored Procedures\spProduct_Update.sql" />
     <Build Include="db_product\Stored Procedures\spProduct_GetById.sql" />
     <Build Include="db_product\Stored Procedures\spProduct_Delete.sql" />
+    <Build Include="db_product\Stored Procedures\spProduct_GetByNamePattern.sql" />
+    <Build Include="db_product\Stored Procedures\spProduct_GetByCategory.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishLocation\WixapolDB.publish.xml" />

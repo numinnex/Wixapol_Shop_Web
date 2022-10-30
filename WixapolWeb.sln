@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wixapol_DataAccess", "Wixap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wixapol_Utils", "Wixapol_Utils\Wixapol_Utils.csproj", "{841C9681-65DD-4005-A515-9E6C1C1F24B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wixapol_DataAccess_Tests", "Wixapol_DataAccess_Tests\Wixapol_DataAccess_Tests.csproj", "{0483EAD1-8E52-4600-B12D-58B301B1F8AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wixapol_DataAccess_Tests", "Wixapol_DataAccess_Tests\Wixapol_DataAccess_Tests.csproj", "{0483EAD1-8E52-4600-B12D-58B301B1F8AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -12,6 +12,8 @@ namespace Wixapol_DataAccess.ProductRepository.Interfaces
         public void CreateProduct(Product product);
         public void UpdateProduct(Product product);
         public void DeleteProduct(int? id);
+        public List<Product> GetAllByNamePattern(string pattern);
+        public List<Product> GetAllByCategory(int categoryId);
         public List<Product> GetAll();
         public Product GetById(int? id);
     }

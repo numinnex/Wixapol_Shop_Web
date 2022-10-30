@@ -1,0 +1,25 @@
+﻿@model SearchModel
+
+@inject IUnitOfWork unitOfWork
+
+
+@{
+
+    List<SelectListItem> categories = unitOfWork.Category.GetAll().Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+            }).ToList();
+
+}
+
+
+<form method="get" asp-area="Customer" asp-controller="Search" asp-action="ProductsCart">
+    <div class="d-flex">
+        <input asp-for="Phrase" class="category-input form-control rounded-0 rounded-start w-100" type="search" placeholder="Search" />
+        <select asp-for="Categoryid" class="category-select form-select rounded-0 border border-end-0 border-start-0 w-50 " asp-items="@categories">
+            <option value="-1" selected>All Categories</option>
+        </select>
+        <button class="btn btn-primary rounded-0 rounded-end" type="submit"><i class="bi bi-search"></i></button>
+    </div>
+</form>

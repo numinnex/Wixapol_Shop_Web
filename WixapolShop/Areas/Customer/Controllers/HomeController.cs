@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Wixapol_DataAccess.UnitOfWork.Interface;
 using WixapolShop.ErrorModel;
 
 namespace WixapolShop.Areas.Customer.Controllers

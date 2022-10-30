@@ -36,6 +36,17 @@ namespace Wixapol_DataAccess.GenericRepository.Implementation
                 return rows;
             }
         }
+        public List<T> LoadDataWithJoinParams<U, V, D>(string storedProcedure, Func<T, U, V, T> del, D parameters, string splitValue, string connectionStringName)
+        {
+            string connectionString = GetConnectionString(connectionStringName);
+
+            using (IDbConnection connection = new SqlConnection(connectionString))
+            {
+                List<T> rows = connection.Query(storedProcedure, del, parameters, splitOn: splitValue, commandType: CommandType.StoredProcedure).ToList();
+
+                return rows;
+            }
+        }
         public List<V> LoadDataWithParams<U, V>(string storedProcedure, U parameters, string connectionStringName)
         {
 
