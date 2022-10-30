@@ -6,18 +6,33 @@ $(document).ready(function () {
 
 function loadDataTable() {
     dataTable = $('#productsTable').DataTable({
+        responsive:
+        {
+            details:
+            {
+                type: 'inline',
+            }
+        },
+        columnDefs: [
+            { responsivePriority: 1, targets: 0 },
+            { responsivePriority: 10004, targets: 4 },
+            { responsivePriority: 10003, targets: 5 },
+            { responsivePriority: 10002, targets: 3 },
+            { responsivePriority: 10001, targets: 2 },
+            { responsivePriority: 2, targets: -1 }
+        ],
         "ajax":
         {
             "url": "/admin/product/getall"
         },
         "columns": [
-            { "data": "id", "width": "5%" },
-            { "data": "name", "width": "15%" },
-            { "data": "producent.name", "width": "15%" },
-            { "data": "category.name", "width": "15%" },
-            { "data": "isDiscounted", "width": "5%" },
-            { "data": "quantityInStock", "width": "10%" },
-            { "data": "retailPrice", "width": "13%" },
+            { "data": "id",  },
+            { "data": "name",  },
+            { "data": "producent.name",  },
+            { "data": "category.name",  },
+            { "data": "isDiscounted",  },
+            { "data": "quantityInStock",  },
+            { "data": "retailPrice",  },
             {
                 "data": "id",
                 "render": function (data) {
@@ -29,12 +44,14 @@ function loadDataTable() {
                                 </div>
                             `
                 },
-                "width": "25%"
+                "width" : "15%"
+                
 
             }
         ]
     });
-}
+
+ }
 
 toastr.options = {
     "closeButton": false,
