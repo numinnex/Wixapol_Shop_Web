@@ -1,4 +1,4 @@
-﻿@model ProductVM
+﻿@model ProductCreationVM
 @{
     ViewData["Title"] = "Edit Product";
     Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="col-6">
-                <img src="@Model.Product.ProductImage" class="rounded-2 img-fluid" />
+                <img src="@Model.Product.ProductImage" class="rounded-2 img-fluid w-50" />
             </div>
         </div>
         <div class="row border border-2 border-bottom-0 border-end-0 border-start-0 mt-2">

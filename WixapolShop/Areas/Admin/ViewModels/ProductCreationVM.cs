@@ -5,7 +5,7 @@ using Wixapol_DataAccess.Models.Abstractions;
 
 namespace WixapolShop.Areas.Admin.Models
 {
-    public sealed class ProductVM
+    public sealed class ProductCreationVM
     {
         public Product Product { get; set; }
         public BaseSpecification BaseSpec { get; set; }

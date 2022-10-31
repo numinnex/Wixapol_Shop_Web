@@ -20,7 +20,7 @@ namespace WixapolShop.Areas.Admin.Controllers
             _hostEnviroment = hostEnviroment;
         }
 
-        private string ParseFile(ProductVM obj, IFormFile file)
+        private string ParseFile(ProductCreationVM obj, IFormFile file)
         {
             string wwwRootPath = _hostEnviroment.WebRootPath;
 
@@ -51,10 +51,15 @@ namespace WixapolShop.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(ProductVM obj, IFormFile file)
+        public IActionResult Create(ProductCreationVM obj, IFormFile file)
         {
 
             // Cheat to fix incorrect decimal value seperation
+            var cultureInfo = new CultureInfo("pl-PL");
+            cultureInfo.NumberFormat.NumberDecimalSeparator = ".";
+            cultureInfo.NumberFormat.CurrencyDecimalSeparator = ".";
+            System.Threading.Thread.CurrentThread.CurrentUICulture = cultureInfo;
+            System.Threading.Thread.CurrentThread.CurrentCulture = cultureInfo;
 
             ModelState.Remove("Product.RetailPrice");
             if (!Double.TryParse(obj.Product.RetailPriceStringify, out double price))
@@ -65,7 +70,6 @@ namespace WixapolShop.Areas.Admin.Controllers
             {
                 obj.Product.RetailPrice = price;
             }
-
 
             if (ModelState.IsValid)
             {
@@ -94,7 +98,7 @@ namespace WixapolShop.Areas.Admin.Controllers
         }
         public IActionResult Create()
         {
-            ProductVM productVM = new ProductVM()
+            ProductCreationVM productVM = new ProductCreationVM()
             {
                 Product = new Product(),
                 CategoryList = _unitofWork.Category.GetAll().Select(x => new SelectListItem
@@ -104,7 +108,7 @@ namespace WixapolShop.Areas.Admin.Controllers
                 }).ToList(),
                 ProducentList = _unitofWork.Producent.GetAll().Select(x => new SelectListItem
                 {
-                    Text = x.Name,
+                    Text = x.Name + (x.ProducentCode),
                     Value = x.Id.ToString()
                 }).ToList(),
             };
@@ -113,7 +117,7 @@ namespace WixapolShop.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(ProductVM obj, IFormFile? file)
+        public IActionResult Edit(ProductCreationVM obj, IFormFile? file)
         {
             // Cheat to fix incorrect decimal value seperation
 
@@ -160,7 +164,7 @@ namespace WixapolShop.Areas.Admin.Controllers
         }
         public IActionResult Edit(int? id)
         {
-            ProductVM productVM = new ProductVM()
+            ProductCreationVM productVM = new ProductCreationVM()
             {
 
                 Product = _unitofWork.Product.GetById(id),
@@ -171,7 +175,7 @@ namespace WixapolShop.Areas.Admin.Controllers
                 }).ToList(),
                 ProducentList = _unitofWork.Producent.GetAll().Select(x => new SelectListItem
                 {
-                    Text = x.Name,
+                    Text = x.Name + (x.ProducentCode),
                     Value = x.Id.ToString()
                 }).ToList(),
             };

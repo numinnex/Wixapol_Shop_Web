@@ -15,11 +15,11 @@ namespace Wixapol_DataAccess_Tests
 {
     public class ControllerTests
     {
-        private readonly SearchController _searchController;
+        private readonly SearchProductController _searchController;
         private readonly Mock<IUnitOfWork> _unitOfWork = new Mock<IUnitOfWork>();
         public ControllerTests()
         {
-            _searchController = new SearchController(_unitOfWork.Object);
+            _searchController = new SearchProductController(_unitOfWork.Object);
         }
 
         [Fact]

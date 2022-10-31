@@ -1,4 +1,4 @@
-﻿@model ProductVM
+﻿@model ProductCreationVM
 @{
     ViewData["Title"] = "Create Product";
     Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
@@ -157,8 +157,8 @@
                     <span asp-validation-for="Product.TaxRate" class="text-danger"></span>
                 </div>
                 <div class="mb-2">
-                    <label asp-for="Product.RetailPriceStringify" class="form-label"></label>
-                    <input type="text" step="0.01" asp-for="Product.RetailPriceStringify" class="form-control " />
+                    <label asp-for="Product.RetailPriceStringify " class="form-label"></label>
+                    <input type="text" asp-for="Product.RetailPriceStringify" class="form-control " />
                     <span asp-validation-for="Product.RetailPriceStringify" class="text-danger"></span>
                 </div>
                 <div class="mb-2">
