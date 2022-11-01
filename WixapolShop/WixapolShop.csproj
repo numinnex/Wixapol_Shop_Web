@@ -33,6 +33,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Wixapol_DataAccess\Wixapol_DataAccess.csproj" />
+	  <ProjectReference Include="..\Wixapol_Utils\Wixapol_Utils.csproj" />
 	</ItemGroup>
 
 </Project>

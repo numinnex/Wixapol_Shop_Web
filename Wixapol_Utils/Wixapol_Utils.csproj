@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Wixapol_DataAccess\Wixapol_DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -22,9 +22,12 @@ namespace Wixapol_DataAccess.Models
         public Producent? Producent { get; set; }
         [Required]
         public int BaseSpecId { get; set; }
+        public BaseSpecification? BaseSpec { get; set; }
         [Required]
         public int AdvancedSpecId { get; set; }
+        public AdvancedSpecification? AdvancedSpec { get; set; }
         public int? PhysicalSpecId { get; set; }
+        public PhysicalSpecification? PhysicalSpec { get; set; }
         [Required]
         [MaxLength(50)]
         [Display(Name = "Short Description")]
