@@ -10,11 +10,11 @@ namespace WixapolShop.Areas.Customer.ViewModels
         public int? MinPrice { get; set; } = 0;
         public int? MaxPrice { get; set; } = 7000;
         public List<int>? CategoryIdList { get; set; }
-        public List<int>? ProducentIdList { get; set; }
+        public List<string>? ProducentIdList { get; set; }
         public List<Product> Products { get; set; }
-        public SortedDictionary<int, List<Product>>? ProductsByCategory { get; set; }
-        public SortedDictionary<string, List<Product>>? ProductsByProducent { get; set; }
-        public SortedDictionary<double, List<Product>>? ProductsByPrice { get; set; }
+        public Dictionary<int, List<string>>? ProductsByCategory { get; set; }
+        public Dictionary<string, List<string>>? ProductsByProducent { get; set; }
+        public SortedDictionary<double, List<string>>? ProductsByPrice { get; set; }
 
     }
 }

@@ -5,84 +5,15 @@
 @{
     ViewData["Title"] = "ProductsCart";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
 <style>
 
-    .search-result
-    {
-        color: #0d0d0d;
-    display: inline-block;
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 1.2;
-    margin: 0;
-    vertical-align: baseline;
-}
-    .search-result-count
-    {
-            display: inline-block;
-    font-size: 20px;
-    font-weight: 400;
-    margin-left: 4px;
-    vertical-align: baseline;
-}
-.cat-label:hover{
-    cursor:pointer;
-    text-decoration:underline;
-}
-.cat-checkbox:hover{
-    border-color: #f4aa90;
-        outline: 0;
-        box-shadow: 0 0 0 0.25rem rgba(233, 84, 32, 0.25);
-}
-.prod-name-style
-{
-        font-size: 18px;
-        font-weight: 600;
-        line-height: 1.5;
-        margin: 0px;
-        padding: 0px;
-    
-}
-.prod-feature
-{
-        padding-left: 8px;
-        position: relative;
-        text-overflow: ellipsis;
-        overflow: hidden;
-}
-.prod-feature::before
-{
-        content: "";
-        height: 3px;
-        left: 0px;
-        position: absolute;
-        top: 7px;
-        width: 3px;
-        background: rgb(13, 13, 13);
-        border-radius: 100%;
-    
-}
-.price
-{
-        color: rgb(13, 13, 13);
-        font-size: 24px;
-        font-weight: 600;
-        line-height: 1;
-}
-.tocart-button
-{
-    position:relative;
-    top: 120px;
-}
-
-
 
 </style>
 
-
-<div class="container">
+<div class="container-products">
     <div class="row">
         <div class="d-inline-block mt-3 ">
             <span class="search-result">Searching
@@ -90,18 +21,19 @@
             </span>
             <span class="search-result-count">(@Model.Products.Count)</span>
     </div>
-    <form>
+    <form asp-action="FilterProductsCart" method="get" >
+        <input type="text" asp-for="query.Phrase"  hidden/>
     <div class="row mt-4">
-        <div class="col-3">
+        <div class="col-xl-2 col-lg-3 d-lg-block d-sm-none d-none">
             <div class="rounded-2 p-3" style="background-color:white;">
                 <span class="mb-3 fw-bold">Categories</span>
                 @if(Model.Products.Count > 0 )
                 {
-                    @foreach(var (key , value) in Model.ProductsByCategory!)
+                    @foreach(var (key ,value) in Model.ProductsByCategory.OrderByDescending(x => x.Value.Count).ToList()!)
                     {
                     <div class="mt-2">
-                        <input type="checkbox" id="@key" name="CategoryIdList" class="form-check-input p-2 me-2 cat-checkbox" >
-                        <label for="@key" class="form-check-label cat-label">@value[0].Category.Name <span>(@value.Count)</span></label>
+                        <input type="checkbox" id="@key"  name="CategoryIdList" value=@key class="form-check-input p-2 me-2 cat-checkbox" >
+                        <label for="@key" class="form-check-label cat-label">@value.First()<span> (@value.Count)</span></label>
                     </div>
                     }
 
@@ -111,23 +43,21 @@
                 <span class="mb-3 fw-bold">Producents</span>
                 @if(Model.Products.Count > 0)
                 {
-                    @foreach(var (key , value) in Model.ProductsByProducent!)
+                    @foreach(var (key , value) in Model.ProductsByProducent.OrderByDescending(x => x.Value.Count).ToList()!)
                     {
                         <div class="mt-2">
-                            <input type="checkbox" id="@key" name="ProducentIdList" class="form-check-input p-2 me-2 cat-checkbox" >
-                            <label for="@key" class="form-check-label cat-label">@key <span>(@value.Count)</span></label>
+                            <input type="checkbox" id="@key" name="ProducentIdList" value=@key class="form-check-input p-2 me-2 cat-checkbox" >
+                            <label for="@key" class="form-check-label cat-label">@key <span> (@value.Count)</span></label>
                         </div>
                     }
-
                 }
             </div>
-
          </div>
-            <div class="col-9">
+            <div class="col-xl-10 col-lg-9 col-md-12">
                 <div class="mt-3 d-flex align-items-end justify-content-between ">
                     <div class="" style="max-width:30%; width:30%;">
                         <div class="cat-apply-button">
-                            <button type="submit" class="btn btn-outline-dark pt-2 w-100" >Apply Filters</button>
+                            <button type="submit" class="btn btn-outline-dark pt-2 w-100">Apply Filters</button>
                         </div>
                     </div>
                     <div class="" style="max-width:38%; width:38%">
@@ -164,22 +94,22 @@
                 </div>
                 @foreach(var product in Model.Products)
                 {
-                <div class="mt-3 rounded rounded-2 p-3 d-flex align-items-stretch" style="background:white;">
+                <div class="mt-3 rounded rounded-2 p-3 d-flex align-items-stretch " style="background:white;">
                     @if (Model.Products.Count > 0)
                     {
-                        <div class="" style="width: 250px; position: relative; flex:  0 0 250px;">
-                            <a href="" class="mx-4 d-flex justify-content-center" style="height: 208px;"  >
-                                <img src="@product.ProductImage" class="w-auto"/>
+                        <div class="d-flex img-div" style="width: 250px; position: relative; flex:  0 0 250px;">
+                            <a href="" class="mx-3" style="height:208px;"  >
+                                <img src="@product.ProductImage" class="product-image" />
                             </a>
-
                         </div>
-                        <div class="d-flex align-items-stretch w-100" style="min-height:100%">
-                            <div class="" style="width: calc(100% - 220px); flex: 0 0 calc(100% -220px);">
-                                <div class="" style="max-width:400px; padding: 0 16px;">
+                                <div class="d-flex align-items-stretch w-100" style="min-height:100% max-width:100%;">
+                                    <div class="" style="width: calc(100% - 220px); flex: 0 0 calc(100% -220px);">
+                                <div class="" style="max-width:400px;min-width: 180px; padding: 0 16px;">
                                     <div class="mb-2">
                                         <h2 class="prod-name-style">
                                             <a href="" class="nav-link">
-                                                @product.Category.Name @product.Producent.Name @product.Name @product.Producent.ProducentCode   
+                                                @*@product.Category.Name @product.Producent.Name @product.Name (@product.Producent.ProducentCode)*@
+                                                @product.ToString()
                                             </a>
                                         </h2>
                                     </div>
@@ -190,18 +120,18 @@
                                          @{
                                              var tuple = Model.Products[0].SpecificationParser(product.AdvancedSpec);
 
-                                             for (int i = 0; i < tuple.SpecValues.Count; ++i)
+                                             @for (int i = 0; i < tuple.SpecValues.Count; ++i)
                                              {
-                                                <div class="prod-feature">
-                                                    @tuple.SpecNames[i]:
-                                                    <b>@tuple.SpecValues[i]</b>
+                                                 <div class="prod-feature">
+                                                 @tuple.SpecNames[i]:
+                                                <b>@tuple.SpecValues[i]</b>
                                                 </div>
                                              }
                                           }
                                       </div>
                                 </div>
                         </div>
-                            <div class="" style="width:240px; flex: 0 0 240px;">
+                            <div class="prod-right">
                                 <div class="">
                                     <div class="mb-4">
                                         <div class="price">

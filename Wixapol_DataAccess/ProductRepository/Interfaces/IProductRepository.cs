@@ -13,7 +13,7 @@ namespace Wixapol_DataAccess.ProductRepository.Interfaces
         public void UpdateProduct(Product product);
         public void DeleteProduct(int? id);
         public List<Product> GetAllByNamePattern(string pattern);
-        public List<Product> GetAllByCategory(int categoryId);
+        public List<Product> GetAllByCategoryAndName(int categoryId, string namePattern);
         public List<Product> GetAll();
         public Product GetById(int? id);
     }

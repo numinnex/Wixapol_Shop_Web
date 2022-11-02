@@ -59,8 +59,8 @@ namespace Wixapol_DataAccess_Tests
             Assert.True(categoryList != null);
         }
         [Theory]
-        [InlineData("Test2", 3)]
-        [InlineData("Test1", 4)]
+        [InlineData("Razer", 2002)]
+        [InlineData("SteelSeries", 2009)]
         public void LoadProducentById(string expected, int id)
         {
             var producentName = _sut.Producent.GetById(id).Name;
@@ -75,9 +75,9 @@ namespace Wixapol_DataAccess_Tests
         }
 
         [Theory]
-        [InlineData("Test", 2)]
-        [InlineData("Test Update", 1)]
-        [InlineData("Test", 1002)]
+        [InlineData("Huntsman Elite", 3002)]
+        [InlineData("Huntsman V2", 3003)]
+        [InlineData("Blackwidow V3", 3004)]
         public void LoadProductById(string expected, int id)
         {
             var productName = _sut.Product.GetById(id).Name;
@@ -92,10 +92,10 @@ namespace Wixapol_DataAccess_Tests
             Assert.True(productList != null);
         }
         [Theory]
-        [InlineData(new int[] { 7, 1, 9 })]
+        [InlineData(new int[] { 7, 7, 7 })]
         public void LoadProductsWithCategory(int[] expected)
         {
-            var productList = _sut.Product.GetAll();
+            var productList = _sut.Product.GetAll().Take(3).ToList();
 
             for (int i = 0; i < productList.Count; ++i)
             {
@@ -103,10 +103,10 @@ namespace Wixapol_DataAccess_Tests
             }
         }
         [Theory]
-        [InlineData(new int[] { 3, 4, 3 })]
+        [InlineData(new int[] { 2002, 2003, 2004 })]
         public void LoadProductsWithProducent(int[] expected)
         {
-            var productList = _sut.Product.GetAll();
+            var productList = _sut.Product.GetAll().Take(3).ToList();
 
             for (int i = 0; i < productList.Count; ++i)
             {

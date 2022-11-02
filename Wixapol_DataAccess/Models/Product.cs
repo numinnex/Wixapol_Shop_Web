@@ -65,6 +65,11 @@ namespace Wixapol_DataAccess.Models
         public string WarrantyLength { get; set; }
 
 
+        public override string ToString()
+        {
+            return $"{Category.Name} {Producent.Name} {Name} ({Producent.ProducentCode})";
+        }
+
 
 
     }
