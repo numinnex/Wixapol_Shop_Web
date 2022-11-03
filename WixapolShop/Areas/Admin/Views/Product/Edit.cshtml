@@ -33,14 +33,12 @@
                 <div class="mb-3">
                     <label asp-for="Product.CategoryId" class="form-label"></label>
                     <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-select">
-                        <option disabled selected>--Select Category--</option>
                     </select>
                     <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label asp-for="Product.ProducentId" class="form-label"></label>
                     <select asp-for="Product.ProducentId" asp-items="@Model.ProducentList" class="form-select">
-                        <option disabled selected>--Select Producent--</option>
                     </select>
                     <span asp-validation-for="Product.ProducentId" class="text-danger"></span>
                 </div>

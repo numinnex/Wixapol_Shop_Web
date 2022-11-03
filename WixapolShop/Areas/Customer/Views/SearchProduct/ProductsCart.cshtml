@@ -1,5 +1,4 @@
-﻿@using WixapolShop.Areas.Customer.ViewModels
-@model ProductSearchVM 
+﻿@model ProductSearchVM 
 
 
 @{
@@ -21,7 +20,7 @@
             </span>
             <span class="search-result-count">(@Model.Products.Count)</span>
     </div>
-    <form asp-action="FilterProductsCart" method="get" >
+    <form asp-action="FilterProductsCart" method="post" >
         <input type="text" asp-for="query.Phrase"  hidden/>
     <div class="row mt-4">
         <div class="col-xl-2 col-lg-3 d-lg-block d-sm-none d-none">
@@ -98,7 +97,7 @@
                     @if (Model.Products.Count > 0)
                     {
                         <div class="d-flex img-div" style="width: 250px; position: relative; flex:  0 0 250px;">
-                            <a href="" class="mx-3" style="height:208px;"  >
+                            <a asp-controller="DisplayProduct" asp-action="Display" asp-route-productId="@product.Id" class="mx-3" style="height:208px;"  >
                                 <img src="@product.ProductImage" class="product-image" />
                             </a>
                         </div>
@@ -107,7 +106,7 @@
                                 <div class="" style="max-width:400px;min-width: 180px; padding: 0 16px;">
                                     <div class="mb-2">
                                         <h2 class="prod-name-style">
-                                            <a href="" class="nav-link">
+                                            <a asp-controller="DisplayProduct" asp-action="Display" asp-route-productId="@product.Id" class="nav-link">
                                                 @*@product.Category.Name @product.Producent.Name @product.Name (@product.Producent.ProducentCode)*@
                                                 @product.ToString()
                                             </a>

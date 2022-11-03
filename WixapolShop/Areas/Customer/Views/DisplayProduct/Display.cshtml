@@ -1,0 +1,171 @@
+﻿@model ProductDisplayVM
+@{
+    ViewData["Title"] = "Display";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var baseSpecification = Model.Product.SpecificationParser(Model.Product.BaseSpec);
+    var advancedSpecification = Model.Product.SpecificationParser(Model.Product.AdvancedSpec);
+    var physicalSpecification = Model.Product.SpecificationParser(Model.Product.PhysicalSpec);
+}
+
+<style>
+    .img-wrapper
+    {
+        background-color: #fff;
+        height: 100%;
+        max-height: calc(100vh - 150px);
+        min-height: 275px   ;
+        overflow: hidden;
+        position: relative;
+    }
+    .img-wrapper img
+    {
+            bottom: 0;
+            left: 0;
+            margin: auto;
+            max-height: 100%;
+            max-width: 100%;
+            position: absolute;
+            right: 0;
+            top: 0;
+    }
+</style>
+
+<div class="container-products">
+    <div class="row mt-5 gx-5">
+        <div class="col-9">
+            <div class="row rounded rounded-3" style="background-color: white">
+                <div class="col-7 py-3 " style="border-right: 1px solid grey;">
+                    <div class="img-wrapper" >
+                        <img src="@Model.Product.ProductImage" />
+                    </div>
+                </div>
+                <div class="col-5 p-4">
+                    <div class="">
+                        <h2 class="prod-name-style">
+                            @Model.Product.ToString()
+                        </h2>
+                    </div>
+                    <div class="mt-2">
+                        <span class="text-muted" style="font-size: 14px;">Product ID: @Model.Product.Id</span>
+                    </div>
+                    <div class="mt-2">
+                        <div class="" style="height:25px;">
+                            <span>RATING PLACEHOLDER</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3 rounded rounded-3 p-4" style="background-color:white;">
+            <div class="price">
+                <span>$@Model.Product.RetailPrice</span>
+            </div>
+            <div class="mt-3">
+                <div class="d-flex align-items-center" style="justify-content:space-between">
+                    <div class="" style="width: 64px; flex: 0 0 64px;">
+                        <input type="number" class="form-control py-3 px-2" value="1" />
+                    </div> 
+                    <button type="submit" class="btn btn-primary py-3 px-2" style="width: calc(100% - 90px);">Add to cart</button>
+                </div>
+            </div>
+            <div class="mt-1">
+                <span class="text-muted" style="font-size: 13px;">Available @Model.Product.QuantityInStock</span>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4 gx-5">
+        <div class="col-9" >
+            <div class="row rounded rounded-3 bg-white p-3">
+                <h3 class="prod-name-style">Product Description</h3>
+                <div class="mt-2">
+                    @Html.Raw(Model.Product.LongDescription)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4 ">
+        <div class="col-9" >
+            <div class="row rounded rounded-3 bg-white p-2">
+                <h2 class="prod-name-style">Specification</h2>
+                <div class="row">
+                    <div class="col-4  ps-0">
+                        <div class="mt-3">
+                            <span>BASE SPECIFICATION</span>
+                     </div>
+                    </div>
+                    <div class="col-8">
+                        <table class="table">
+                            <tbody>
+                                @for (int i = 0; i < baseSpecification.SpecValues.Count; ++i)
+                                {
+                                    <tr class="">
+                                        <td class="text-muted pb-3" style="width:65%">
+                                            @baseSpecification.SpecNames[i]
+                                        </td>
+                                        <td class="">
+                                            @baseSpecification.SpecValues[i]
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-4  ps-0">
+                        <div class="mt-3">
+                            <span>ADVANCED SPECIFICATION</span>
+                     </div>
+                    </div>
+                    <div class="col-8">
+                        <table class="table">
+                            <tbody>
+                                @for (int i = 0; i < advancedSpecification.SpecValues.Count; ++i)
+                                {
+                                    <tr class="position-relative">
+                                        <td class="text-muted pb-3 " style="width:65%;">
+                                            @advancedSpecification.SpecNames[i]
+                                        </td>
+                                        <td class="">
+                                            @advancedSpecification.SpecValues[i]
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                @if (Model.Product.PhysicalSpec is not null)
+                { 
+                <div class="row mt-2">
+                    <div class="col-4  ps-0">
+                        <div class="mt-3">
+                            <span>PHYSICAL SPECIFICATION</span>
+                     </div>
+                    </div>
+                    <div class="col-8">
+                        <table class="table">
+                            <tbody>
+                                @for (int i = 0; i < physicalSpecification.SpecValues.Count; ++i)
+                                {
+                                    <tr class="position-relative">
+                                        <td class="text-muted pb-3 " style="width:65%;">
+                                            @physicalSpecification.SpecNames[i]
+                                        </td>
+                                        <td class="">
+                                            @physicalSpecification.SpecValues[i]
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                }
+            </div>
+        </div>
+    </div>
+
+</div>

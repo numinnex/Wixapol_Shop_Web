@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Wixapol_DataAccess.Models.Abstractions;
 
 namespace Wixapol_DataAccess.Models
 {
@@ -63,7 +64,6 @@ namespace Wixapol_DataAccess.Models
         [Required]
         [Display(Name = "Warranty Length")]
         public string WarrantyLength { get; set; }
-
 
         public override string ToString()
         {

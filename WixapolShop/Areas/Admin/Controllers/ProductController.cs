@@ -168,6 +168,8 @@ namespace WixapolShop.Areas.Admin.Controllers
             {
 
                 Product = _unitofWork.Product.GetById(id),
+
+
                 CategoryList = _unitofWork.Category.GetAll().Select(x => new SelectListItem
                 {
                     Text = x.Name,
@@ -179,6 +181,8 @@ namespace WixapolShop.Areas.Admin.Controllers
                     Value = x.Id.ToString()
                 }).ToList(),
             };
+            productVM.Product.ProducentId = productVM.Product.Producent.Id;
+            productVM.Product.CategoryId = productVM.Product.Category.Id;
             productVM.Product.RetailPriceStringify = productVM.Product.RetailPrice.ToString();
 
             productVM.BaseSpec = _unitofWork.Specification.GetById(productVM.Product.BaseSpecId, Specification.Basic) as BaseSpecification;

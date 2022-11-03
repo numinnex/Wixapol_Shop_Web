@@ -17,5 +17,8 @@ namespace Wixapol_DataAccess.Models
         public string ProducentCode { get; set; }
         [Required]
         public string EAN { get; set; }
+
+
     }
+
 }

@@ -12,8 +12,14 @@ namespace Wixapol_Utils
     {
         public static (List<string> SpecNames, List<string> SpecValues) SpecificationParser(this Product product, ISpecification specification)
         {
+
             List<string> specNames = new();
             List<string> specValues = new();
+
+            if (specification is null)
+            {
+                return (specNames, specValues);
+            }
 
             specNames = specification.SpecName.Split(';').ToList();
             specValues = specification.SpecValue.Split(';').ToList();

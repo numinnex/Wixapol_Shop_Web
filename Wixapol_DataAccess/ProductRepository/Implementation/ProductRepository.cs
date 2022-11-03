@@ -14,6 +14,8 @@ namespace Wixapol_DataAccess.ProductRepository.Implementation
 {
     public sealed class ProductRepository : Repository<Product>, IProductRepository
     {
+
+
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
         public ProductRepository(IConfiguration config, IMapper mapper) : base(config)
@@ -78,11 +80,23 @@ namespace Wixapol_DataAccess.ProductRepository.Implementation
 
         public Product GetById(int? id)
         {
-            return LoadData("db_product.spProduct_GetById", new { Id = id }, "DefualtConnection").FirstOrDefault();
+            return LoadDataWithJoinParams<Category, Producent, dynamic>("db_product.spProduct_GetById", (Product, Category, Producent) =>
+            {
+                Product.Category = Category;
+                //Product.CategoryId = Category.Id;
+
+                Product.Producent = Producent;
+                //Product.ProducentId = Producent.Id;
+
+                return Product;
+
+            }, new { Id = id }, "CategoryId,ProducentId", "DefualtConnection").First();
         }
 
         public void UpdateProduct(Product product)
         {
+
+
             var productDTO = _mapper.Map<ProductDTOWithId>(product);
             SaveData("db_product.spProduct_Update", productDTO, "DefualtConnection");
 
