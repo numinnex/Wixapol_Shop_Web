@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using Wixapol_DataAccess.GenericRepository.Implementation;
@@ -36,7 +37,7 @@ namespace Wixapol_DataAccess.ShoppingCartRepository.Implementation
 
         public void DeleteShoppingCart(int? id)
         {
-            throw new NotImplementedException();
+            SaveData<dynamic>("db_product.spShoppingCart_Delete", new { Id = id }, "DefualtConnection");
         }
 
         public List<ShoppingCart> GetAll()

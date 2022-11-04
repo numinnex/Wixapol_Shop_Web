@@ -82,7 +82,7 @@ namespace WixapolShop.Areas.Admin.Controllers
 
                 obj.Product.BaseSpecId = _unitofWork.Specification.CreateSpecification(obj.BaseSpec, Specification.Basic);
                 obj.Product.AdvancedSpecId = _unitofWork.Specification.CreateSpecification(obj.AdvancedSpec, Specification.Advanced);
-                if (!String.IsNullOrWhiteSpace(obj.PhysicalSpec.SpecName) && !String.IsNullOrWhiteSpace(obj.PhysicalSpec.SpecValue))
+                if (!String.IsNullOrWhiteSpace(obj.PhysicalSpec.SpecName) || !String.IsNullOrWhiteSpace(obj.PhysicalSpec.SpecValue))
                 {
                     obj.Product.PhysicalSpecId = _unitofWork.Specification.CreateSpecification(obj.PhysicalSpec, Specification.Physical);
                 }
@@ -108,7 +108,7 @@ namespace WixapolShop.Areas.Admin.Controllers
                 }).ToList(),
                 ProducentList = _unitofWork.Producent.GetAll().Select(x => new SelectListItem
                 {
-                    Text = x.Name + " " +  (x.ProducentCode),
+                    Text = x.Name + " " + (x.ProducentCode),
                     Value = x.Id.ToString()
                 }).ToList(),
             };
@@ -145,13 +145,18 @@ namespace WixapolShop.Areas.Admin.Controllers
 
                 _unitofWork.Specification.UpdateSpecification(obj.BaseSpec, Specification.Basic);
                 _unitofWork.Specification.UpdateSpecification(obj.AdvancedSpec, Specification.Advanced);
-                if (obj.PhysicalSpec.Id is null)
+                if (obj.PhysicalSpec.Id is null && obj.PhysicalSpec is not null)
                 {
                     obj.Product.PhysicalSpecId = _unitofWork.Specification.CreateSpecification(obj.PhysicalSpec, Specification.Physical);
                 }
                 else
                 {
                     _unitofWork.Specification.UpdateSpecification(obj.PhysicalSpec, Specification.Physical);
+                }
+
+                if ((obj.PhysicalSpec.SpecValue is null || obj.PhysicalSpec.SpecName is null) && obj.PhysicalSpec.Id is not null)
+                {
+                    obj.Product.PhysicalSpecId = null;
                 }
 
                 _unitofWork.Product.UpdateProduct(obj.Product);
