@@ -91,7 +91,7 @@ namespace WixapolShop.Areas.Identity.Controllers
         //    {
         //        UserName = "admin",
         //        Name = "Test Name",
-        //        Email = "admin@adminc.com",
+        //        Email = "admin@admin.com",
         //        Password = "Admin@12345#",
         //        Role = "admin"
         //    };

@@ -20,7 +20,7 @@
             </span>
             <span class="search-result-count">(@Model.Products.Count)</span>
     </div>
-    <form asp-action="FilterProductsCart" method="post" >
+    <form asp-action="FilterProductsCart" method="get" >
         <input type="text" asp-for="query.Phrase"  hidden/>
     <div class="row mt-4">
         <div class="col-xl-2 col-lg-3 d-lg-block d-sm-none d-none">
@@ -31,7 +31,7 @@
                     @foreach(var (key ,value) in Model.ProductsByCategory.OrderByDescending(x => x.Value.Count).ToList()!)
                     {
                     <div class="mt-2">
-                        <input type="checkbox" id="@key"  name="CategoryIdList" value=@key class="form-check-input p-2 me-2 cat-checkbox" >
+                        <input  type="checkbox" id="@key"  name="CategoryIdList" value=@key class="form-check-input p-2 me-2 cat-checkbox" >
                         <label for="@key" class="form-check-label cat-label">@value.First()<span> (@value.Count)</span></label>
                     </div>
                     }
@@ -64,12 +64,12 @@
                             <div class="price-input">
                                 <div class="field">
                                     <span>Min</span>
-                                    <input type="number" asp-for="@Model.MinPrice" class="input-min" />
+                                    <input type="number" asp-for="@Model.MinPrice"  class="input-min" />
                                 </div>
                                 <div class="seperator">-</div>
                                 <div class="field">
                                     <span>Max</span>
-                                    <input type="number" asp-for="@Model.MaxPrice" class="input-max" />
+                                    <input type="number" asp-for="@Model.MaxPrice" value="@Model.MaxPrice" class="input-max" />
                                 </div>
                             </div>
                             <div class="slider">

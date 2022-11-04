@@ -389,7 +389,7 @@ namespace Wixapol_DataAccess_Tests
                     Id = 1,
                     Name = "Test producent",
                 },
-                RetailPrice = 100,
+                RetailPrice = 40,
 
             });
 
@@ -417,9 +417,7 @@ namespace Wixapol_DataAccess_Tests
             Assert.Equal(productVM.ProductsByCategory, result.ProductsByCategory);
             Assert.Equal(productVM.ProductsByProducent, result.ProductsByProducent);
             Assert.Equal(productVM.ProductsByPrice, result.ProductsByPrice);
-            Assert.Equal(productVM.Products[0].BaseSpec, result.Products[0].BaseSpec);
             Assert.Equal(productVM.Products[0].AdvancedSpec, result.Products[0].AdvancedSpec);
-            Assert.Equal(productVM.Products[0].PhysicalSpec, result.Products[0].PhysicalSpec);
         }
 
 

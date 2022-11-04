@@ -142,6 +142,14 @@ namespace Wixapol_DataAccess_Tests
             Assert.Equal(expected, physSpecName.SpecName);
 
         }
+        [Theory]
+        [InlineData("6344ee1e-7a85-4fb7-874b-b47637600edb", 13)]
+        public void LoadShoppingCartById(string id, int expected)
+        {
+            var shoppingCart = _sut.ShoppingCart.GetShoppingCartByUserId(id).FirstOrDefault();
+
+            Assert.Equal(expected, shoppingCart.Count);
+        }
 
 
 

@@ -118,6 +118,10 @@
     <Build Include="db_product\Stored Procedures\spProduct_Delete.sql" />
     <Build Include="db_product\Stored Procedures\spProduct_GetByNamePattern.sql" />
     <Build Include="db_product\Stored Procedures\spProduct_GetByCategory.sql" />
+    <Build Include="db_product\Tables\ShoppingCart.sql" />
+    <Build Include="db_product\Stored Procedures\spShoppingCart_Insert.sql" />
+    <Build Include="db_product\Stored Procedures\spShoppingCart_GetByUserId.sql" />
+    <Build Include="db_product\Stored Procedures\spShoppingCart_UpdateCountByProductId.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishLocation\WixapolDB.publish.xml" />

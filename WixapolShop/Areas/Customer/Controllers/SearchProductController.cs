@@ -83,14 +83,14 @@ namespace WixapolShop.Areas.Customer.Controllers
 
         private void LoadSpecificationsForProduct(ProductSearchVM productsVM)
         {
-            productsVM.Products.ForEach(x =>
-            x.BaseSpec = _unitOfWork.Specification.GetById(x.BaseSpecId, Specification.Basic) as BaseSpecification);
+            //productsVM.Products.ForEach(x =>
+            //x.BaseSpec = _unitOfWork.Specification.GetById(x.BaseSpecId, Specification.Basic) as BaseSpecification);
 
             productsVM.Products.ForEach(x =>
             x.AdvancedSpec = _unitOfWork.Specification.GetById(x.AdvancedSpecId, Specification.Advanced) as AdvancedSpecification);
 
-            productsVM.Products.ForEach(x =>
-            x.PhysicalSpec = _unitOfWork.Specification.GetById(x.PhysicalSpecId, Specification.Physical) as PhysicalSpecification);
+            //productsVM.Products.ForEach(x =>
+            //x.PhysicalSpec = _unitOfWork.Specification.GetById(x.PhysicalSpecId, Specification.Physical) as PhysicalSpecification);
         }
         private void SetupFilteringModels(ProductSearchVM productsVM)
         {

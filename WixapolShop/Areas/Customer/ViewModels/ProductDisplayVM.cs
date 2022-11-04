@@ -5,5 +5,6 @@ namespace WixapolShop.Areas.Customer.ViewModels
     public class ProductDisplayVM
     {
         public Product Product { get; set; }
+        public int Count { get; set; }
     }
 }

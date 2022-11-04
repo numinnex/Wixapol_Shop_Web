@@ -108,7 +108,7 @@ namespace WixapolShop.Areas.Admin.Controllers
                 }).ToList(),
                 ProducentList = _unitofWork.Producent.GetAll().Select(x => new SelectListItem
                 {
-                    Text = x.Name + (x.ProducentCode),
+                    Text = x.Name + " " +  (x.ProducentCode),
                     Value = x.Id.ToString()
                 }).ToList(),
             };
