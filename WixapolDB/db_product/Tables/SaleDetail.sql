@@ -3,7 +3,6 @@
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
     [SaleId] INT NOT NULL, 
     [ProductId] INT NOT NULL, 
-    [PurchasePrice] MONEY NOT NULL, 
     [WarrantyExpiration] DATETIME2 NOT NULL, 
     [DiscountAmount] FLOAT NULL, 
     [Quantity] INT NOT NULL, 

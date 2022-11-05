@@ -1,11 +1,13 @@
 ﻿@model ShoppingCartVM 
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
 @{
 
     ViewData["Title"] = "Shopping Cart";
     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+
+    var sc = Model;
 }
 
 <style>
@@ -19,37 +21,44 @@
      </style>
 
 
- <form>
+     <form asp-action="Test" method="post">
 <div class="container">
     <div class="row gx-3 mt-4">
         <div class="col-lg-9 col-12 ">
-           
-            @foreach (var shoppingCart in Model.ShoppingCarts)
-            {
-            <div class="p-3 mt-2 d-flex justify-content-between position-relative bg-white rounded-3">
+            <input asp-for="SubTotal"  />
+            <input asp-for="Tax"  />
+            <input asp-for="Total"  />
+            
+                @for (int i = 0;  i < Model.ShoppingCarts.Count; ++i)
+                {
+            <input asp-for="@Model.ShoppingCarts[i].ProductId" hidden/>
+            <input asp-for="@Model.ShoppingCarts[i].SubTotal" hidden/>
+            <input asp-for="@Model.ShoppingCarts[i].TaxAmount" hidden/>
+            <input asp-for="@Model.ShoppingCarts[i].Total" hidden/>
+           <div class="p-3 mt-2 d-flex justify-content-between position-relative bg-white rounded-3">
                 <div class="me-4" style="">
-                    <img src="@shoppingCart.Product.ProductImage" style="max-width: 100px; max-height: 100%;" />
+                    <img src="@Model.ShoppingCarts[i].Product.ProductImage" style="max-width: 100px; max-height: 100%;" />
                 </div>
                 <div class="d-flex justify-content-between align-items-center" style="width: calc(100% - 128px);">
                 <div class="" style="width:calc(100% - 200px);">
-                    <div class="prod-name-style d-none d-lg-block">@shoppingCart.Product.ToString()</div>
-                    <div class="prod-name-style d-block  d-lg-none ">@shoppingCart.Product.Producent.Name @shoppingCart.Product.Name </div>
-                    <div class="text-muted mt-2" style="font-size:0.8rem;"> @shoppingCart.Product.ShortDescription</div>
+                    <div class="prod-name-style d-none d-lg-block">@Model.ShoppingCarts[i].Product.ToString()</div>
+                    <div class="prod-name-style d-block  d-lg-none ">@Model.ShoppingCarts[i].Product.Producent.Name @Model.ShoppingCarts[i].Product.Name </div>
+                    <div class="text-muted mt-2" style="font-size:0.8rem;"> @Model.ShoppingCarts[i].Product.ShortDescription</div>
                 </div>
                 <div class="d-flex justify-content-end align-items-end" style="width: 230px; margin-top: 80px;">
                     <div class="d-flex align-items-center justify-content-between w-100 ">
-                        <input type="number" asp-for="@shoppingCart.Count" class="form-control position-relative" style="width:70px;" />
+                        <input type="number" asp-for="@Model.ShoppingCarts[i].Count" class="form-control position-relative" style="width:70px;" />
                         <span class="price ">
-                            @{ var finalPrice = shoppingCart.Product.RetailPrice * shoppingCart.Count;  }
+                            @{ var finalPrice = Model.ShoppingCarts[i].Product.RetailPrice * Model.ShoppingCarts[i].Count;  }
                             $@Math.Round(finalPrice , 2 , MidpointRounding.AwayFromZero)
                             </span>
                     </div>
                 </div>
                 </div>
                 <div class="d-flex dlt-button ">
-                    <a asp-action="IncrementCount" asp-route-cartId="@shoppingCart.Id" class="btn btn-outline-success mx-2 "> <i class="bi bi-plus "></i></a>
-                    <a asp-action="DecrementCount" asp-route-cartId="@shoppingCart.Id" class="btn btn-outline-warning me-2"> <i class="bi bi-dash "></i></a>
-                    <a asp-action="RemoveFromCart" asp-route-cartId="@shoppingCart.Id" class="btn btn-outline-danger  "> <i class="bi bi-trash3 "></i></a>
+                    <a asp-action="IncrementCount" asp-route-cartId="@Model.ShoppingCarts[i].Id" class="btn btn-outline-success mx-2 "> <i class="bi bi-plus "></i></a>
+                    <a asp-action="DecrementCount" asp-route-cartId="@Model.ShoppingCarts[i].Id" class="btn btn-outline-warning me-2"> <i class="bi bi-dash "></i></a>
+                    <a asp-action="RemoveFromCart" asp-route-cartId="@Model.ShoppingCarts[i].Id" class="btn btn-outline-danger  "> <i class="bi bi-trash3 "></i></a>
                  </div>
             </div>
             }
@@ -80,15 +89,17 @@
                         </div>
                     </div>
                     <div class="mt-2 w-100 text-center" style="margin-top:2px;">
-                        <button type="submit" class="btn btn-primary w-100">To Checkout!</button>
+                        <button type="submit" class="btn btn-primary w-100">Submit</button>
+                        @*<button type="submit" class="btn btn-primary w-100">To Checkout!</button>*@
                     </div>
-                    </form>
+                 
             </div>
         </div>
     </div>
-        
-
 </div>
+</form>
+
+
 
 @if(TempData["failure"] is not null)
 {

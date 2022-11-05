@@ -89,9 +89,9 @@ namespace WixapolShop.Areas.Customer.Controllers
             return Math.Round(shoppingCart.Product.RetailPrice * shoppingCart.Count *
                 (shoppingCart.Product.TaxRate / 100), 2, MidpointRounding.AwayFromZero);
         }
+
         private void UpdateSubTotalAndTotal(ShoppingCartVM shoppingCartVM)
         {
-
             shoppingCartVM.SubTotal = Math.Round(shoppingCartVM.SubTotal, 2, MidpointRounding.AwayFromZero);
             shoppingCartVM.Total = Math.Round(shoppingCartVM.Tax + shoppingCartVM.SubTotal, 2, MidpointRounding.AwayFromZero);
         }
@@ -107,12 +107,20 @@ namespace WixapolShop.Areas.Customer.Controllers
         {
             foreach (var shoppingCart in shoppingCartVM.ShoppingCarts)
             {
-                shoppingCartVM.SubTotal += Math.Round(shoppingCart.Product.RetailPrice * shoppingCart.Count, 2, MidpointRounding.AwayFromZero);
+                //Subtotal per product
+                shoppingCart.SubTotal = Math.Round(shoppingCart.Product.RetailPrice * shoppingCart.Count, 2, MidpointRounding.AwayFromZero);
 
+                shoppingCartVM.SubTotal += shoppingCart.SubTotal;
+
+                //Tax per product
                 shoppingCart.TaxAmount = CalculateTax(shoppingCart);
+
+                //Total per product
+                shoppingCart.Total = Math.Round(shoppingCart.SubTotal + shoppingCart.TaxAmount, 2, MidpointRounding.AwayFromZero);
 
                 shoppingCartVM.Tax += Math.Round(shoppingCart.TaxAmount, 2, MidpointRounding.AwayFromZero);
             }
+            //Fixes rounding issue with subtotal
             UpdateSubTotalAndTotal(shoppingCartVM);
         }
         private void CheckIfCountDoesntExceedQuantityInStock(List<ShoppingCartWithProduct> shoppingCartProducts)
@@ -154,6 +162,13 @@ namespace WixapolShop.Areas.Customer.Controllers
             SetupPricesForDisplay(shoppingCartVM);
 
             return View(shoppingCartVM);
+        }
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Test(ShoppingCartVM shoppingCartVM)
+        {
+            return Ok();
         }
     }
 }

@@ -67,7 +67,7 @@
                 <div class="d-block align-items-center d-lg-flex " style="justify-content:space-between">
                     <div class="" style="width: 64px; flex: 0 0 64px;">
                         <input asp-for="@Model.Product.Id" hidden />
-                        <input asp-for="@Model.Count" type="number" class="form-control py-3 px-2" max="@Model.Product.QuantityInStock" value="1" />
+                        <input asp-for="@Model.Count" type="number" class="form-control py-3 px-2" min="1" max="@Model.Product.QuantityInStock" value="1" />
                     </div>
                         <button type="submit" class="btn btn-primary py-3 px-2 mt-3 mt-lg-0 buy-button text-center" style="width: calc(100% - 90px);"><i class="bi bi-bag-plus d-block d-lg-none fs-5"></i><span class="d-none d-lg-block">Add to cart</span></button>
                 </div>

@@ -125,6 +125,7 @@
     <Build Include="db_product\Stored Procedures\spShoppingCart_Delete.sql" />
     <Build Include="db_product\Stored Procedures\spShoppingCart_IncrementCount.sql" />
     <Build Include="db_product\Stored Procedures\spShoppingCart_DecrementCount.sql" />
+    <Build Include="db_product\Tables\Order.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishLocation\WixapolDB.publish.xml" />
