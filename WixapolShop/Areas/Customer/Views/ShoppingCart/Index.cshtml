@@ -3,7 +3,11 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+
+    ViewData["Title"] = "Shopping Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <style>
     .dlt-button{
         cursor: pointer;
@@ -11,13 +15,14 @@
         right: 17px;
         top: 16px;
     }
+
      </style>
 
 
-     <form>
+ <form>
 <div class="container">
     <div class="row gx-3 mt-4">
-        <div class="col-9 ">
+        <div class="col-lg-9 col-12 ">
            
             @foreach (var shoppingCart in Model.ShoppingCarts)
             {
@@ -27,27 +32,29 @@
                 </div>
                 <div class="d-flex justify-content-between align-items-center" style="width: calc(100% - 128px);">
                 <div class="" style="width:calc(100% - 200px);">
-                    <div class="prod-name-style">@shoppingCart.Product.ToString()</div>
+                    <div class="prod-name-style d-none d-lg-block">@shoppingCart.Product.ToString()</div>
+                    <div class="prod-name-style d-block  d-lg-none ">@shoppingCart.Product.Producent.Name @shoppingCart.Product.Name </div>
                     <div class="text-muted mt-2" style="font-size:0.8rem;"> @shoppingCart.Product.ShortDescription</div>
                 </div>
-                <div class="d-flex justify-content-end align-items-end" style="width: 200px; margin-top: 80px;">
+                <div class="d-flex justify-content-end align-items-end" style="width: 230px; margin-top: 80px;">
                     <div class="d-flex align-items-center justify-content-between w-100 ">
                         <input type="number" asp-for="@shoppingCart.Count" class="form-control position-relative" style="width:70px;" />
                         <span class="price ">
                             @{ var finalPrice = shoppingCart.Product.RetailPrice * shoppingCart.Count;  }
-
                             $@Math.Round(finalPrice , 2 , MidpointRounding.AwayFromZero)
                             </span>
                     </div>
                 </div>
                 </div>
-                <div class="">
-                    <a asp-action="RemoveFromCart" asp-route-cartId="@shoppingCart.Id" class="btn btn-outline-danger dlt-button "> <i class="bi bi-trash3 "></i></a>
+                <div class="d-flex dlt-button ">
+                    <a asp-action="IncrementCount" asp-route-cartId="@shoppingCart.Id" class="btn btn-outline-success mx-2 "> <i class="bi bi-plus "></i></a>
+                    <a asp-action="DecrementCount" asp-route-cartId="@shoppingCart.Id" class="btn btn-outline-warning me-2"> <i class="bi bi-dash "></i></a>
+                    <a asp-action="RemoveFromCart" asp-route-cartId="@shoppingCart.Id" class="btn btn-outline-danger  "> <i class="bi bi-trash3 "></i></a>
                  </div>
             </div>
             }
             </div>
-            <div class="col-3">
+            <div class="col-lg-3 col-12">
                 <div class="p-3 mt-2 rounded-3 bg-white">
                     <div class="d-flex align-items-center  justify-content-between">
                         <div class="">
@@ -82,3 +89,15 @@
         
 
 </div>
+
+@if(TempData["failure"] is not null)
+{
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript">
+        Swal.fire({
+            icon: 'error',
+            title: 'Sorry',
+            text: '@TempData["failure"]',
+        })
+    </script>
+}

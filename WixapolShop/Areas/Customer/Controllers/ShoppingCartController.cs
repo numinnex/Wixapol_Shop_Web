@@ -21,6 +21,25 @@ namespace WixapolShop.Areas.Customer.Controllers
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             return claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
+        private void UpdateOrCreateShoppingCart(string userId, int productId, int count)
+        {
+            ShoppingCart existingCart = _unitOfWork.ShoppingCart.GetShoppingCartByUserId(userId).
+                Where(s => s.ProductId == productId).FirstOrDefault();
+
+            if (existingCart is null)
+            {
+                _unitOfWork.ShoppingCart.CreateShoppingCart(new ShoppingCart
+                {
+                    ProductId = productId,
+                    UserId = userId,
+                    Count = count
+                });
+            }
+            else
+            {
+                _unitOfWork.ShoppingCart.UpdateShoppingCartProductCount(existingCart.Id, existingCart.Count + count);
+            }
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -29,26 +48,16 @@ namespace WixapolShop.Areas.Customer.Controllers
         {
 
             string userId = GetUserId();
-            ShoppingCart existingCart = _unitOfWork.ShoppingCart.GetShoppingCartByUserId(userId).
-                Where(s => s.ProductId == productVM.Product.Id).FirstOrDefault();
 
-            if (existingCart is null)
-            {
-                _unitOfWork.ShoppingCart.CreateShoppingCart(new ShoppingCart
-                {
-                    ProductId = productVM.Product.Id,
-                    UserId = userId,
-                    Count = productVM.Count
-                });
-            }
-            else
-            {
-                //TODO - Add logic with checking quantity in stock before updating the shopping cart count
-                _unitOfWork.ShoppingCart.UpdateShoppingCartProductCount(existingCart.Id, existingCart.Count + productVM.Count);
-            }
+            UpdateOrCreateShoppingCart(userId, productVM.Product.Id, productVM.Count);
+            return RedirectToAction(nameof(Index));
+        }
+        [Authorize]
+        public IActionResult AddToCartSingular(int productId)
+        {
 
-
-
+            string userId = GetUserId();
+            UpdateOrCreateShoppingCart(userId, productId, 1);
             return RedirectToAction(nameof(Index));
         }
         [Authorize]
@@ -59,6 +68,22 @@ namespace WixapolShop.Areas.Customer.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+        [Authorize]
+        public IActionResult IncrementCount(int cartId)
+        {
+            _unitOfWork.ShoppingCart.IncrementShoppingCartProductCount(cartId);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [Authorize]
+        public IActionResult DecrementCount(int cartId)
+        {
+            _unitOfWork.ShoppingCart.DecrementShoppingCartProductCount(cartId);
+            return RedirectToAction(nameof(Index));
+        }
+
+        #region Helper Methods
         private double CalculateTax(ShoppingCartWithProduct shoppingCart)
         {
             return Math.Round(shoppingCart.Product.RetailPrice * shoppingCart.Count *
@@ -71,12 +96,17 @@ namespace WixapolShop.Areas.Customer.Controllers
             shoppingCartVM.Total = Math.Round(shoppingCartVM.Tax + shoppingCartVM.SubTotal, 2, MidpointRounding.AwayFromZero);
         }
 
-        private void SetupProductsAndPricesForDisplay(ShoppingCartVM shoppingCartVM)
+        private void SetupProductsForDisplay(ShoppingCartVM shoppingCartVM)
         {
             foreach (var shoppingCart in shoppingCartVM.ShoppingCarts)
             {
                 shoppingCart.Product = (_unitOfWork.Product.GetById(shoppingCart.ProductId));
-
+            }
+        }
+        private void SetupPricesForDisplay(ShoppingCartVM shoppingCartVM)
+        {
+            foreach (var shoppingCart in shoppingCartVM.ShoppingCarts)
+            {
                 shoppingCartVM.SubTotal += Math.Round(shoppingCart.Product.RetailPrice * shoppingCart.Count, 2, MidpointRounding.AwayFromZero);
 
                 shoppingCart.TaxAmount = CalculateTax(shoppingCart);
@@ -85,7 +115,19 @@ namespace WixapolShop.Areas.Customer.Controllers
             }
             UpdateSubTotalAndTotal(shoppingCartVM);
         }
-
+        private void CheckIfCountDoesntExceedQuantityInStock(List<ShoppingCartWithProduct> shoppingCartProducts)
+        {
+            foreach (var shoppingCart in shoppingCartProducts)
+            {
+                if (shoppingCart.Count > shoppingCart.Product.QuantityInStock)
+                {
+                    TempData["failure"] = $"We dont have {shoppingCart.Count} of {string.Join(" ", shoppingCart.Product.Producent.Name, shoppingCart.Product.Name)} in stock!";
+                    shoppingCart.Count = shoppingCart.Product.QuantityInStock;
+                    _unitOfWork.ShoppingCart.UpdateShoppingCartProductCount(shoppingCart.Id, shoppingCart.Count);
+                }
+            }
+        }
+        #endregion Helper Methods
 
         [Authorize]
         public IActionResult Index()
@@ -104,9 +146,12 @@ namespace WixapolShop.Areas.Customer.Controllers
                 Id = x.Id,
                 UserId = x.UserId,
 
+
             }).ToList();
 
-            SetupProductsAndPricesForDisplay(shoppingCartVM);
+            SetupProductsForDisplay(shoppingCartVM);
+            CheckIfCountDoesntExceedQuantityInStock(shoppingCartVM.ShoppingCarts);
+            SetupPricesForDisplay(shoppingCartVM);
 
             return View(shoppingCartVM);
         }

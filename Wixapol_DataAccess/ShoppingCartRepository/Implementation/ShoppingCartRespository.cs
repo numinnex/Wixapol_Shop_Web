@@ -30,10 +30,6 @@ namespace Wixapol_DataAccess.ShoppingCartRepository.Implementation
                 "DefualtConnection");
         }
 
-        public void DecrementShoppingCartProductCount(ShoppingCart shoppingCart, int count)
-        {
-            throw new NotImplementedException();
-        }
 
         public void DeleteShoppingCart(int? id)
         {
@@ -58,6 +54,16 @@ namespace Wixapol_DataAccess.ShoppingCartRepository.Implementation
         public void UpdateShoppingCart(ShoppingCart shoppingCart)
         {
             throw new NotImplementedException();
+        }
+
+        public void DecrementShoppingCartProductCount(int shoppingCartId)
+        {
+            SaveData("db_product.spShoppingCart_DecrementCount", new { cartId = shoppingCartId }, "DefualtConnection");
+        }
+
+        public void IncrementShoppingCartProductCount(int shoppingCartId)
+        {
+            SaveData("db_product.spShoppingCart_IncrementCount", new { cartId = shoppingCartId }, "DefualtConnection");
         }
     }
 }

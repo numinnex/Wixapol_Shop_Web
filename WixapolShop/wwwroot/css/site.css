@@ -307,7 +307,7 @@ input[type="number"]::-webkit-inner-spin-button {
 .search-result {
     color: #0d0d0d;
     display: inline-block;
-    font-size: 24px;
+    font-size: calc(100% + 0.4vw);
     font-weight: 600;
     line-height: 1.2;
     margin: 0;
@@ -334,7 +334,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .prod-name-style {
-    font-size: 18px;
+    font-size: calc(100% + .2vw);
     font-weight: 600;
     line-height: 1;
     margin: 0px;
@@ -361,7 +361,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .price {
     color: rgb(13, 13, 13);
-    font-size: 24px;
+    font-size: calc(100% + 1.1vw);
     font-weight: 600;
     line-height: 1;
 }
@@ -404,5 +404,12 @@ input[type="number"]::-webkit-inner-spin-button {
     .img-div {
         width: 200px !important;
         flex: 0 0 200px !important;
+    }
+}
+
+@media(max-width:991px) {
+    .buy-button {
+        width: 64px !important;
+        height: 58px !important;
     }
 }
