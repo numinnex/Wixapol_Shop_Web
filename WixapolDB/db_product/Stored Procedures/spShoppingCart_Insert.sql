@@ -6,7 +6,7 @@ AS
 begin
 	set nocount on;
 	
-	insert into db_product.ShoppingCart(ProductId, UserId, [Count])
-	values(@ProductId, @UserId , @Count);
+	insert into db_product.ShoppingCart(ProductId, UserId, [Count] )
+	values(@ProductId, @UserId , @Count  );
 end
 

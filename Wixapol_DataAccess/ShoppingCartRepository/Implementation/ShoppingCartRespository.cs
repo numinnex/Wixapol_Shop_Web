@@ -53,7 +53,14 @@ namespace Wixapol_DataAccess.ShoppingCartRepository.Implementation
 
         public void UpdateShoppingCart(ShoppingCart shoppingCart)
         {
-            throw new NotImplementedException();
+            SaveData("db_product.spShoppingCart_UpdatePrices", new
+            {
+                Id = shoppingCart.Id,
+                SubTotal = shoppingCart.SubTotal,
+                TaxAmount = shoppingCart.TaxAmount,
+                Total = shoppingCart.Total
+            },
+                "DefualtConnection");
         }
 
         public void DecrementShoppingCartProductCount(int shoppingCartId)

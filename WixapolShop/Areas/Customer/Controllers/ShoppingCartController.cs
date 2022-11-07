@@ -84,16 +84,32 @@ namespace WixapolShop.Areas.Customer.Controllers
         }
 
         #region Helper Methods
-        private double CalculateTax(ShoppingCartWithProduct shoppingCart)
+        private double CalculateTax(Product product, int count)
         {
-            return Math.Round(shoppingCart.Product.RetailPrice * shoppingCart.Count *
-                (shoppingCart.Product.TaxRate / 100), 2, MidpointRounding.AwayFromZero);
+            return Math.Round(product.RetailPrice * count *
+                (product.TaxRate / 100), 2, MidpointRounding.AwayFromZero);
         }
 
-        private void UpdateSubTotalAndTotal(ShoppingCartVM shoppingCartVM)
+        private void UpdateTotalSubTotalAndTax(ShoppingCartVM shoppingCartVM)
         {
-            shoppingCartVM.SubTotal = Math.Round(shoppingCartVM.SubTotal, 2, MidpointRounding.AwayFromZero);
-            shoppingCartVM.Total = Math.Round(shoppingCartVM.Tax + shoppingCartVM.SubTotal, 2, MidpointRounding.AwayFromZero);
+
+            foreach (var shoppingCart in shoppingCartVM.ShoppingCarts)
+            {
+                double subTotal = Math.Round(shoppingCart.Product.RetailPrice * shoppingCart.Count, 2, MidpointRounding.AwayFromZero);
+                double taxAmount = CalculateTax(shoppingCart.Product, shoppingCart.Count);
+                double total = Math.Round(subTotal + taxAmount, 2, MidpointRounding.AwayFromZero);
+
+                shoppingCart.SubTotal = subTotal;
+                shoppingCart.TaxAmount = taxAmount;
+                shoppingCart.Total = total;
+
+                _unitOfWork.ShoppingCart.UpdateShoppingCart(new ShoppingCart
+                { Id = shoppingCart.Id, SubTotal = subTotal, TaxAmount = taxAmount, Total = total });
+            }
+
+            shoppingCartVM.SubTotal = Math.Round(shoppingCartVM.ShoppingCarts.Sum(x => x.SubTotal), 2, MidpointRounding.AwayFromZero);
+            shoppingCartVM.Tax = Math.Round(shoppingCartVM.ShoppingCarts.Sum(x => x.TaxAmount), 2, MidpointRounding.AwayFromZero);
+            shoppingCartVM.Total = Math.Round(shoppingCartVM.ShoppingCarts.Sum(x => x.Total), 2, MidpointRounding.AwayFromZero);
         }
 
         private void SetupProductsForDisplay(ShoppingCartVM shoppingCartVM)
@@ -102,26 +118,6 @@ namespace WixapolShop.Areas.Customer.Controllers
             {
                 shoppingCart.Product = (_unitOfWork.Product.GetById(shoppingCart.ProductId));
             }
-        }
-        private void SetupPricesForDisplay(ShoppingCartVM shoppingCartVM)
-        {
-            foreach (var shoppingCart in shoppingCartVM.ShoppingCarts)
-            {
-                //Subtotal per product
-                shoppingCart.SubTotal = Math.Round(shoppingCart.Product.RetailPrice * shoppingCart.Count, 2, MidpointRounding.AwayFromZero);
-
-                shoppingCartVM.SubTotal += shoppingCart.SubTotal;
-
-                //Tax per product
-                shoppingCart.TaxAmount = CalculateTax(shoppingCart);
-
-                //Total per product
-                shoppingCart.Total = Math.Round(shoppingCart.SubTotal + shoppingCart.TaxAmount, 2, MidpointRounding.AwayFromZero);
-
-                shoppingCartVM.Tax += Math.Round(shoppingCart.TaxAmount, 2, MidpointRounding.AwayFromZero);
-            }
-            //Fixes rounding issue with subtotal
-            UpdateSubTotalAndTotal(shoppingCartVM);
         }
         private void CheckIfCountDoesntExceedQuantityInStock(List<ShoppingCartWithProduct> shoppingCartProducts)
         {
@@ -146,6 +142,8 @@ namespace WixapolShop.Areas.Customer.Controllers
 
             List<ShoppingCart> shoppingCarts = _unitOfWork.ShoppingCart.GetShoppingCartByUserId(userId);
 
+
+
             //This is filthy af
             shoppingCartVM.ShoppingCarts = shoppingCarts.Select(x => new ShoppingCartWithProduct()
             {
@@ -154,21 +152,13 @@ namespace WixapolShop.Areas.Customer.Controllers
                 Id = x.Id,
                 UserId = x.UserId,
 
-
             }).ToList();
 
             SetupProductsForDisplay(shoppingCartVM);
+            UpdateTotalSubTotalAndTax(shoppingCartVM);
             CheckIfCountDoesntExceedQuantityInStock(shoppingCartVM.ShoppingCarts);
-            SetupPricesForDisplay(shoppingCartVM);
 
             return View(shoppingCartVM);
-        }
-        [Authorize]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Test(ShoppingCartVM shoppingCartVM)
-        {
-            return Ok();
         }
     }
 }
