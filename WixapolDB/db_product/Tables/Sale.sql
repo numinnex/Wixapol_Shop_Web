@@ -9,9 +9,13 @@
     [Total] MONEY NOT NULL, 
     [OrderStatus] NVARCHAR(250) NULL, 
     [PaymentStatus] NVARCHAR(250) NULL, 
-    [SessionId] NVARCHAR(MAX) NOT NULL, 
-    [PaymentIntentId] NVARCHAR(MAX) NOT NULL, 
+	[TrackingNumber] NVARCHAR(450) NULL, 
+    [Carrier] NVARCHAR(450) NULL, 
+    [PaymentDate] DATETIME2 NULL, 
+    [SessionId] NVARCHAR(MAX) NULL, 
+    [PaymentIntentId] NVARCHAR(MAX) NULL, 
     [OrderId] INT NOT NULL, 
     CONSTRAINT [FK_Sale_ToUser] FOREIGN KEY (UserId) REFERENCES dbo.AspNetusers(Id),
+    CONSTRAINT [FK_Sale_ToOrder] FOREIGN KEY (OrderId) REFERENCES db_product.[Order](Id) 
 
 )

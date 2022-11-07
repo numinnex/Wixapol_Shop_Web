@@ -7,8 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Wixapol_DataAccess.CategoryRepository.Implementation;
 using Wixapol_DataAccess.CategoryRepository.Interface;
+using Wixapol_DataAccess.OrderRepository.Interfaces;
 using Wixapol_DataAccess.ProducentRepository.Interface;
 using Wixapol_DataAccess.ProductRepository.Interfaces;
+using Wixapol_DataAccess.SaleRepository.Interfaces;
 using Wixapol_DataAccess.ShoppingCartRepository.Interfaces;
 using Wixapol_DataAccess.SpecificationRepository.Interfaces;
 using Wixapol_DataAccess.UnitOfWork.Interface;
@@ -24,6 +26,8 @@ namespace Wixapol_DataAccess.UnitOfWork.Implementation
         public ISpecificationRepository Specification { get; private set; }
         public IProductRepository Product { get; private set; }
         public IShoppingCartRepository ShoppingCart { get; private set; }
+        public IOrderRepository Order { get; private set; }
+        public ISaleRepository Sale { get; private set; }
 
         public UnitOfWork(IConfiguration config, IMapper mapper)
         {
@@ -35,6 +39,8 @@ namespace Wixapol_DataAccess.UnitOfWork.Implementation
             Producent = new ProducentRepository.Implementation.ProducentRepository(config);
             Category = new CategoryRepository.Implementation.CategoryRepository(config);
             ShoppingCart = new ShoppingCartRepository.Implementation.ShoppingCartRespository(config);
+            Order = new OrderRepository.Implementation.OrderRepository(config);
+            Sale = new SaleRepository.Implementation.SaleRepository(config, mapper);
         }
     }
 }

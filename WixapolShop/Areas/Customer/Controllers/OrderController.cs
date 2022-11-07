@@ -1,10 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Wixapol_DataAccess.Models;
 using Wixapol_DataAccess.UnitOfWork.Interface;
 using Wixapol_Utils;
+using Wixapol_Utils.StaticDetails;
 using Wixapol_Utils.UtilityModels;
+using WixapolShop.Areas.Customer.Models;
 using WixapolShop.Areas.Customer.ViewModels;
 using WixapolShop.Areas.Identity.Models.Domain;
 
@@ -27,13 +31,13 @@ namespace WixapolShop.Areas.Customer.Controllers
             return claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
 
-        private void SetupSaleDetailInformation(ShoppingCartVM shoppingCartVM, List<SaleDetail> saleDetails)
+        private void SetupSaleDetailInformation(List<ShoppingCart> shoppingCarts, List<SaleDetail> saleDetails)
         {
 
-
-            foreach (var shoppingCart in shoppingCartVM.ShoppingCarts)
+            foreach (var shoppingCart in shoppingCarts)
             {
                 SaleDetail saleDetail = new();
+                Product product = _unitOfWork.Product.GetById(shoppingCart.ProductId);
 
                 saleDetail.ProductId = shoppingCart.ProductId;
                 saleDetail.Quantity = shoppingCart.Count;
@@ -42,7 +46,6 @@ namespace WixapolShop.Areas.Customer.Controllers
                 saleDetail.Total = shoppingCart.Total;
                 saleDetail.DiscountAmount = shoppingCart.DiscountAmount;
 
-                Product product = _unitOfWork.Product.GetById(shoppingCart.ProductId);
 
                 WarrantyDateTime warrantyOffest = product.ParseWarrantyLength();
 
@@ -56,11 +59,14 @@ namespace WixapolShop.Areas.Customer.Controllers
         public IActionResult Index(ShoppingCartVM shoppingCartVM)
         {
 
+            string userId = GetUserId();
             Sale sale = new();
+
+            sale.UserId = userId;
 
             sale.Order = new();
 
-            ApplicationUser user = _identityDb.Users.Where(x => x.Id == GetUserId()).FirstOrDefault();
+            ApplicationUser user = _identityDb.Set<ApplicationUser>().FirstOrDefault(x => x.Id == userId);
 
             sale.Order.Adress = user.Adress;
             sale.Order.PhoneNumber = user.PhoneNumber;
@@ -75,6 +81,33 @@ namespace WixapolShop.Areas.Customer.Controllers
 
 
             return View(sale);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Checkout(Sale sale)
+        {
+            if (ModelState.IsValid)
+            {
+                List<ShoppingCart> shoppingCarts = _unitOfWork.ShoppingCart.GetShoppingCartByUserId(sale.UserId);
+
+                sale.SaleDetail = new();
+
+                sale.OrderStatus = SD.StatusPending;
+                sale.PaymentStatus = SD.PaymentPending;
+                sale.SaleDate = DateTime.UtcNow;
+
+                sale.OrderId = _unitOfWork.Order.CreateOrder(sale.Order);
+
+                int saleId = _unitOfWork.Sale.CreateSale(sale);
+
+                SetupSaleDetailInformation(shoppingCarts, sale.SaleDetail);
+                sale.SaleDetail.ForEach(x => x.SaleId = saleId);
+
+
+            }
+            return Ok();
         }
     }
 }

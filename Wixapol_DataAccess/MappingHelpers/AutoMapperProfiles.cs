@@ -15,6 +15,7 @@ namespace Wixapol_DataAccess.MappingHelpers
         {
             CreateMap<Product, ProductDTO>();
             CreateMap<Product, ProductDTOWithId>();
+            CreateMap<Sale, SaleDTO>();
         }
     }
 }

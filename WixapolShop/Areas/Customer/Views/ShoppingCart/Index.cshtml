@@ -25,10 +25,18 @@
 <div class="container">
     <div class="row gx-3 mt-4">
         <div class="col-lg-9 col-12 ">
+            <input asp-for="SubTotal" hidden  />
+            <input asp-for="Tax"  hidden/>
+            <input asp-for="Total"  hidden/>
             
             @for (int i = 0;  i < Model.ShoppingCarts.Count; ++i)
             {
+                @*TODO - Check if those are needed*@
             <input asp-for="@Model.ShoppingCarts[i].ProductId" hidden/>
+            <input asp-for="@Model.ShoppingCarts[i].Product.Name" hidden/>
+            <input asp-for="@Model.ShoppingCarts[i].Product.Producent.Name" hidden/>
+            <input asp-for="@Model.ShoppingCarts[i].Product.Category.Name" hidden/>
+            <input asp-for="@Model.ShoppingCarts[i].Product.ProductImage" hidden/>
             <input asp-for="@Model.ShoppingCarts[i].Id" hidden/>
             <input asp-for="@Model.ShoppingCarts[i].SubTotal" hidden/>
             <input asp-for="@Model.ShoppingCarts[i].TaxAmount" hidden/>
@@ -87,7 +95,7 @@
                         </div>
                     </div>
                     <div class="mt-2 w-100 text-center" style="margin-top:2px;">
-                        <button type="submit" class="btn btn-primary w-100">Submit</button>
+                        <button type="submit" class="btn btn-primary w-100">To Checkout</button>
                         @*<button type="submit" class="btn btn-primary w-100">To Checkout!</button>*@
                     </div>
                  

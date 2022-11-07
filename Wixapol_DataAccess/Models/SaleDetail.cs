@@ -13,8 +13,8 @@ namespace Wixapol_DataAccess.Models
         public DateTime WarrantyExpiration { get; set; }
         public double? DiscountAmount { get; set; }
         public int Quantity { get; set; }
-        public double SubTotal { get; set; }
-        public double Tax { get; set; }
-        public double Total { get; set; }
+        public double? SubTotal { get; set; }
+        public double? Tax { get; set; }
+        public double? Total { get; set; }
     }
 }

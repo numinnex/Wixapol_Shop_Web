@@ -2,6 +2,7 @@
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
     [Count] INT NOT NULL,
+    [DiscountAmount] MONEY NULL,
     [SubTotal] MONEY NULL,
     [TaxAmount] MONEY NULL,
     [Total] MONEY NULL,

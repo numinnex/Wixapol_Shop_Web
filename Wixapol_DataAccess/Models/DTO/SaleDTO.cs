@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Wixapol_DataAccess.Models
+namespace Wixapol_DataAccess.Models.DTO
 {
-    public class Sale
+    public class SaleDTO
     {
         public string UserId { get; set; }
         public DateTime? SaleDate { get; set; } = DateTime.Now;
@@ -19,12 +19,9 @@ namespace Wixapol_DataAccess.Models
         public string? TrackingNumber { get; set; }
         public string? Carrier { get; set; }
         public DateTime? PaymentDate { get; set; }
-        public string? SessionId { get; set; }
-        public string? PaymentIntentId { get; set; }
+        public string SessionId { get; set; }
+        public string PaymentIntentId { get; set; }
         public int? OrderId { get; set; }
-        public List<SaleDetail>? SaleDetail { get; set; }
-        public Order Order { get; set; }
-
 
 
     }
