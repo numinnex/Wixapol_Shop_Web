@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Stripe.Checkout;
 using System.Security.Claims;
 using Wixapol_DataAccess.Models;
 using Wixapol_DataAccess.UnitOfWork.Interface;
@@ -56,7 +57,9 @@ namespace WixapolShop.Areas.Customer.Controllers
         }
 
         [Authorize]
-        public IActionResult Index(ShoppingCartVM shoppingCartVM)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Summary(ShoppingCartVM shoppingCartVM)
         {
 
             string userId = GetUserId();
@@ -84,10 +87,12 @@ namespace WixapolShop.Areas.Customer.Controllers
         }
 
         [Authorize]
+        [ActionName("Checkout")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Checkout(Sale sale)
         {
+            //TODO - clean this shit up
             if (ModelState.IsValid)
             {
                 List<ShoppingCart> shoppingCarts = _unitOfWork.ShoppingCart.GetShoppingCartByUserId(sale.UserId);
@@ -97,17 +102,93 @@ namespace WixapolShop.Areas.Customer.Controllers
                 sale.OrderStatus = SD.StatusPending;
                 sale.PaymentStatus = SD.PaymentPending;
                 sale.SaleDate = DateTime.UtcNow;
+                sale.PaymentDate = DateTime.UtcNow;
+
 
                 sale.OrderId = _unitOfWork.Order.CreateOrder(sale.Order);
 
                 int saleId = _unitOfWork.Sale.CreateSale(sale);
 
                 SetupSaleDetailInformation(shoppingCarts, sale.SaleDetail);
-                sale.SaleDetail.ForEach(x => x.SaleId = saleId);
+                sale.SaleDetail.ForEach(x =>
+                {
+                    x.SaleId = saleId;
+                    _unitOfWork.SaleDetail.CreateSaleDetail(x);
+                });
+
+                var domain = "https://localhost:7068/";
+
+                var options = new SessionCreateOptions
+                {
+                    PaymentMethodTypes = new List<string>
+                    {
+                        "card",
+                    },
+
+                    LineItems = new List<SessionLineItemOptions>(),
+                    Mode = "payment",
+                    SuccessUrl = domain + $"customer/order/OrderConfirmation?id={saleId}",
+                    CancelUrl = domain + "customer/shoppingcart/index"
+                };
+                foreach (var shoppingCart in shoppingCarts)
+                {
+                    Product product = _unitOfWork.Product.GetById(shoppingCart.ProductId);
+                    var sesionLineItem = new SessionLineItemOptions
+                    {
+                        PriceData = new SessionLineItemPriceDataOptions
+                        {
+                            UnitAmount = (long)((product.RetailPrice + CalculateTax(product)) * 100.00),
+                            TaxBehavior = "inclusive",
+                            Currency = "usd",
+                            ProductData = new SessionLineItemPriceDataProductDataOptions
+                            {
+                                Name = product.Name
+                            },
+                        },
+                        Quantity = shoppingCart.Count,
+                    };
+                    options.LineItems.Add(sesionLineItem);
+                }
+
+                var service = new SessionService();
+                Session session = service.Create(options);
 
 
+                _unitOfWork.Sale.UpdateSessionInformation(saleId, session.Id, session.PaymentIntentId);
+
+                Response.Headers.Add("Location", session.Url);
+                return new StatusCodeResult(303);
+
+                //return View(sale);
             }
-            return Ok();
+
+            return View(sale);
+        }
+
+        public IActionResult OrderConfirmation(int id)
+        {
+            var sale = _unitOfWork.Sale.GetById(id);
+
+            //sale.SaleDetail = _unitOfWork.SaleDetail.GetBySaleId(id);
+
+            var service = new SessionService();
+            Session session = service.Get(sale.SessionId);
+
+
+            if (session.PaymentStatus.ToLower() == "paid")
+            {
+                //update status
+                _unitOfWork.Sale.UpdateStatus(id, SD.StatusApproved, SD.PaymentApproved);
+                _unitOfWork.Sale.UpdateSessionInformation(id, session.Id, session.PaymentIntentId);
+
+                _unitOfWork.ShoppingCart.DeleteShoppingCartsByUserId(sale.UserId);
+            }
+
+            return View(id);
+        }
+        private double CalculateTax(Product product)
+        {
+            return product.RetailPrice * (product.TaxRate / 100);
         }
     }
 }

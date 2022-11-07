@@ -72,5 +72,10 @@ namespace Wixapol_DataAccess.ShoppingCartRepository.Implementation
         {
             SaveData("db_product.spShoppingCart_IncrementCount", new { cartId = shoppingCartId }, "DefualtConnection");
         }
+
+        public void DeleteShoppingCartsByUserId(string userId)
+        {
+            SaveData("db_product.spShoppingCart_DeleteByUserId", new { UserId = userId }, "DefualtConnection");
+        }
     }
 }

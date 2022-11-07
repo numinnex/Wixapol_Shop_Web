@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Stripe;
 using System.Globalization;
 using Wixapol_DataAccess.MappingHelpers;
 using Wixapol_DataAccess.UnitOfWork.Implementation;
 using Wixapol_DataAccess.UnitOfWork.Interface;
+using Wixapol_Utils.Stripe;
 using WixapolShop.Areas.Identity.Models.Domain;
 using WixapolShop.AuthenticationRepository.Implementation;
 using WixapolShop.IdentityRepository.Interfaces;
@@ -29,6 +31,8 @@ namespace WixapolShop
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefualtConnection"));
 
             });
+
+            builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
 
             builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
@@ -61,6 +65,8 @@ namespace WixapolShop
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
 
             app.UseAuthentication();
             app.UseAuthorization();

@@ -16,6 +16,7 @@ namespace Wixapol_DataAccess.ShoppingCartRepository.Interfaces
         public void DecrementShoppingCartProductCount(int shoppingCartId);
         public void IncrementShoppingCartProductCount(int shoppingCartId);
         public void DeleteShoppingCart(int? id);
+        public void DeleteShoppingCartsByUserId(string userId);
         public List<ShoppingCart> GetAll();
     }
 }

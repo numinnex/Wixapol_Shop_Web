@@ -87,7 +87,7 @@ namespace WixapolShop.Areas.Customer.Controllers
         private double CalculateTax(Product product, int count)
         {
             return Math.Round(product.RetailPrice * count *
-                (product.TaxRate / 100), 2, MidpointRounding.AwayFromZero);
+                (product.TaxRate / 100), 2, MidpointRounding.ToEven);
         }
 
         private void UpdateTotalSubTotalAndTax(ShoppingCartVM shoppingCartVM)

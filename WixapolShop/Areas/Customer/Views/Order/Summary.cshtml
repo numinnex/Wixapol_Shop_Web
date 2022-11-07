@@ -1,6 +1,9 @@
 ﻿@model Sale
+@using Microsoft.Extensions.Options
+@using Wixapol_Utils.Stripe
+@inject IOptions<StripeSettings> Stripe
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Summary";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -30,6 +33,7 @@
                         <div class="col-5 form-floating ">
                             <input asp-for="Order.Name" type="text" class="form-control" id="floatingInput" placeholder="test" style="height: 46px;"/>
                             <label asp-for="Order.Name" for="floatingInput" class="ps-4" style="font-size:0.9rem; margin-top: -0.15rem;"></label>
+                        <span asp-validation-for="Order.Name" class="text-danger"></span>
                         </div> 
                         <div class="col-5 form-floating ">
                             <input type="text" class="form-control" id="floatingInput" placeholder="test" style="height: 46px;"/>
@@ -40,28 +44,33 @@
                         <div class="col-7 form-floating ">
                             <input asp-for="Order.Email" type="text" class="form-control" id="floatingInput" placeholder="test" style="height: 46px;"/>
                             <label asp-for="Order.Email" for="floatingInput" class="ps-4" style="font-size:0.9rem; margin-top: -0.15rem;"></label>
+                        <span asp-validation-for="Order.Email" class="text-danger"></span>
                         </div> 
                     </div>
                     <div class="row mt-3">
                         <div class="col-5 form-floating ">
                             <input asp-for="Order.PhoneNumber" type="text" class="form-control" id="floatingInput" placeholder="test" style="height: 46px;"/>
                             <label asp-for="Order.PhoneNumber" for="floatingInput" class="ps-4" style="font-size:0.9rem; margin-top: -0.15rem;"></label>
+                        <span asp-validation-for="Order.PhoneNumber" class="text-danger"></span>
                         </div> 
                     </div>
                     <div class="row mt-3">
                         <div class="col-7 form-floating ">
                             <input asp-for="Order.Adress" type="text" class="form-control" id="floatingInput" placeholder="test" style="height: 46px;"/>
                             <label asp-for="Order.Adress" for="floatingInput" class="ps-4" style="font-size:0.9rem; margin-top: -0.15rem;"></label>
+                        <span asp-validation-for="Order.Adress" class="text-danger"></span>
                         </div> 
                     </div>
                     <div class="row mt-3">
                         <div class="col-3 form-floating ">
                             <input asp-for="Order.PostalCode" type="text" inputmode="numeric" class="form-control" id="floatingInput" placeholder="test" style="height: 46px;"/>
                             <label asp-for="Order.PostalCode" for="floatingInput" class="ps-4" style="font-size:0.9rem; margin-top: -0.15rem;"></label>
+                        <span asp-validation-for="Order.PostalCode" class="text-danger"></span>
                         </div> 
                         <div class="col-7 form-floating ">
                             <input asp-for="Order.City" type="text" class="form-control" id="floatingInput" placeholder="test" style="height: 46px;"/>
                             <label asp-for="Order.City" for="floatingInput" class="ps-4" style="font-size:0.9rem; margin-top: -0.15rem;"></label>
+                        <span asp-validation-for="Order.City" class="text-danger"></span>
                         </div> 
                     </div>
                 </div>

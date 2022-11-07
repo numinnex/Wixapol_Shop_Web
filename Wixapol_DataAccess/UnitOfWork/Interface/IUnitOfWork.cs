@@ -8,6 +8,7 @@ using Wixapol_DataAccess.GenericRepository.Interfaces;
 using Wixapol_DataAccess.OrderRepository.Interfaces;
 using Wixapol_DataAccess.ProducentRepository.Interface;
 using Wixapol_DataAccess.ProductRepository.Interfaces;
+using Wixapol_DataAccess.SaleDetailRepository.Interfaces;
 using Wixapol_DataAccess.SaleRepository.Interfaces;
 using Wixapol_DataAccess.ShoppingCartRepository.Interfaces;
 using Wixapol_DataAccess.SpecificationRepository.Interfaces;
@@ -23,6 +24,7 @@ namespace Wixapol_DataAccess.UnitOfWork.Interface
         IShoppingCartRepository ShoppingCart { get; }
         IOrderRepository Order { get; }
         ISaleRepository Sale { get; }
+        ISaleDetailRepository SaleDetail { get; }
 
 
 
