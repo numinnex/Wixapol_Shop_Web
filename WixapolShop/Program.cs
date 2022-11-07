@@ -45,7 +45,16 @@ namespace WixapolShop
             builder.Services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/Identity/UserAuthentication/Login";
+                options.LogoutPath = "/Identity/UserAuthentication/Logout";
 
+            });
+
+            builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(100);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
             });
 
             builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
@@ -70,6 +79,7 @@ namespace WixapolShop
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseSession();
 
 
             app.MapControllerRoute(

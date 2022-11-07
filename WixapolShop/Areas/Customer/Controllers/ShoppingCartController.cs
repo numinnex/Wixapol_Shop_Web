@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Wixapol_DataAccess.Models;
 using Wixapol_DataAccess.UnitOfWork.Interface;
+using Wixapol_Utils.StaticDetails;
 using WixapolShop.Areas.Customer.Models;
 using WixapolShop.Areas.Customer.ViewModels;
 
@@ -142,6 +143,7 @@ namespace WixapolShop.Areas.Customer.Controllers
 
             List<ShoppingCart> shoppingCarts = _unitOfWork.ShoppingCart.GetShoppingCartByUserId(userId);
 
+            HttpContext.Session.SetInt32(SD.SessionCartCount, shoppingCarts.Count);
 
 
             //This is filthy af
@@ -157,6 +159,9 @@ namespace WixapolShop.Areas.Customer.Controllers
             SetupProductsForDisplay(shoppingCartVM);
             UpdateTotalSubTotalAndTax(shoppingCartVM);
             CheckIfCountDoesntExceedQuantityInStock(shoppingCartVM.ShoppingCarts);
+
+            HttpContext.Session.SetString(SD.SessionCartMoney,
+                Math.Round((double)_unitOfWork.ShoppingCart.GetShoppingCartByUserId(userId).Sum(x => x.SubTotal), 2, MidpointRounding.AwayFromZero).ToString());
 
             return View(shoppingCartVM);
         }

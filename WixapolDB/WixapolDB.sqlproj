@@ -134,6 +134,7 @@
     <Build Include="db_product\Stored Procedures\spSale_UpdateSessionInfo.sql" />
     <Build Include="db_product\Stored Procedures\spSale_UpdateStatus.sql" />
     <Build Include="db_product\Stored Procedures\spShoppingCart_DeleteByUserId.sql" />
+    <Build Include="db_product\Stored Procedures\spSaleDetail_GetBySaleId.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishLocation\WixapolDB.publish.xml" />

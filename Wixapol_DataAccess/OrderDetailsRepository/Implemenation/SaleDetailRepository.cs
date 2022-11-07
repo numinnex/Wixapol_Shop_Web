@@ -40,7 +40,7 @@ namespace Wixapol_DataAccess.SaleDetailRepository.Implemenation
 
         public List<SaleDetail> GetBySaleId(int? id)
         {
-            throw new NotImplementedException();
+            return LoadData("db_product.spSaleDetail_GetBySaleId", new { SaleId = id }, "DefualtConnection");
         }
 
         public void UpdateSaleDetail(SaleDetail saleDetail)

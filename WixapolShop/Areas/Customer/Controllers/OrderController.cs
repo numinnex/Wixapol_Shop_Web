@@ -87,7 +87,6 @@ namespace WixapolShop.Areas.Customer.Controllers
         }
 
         [Authorize]
-        [ActionName("Checkout")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Checkout(Sale sale)
@@ -137,7 +136,7 @@ namespace WixapolShop.Areas.Customer.Controllers
                     {
                         PriceData = new SessionLineItemPriceDataOptions
                         {
-                            UnitAmount = (long)((product.RetailPrice + CalculateTax(product)) * 100.00),
+                            UnitAmount = (long)((Math.Round(product.RetailPrice + CalculateTax(product), 2, MidpointRounding.AwayFromZero)) * 100.00),
                             TaxBehavior = "inclusive",
                             Currency = "usd",
                             ProductData = new SessionLineItemPriceDataProductDataOptions
@@ -153,7 +152,6 @@ namespace WixapolShop.Areas.Customer.Controllers
                 var service = new SessionService();
                 Session session = service.Create(options);
 
-
                 _unitOfWork.Sale.UpdateSessionInformation(saleId, session.Id, session.PaymentIntentId);
 
                 Response.Headers.Add("Location", session.Url);
@@ -165,15 +163,12 @@ namespace WixapolShop.Areas.Customer.Controllers
             return View(sale);
         }
 
+        [Authorize]
         public IActionResult OrderConfirmation(int id)
         {
             var sale = _unitOfWork.Sale.GetById(id);
-
-            //sale.SaleDetail = _unitOfWork.SaleDetail.GetBySaleId(id);
-
             var service = new SessionService();
             Session session = service.Get(sale.SessionId);
-
 
             if (session.PaymentStatus.ToLower() == "paid")
             {
@@ -182,9 +177,23 @@ namespace WixapolShop.Areas.Customer.Controllers
                 _unitOfWork.Sale.UpdateSessionInformation(id, session.Id, session.PaymentIntentId);
 
                 _unitOfWork.ShoppingCart.DeleteShoppingCartsByUserId(sale.UserId);
+
+                HttpContext.Session.Clear();
+            }
+            sale = _unitOfWork.Sale.GetById(id);
+
+            sale.SaleDetail = _unitOfWork.SaleDetail.GetBySaleId(id);
+
+            SaleDisplayVM saleVM = new();
+            saleVM.Sale = sale;
+            saleVM.Products = new();
+
+            foreach (var saleDetail in sale.SaleDetail)
+            {
+                saleVM.Products.Add(_unitOfWork.Product.GetById(saleDetail.ProductId));
             }
 
-            return View(id);
+            return View(saleVM);
         }
         private double CalculateTax(Product product)
         {

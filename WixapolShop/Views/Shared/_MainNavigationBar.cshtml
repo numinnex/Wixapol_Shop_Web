@@ -1,5 +1,7 @@
-﻿@inject SignInManager<ApplicationUser> SignInManager
+﻿@using Wixapol_Utils.StaticDetails
+@inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@inject IHttpContextAccessor HttpContextAccesor
 
 <nav class="navbar navbar-expand-xl navbar-light shadow-sm bg-white">
     <div class="container">
@@ -63,10 +65,9 @@
                     </li>
                 }
                 <li class="nav-item">
-                    <a href="" class="nav-link text-black d-flex align-items-center">
+                    <a asp-controller="ShoppingCart" asp-action="Index" class="nav-link text-black d-flex align-items-center">
                         <i class="bi bi-cart3" style="font-size:2rem; color:#4c2715;"></i>
-
-                        <span class="mx-2">$0.00</span>
+                        @await Component.InvokeAsync("ShoppingCartMoney")
                     </a>
                 </li>
             </ul>

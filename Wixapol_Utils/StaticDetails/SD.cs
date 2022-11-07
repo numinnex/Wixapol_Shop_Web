@@ -18,5 +18,9 @@ namespace Wixapol_Utils.StaticDetails
         public const string PaymentPending = "Pending";
         public const string PaymentApproved = "Approved";
         public const string PaymentRejected = "Rejected";
+
+        public const string SessionCartCount = "SessionShoppingCartCount";
+
+        public const string SessionCartMoney = "SessionShoppingCartMoney";
     }
 }
