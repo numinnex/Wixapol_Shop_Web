@@ -1,5 +1,139 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model SaleDisplayVM
+
+<style>
+    .img-prod{
+        max-width: 100px;
+        max-height: 100px;
+    }
+
+    .product-qty span {
+        font-size: 14px;
+    }
+      
+</style>
+
+<div class="container">
+    <div class="mt-1">
+        <h2>Thank you for your order</h2>
+        <span>An email confirmation has been sent to <b>@Model.EmailAdress</b></span>
+    </div>
+    <div class="row mt-3">
+        <div class="col-11">
+            <div class="bg-white rounded-3 p-5">
+                <div class="row mb-3">
+                    <div class="col-3 text-start">
+                        <span>Order Number:</span>
+                    </div>
+                    <div class="col-3 text-start">
+                        <span class="fw-bold">@Model.SaleId</span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-3 text-start">
+                        <span>Order Total:</span>
+                    </div>
+                    <div class="col-3 text-start">
+                        <span class="fw-bold">$@Model.Sale.Total</span>
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-3 text-start">
+                        <span>Delivered To:</span>
+                    </div>
+                    <div class="col-3 text-start">
+                        <span class="fw-bold">@Model.Sale.Order.Name</span>
+                        <div>@Model.Sale.Order.Adress, @Model.Sale.Order.City, @Model.Sale.Order.PostalCode</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-11">
+            <div class="bg-white rounded-3 p-5 pb-3">
+                <h3 class="mb-2">Order Details</h3>
+                        <div class="product border-bottom border-top table-responsive">
+                            <table class="table table-borderless">
+                                <tbody>
+                                @for(int i =0 ; i < Model.Products.Count; ++i)
+                                {
+                                    <tr>
+                                <td width="10%">
+                                <div class="d-flex justify-content-center">
+                                    <img src="@Model.Products[i].ProductImage" class="img-prod">
+                                </div>
+                                </td>
+                                <td width="70%">
+                                    <span class="fw-bold">@Model.Products[i].ToString()</span>
+                                    <div class="product-qty">
+                                        <span class="d-block text-muted">Quantity:@Model.Sale.SaleDetail[i].Quantity</span>
+                                    </div>
+                                </td>
+                                <td width="20%">
+                                    <div class="text-right">
+                                        <div class="d-block">
+                                            <span class="text-muted ">Subtotal:</span>
+                                            <span class="fw-bold ">$@Model.Sale.SaleDetail[i].SubTotal</span>
+                                        </div>
+                                        <div class="d-block">
+                                            <span class="text-muted">Tax:</span>
+                                            <span class="fw-bold">$@Model.Sale.SaleDetail[i].Tax</span>
+                                        </div>
+                                        <div class="d-block">
+                                            <span class="text-muted">Total:</span>
+                                            <span class="fw-bold">$@Model.Sale.SaleDetail[i].Total</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                </tr>
+                                }
+                                </tbody>
+                            </table>
+                    </div>
+                <div class="mt-2 row d-flex justify-content-end">
+                    <div class="col-md-5">
+                        <table class="table table-borderless">
+                            <tbody class="totals">
+                                <tr>
+                                    <td>
+                                        <div class="text-left">
+                                            <span class="text-muted">Subtotal</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="text-right">
+                                            <span>$@Model.Sale.SubTotal</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="text-left">
+                                            <span class="text-muted">Tax </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="text-right">
+                                            <span>$@Model.Sale.Tax</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="border-top border-bottom">
+                                    <td>
+                                        <div class="text-left">
+                                            <span class="font-weight-bold">Total</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="text-right">
+                                            <span class="font-weight-bold">$@Model.Sale.Total</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

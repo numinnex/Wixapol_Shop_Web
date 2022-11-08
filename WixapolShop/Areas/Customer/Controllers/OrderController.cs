@@ -187,6 +187,10 @@ namespace WixapolShop.Areas.Customer.Controllers
             SaleDisplayVM saleVM = new();
             saleVM.Sale = sale;
             saleVM.Products = new();
+            saleVM.Sale.Order = _unitOfWork.Order.GetById(saleVM.Sale.OrderId);
+            saleVM.SaleId = id;
+
+            saleVM.EmailAdress = _identityDb.Users.FirstOrDefault(x => x.Id == sale.UserId).Email;
 
             foreach (var saleDetail in sale.SaleDetail)
             {

@@ -35,7 +35,7 @@ namespace Wixapol_DataAccess.OrderRepository.Implementation
 
         public Order GetById(int? id)
         {
-            throw new NotImplementedException();
+            return LoadData("db_product.spOrder_GetById", new { Id = id }, "DefualtConnection").FirstOrDefault();
         }
 
         public void UpdateOrder(Order order)
