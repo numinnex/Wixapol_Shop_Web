@@ -30,6 +30,12 @@ namespace Wixapol_DataAccess.ProductRepository.Implementation
             SaveData("db_product.spProduct_Insert", productDTO, "DefualtConnection");
         }
 
+        public void DecreaseQuantity(int productId, int quantity)
+        {
+            SaveData("db_product.spProduct_DecreaseQuantity", new { Id = productId, Quantity = quantity }, "DefualtConnection");
+
+        }
+
         public void DeleteProduct(int? id)
         {
             SaveData("db_product.spProduct_Delete", new { Id = id }, "DefualtConnection");

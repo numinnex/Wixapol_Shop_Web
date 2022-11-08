@@ -132,6 +132,19 @@ namespace WixapolShop.Areas.Customer.Controllers
                 }
             }
         }
+        private void CheckIfCountIsntNegative(List<ShoppingCartWithProduct> shoppingCartProducts)
+        {
+            foreach (var shoppingCart in shoppingCartProducts)
+            {
+                if (shoppingCart.Count < 1)
+                {
+                    TempData["failure"] = $"{string.Join(" ", shoppingCart.Product.Producent.Name, shoppingCart.Product.Name)} count cant be smaller than 1!";
+                    shoppingCart.Count = 1;
+                    _unitOfWork.ShoppingCart.UpdateShoppingCartProductCount(shoppingCart.Id, shoppingCart.Count);
+                }
+            }
+
+        }
         #endregion Helper Methods
 
         [Authorize]
@@ -157,8 +170,9 @@ namespace WixapolShop.Areas.Customer.Controllers
             }).ToList();
 
             SetupProductsForDisplay(shoppingCartVM);
-            UpdateTotalSubTotalAndTax(shoppingCartVM);
             CheckIfCountDoesntExceedQuantityInStock(shoppingCartVM.ShoppingCarts);
+            CheckIfCountIsntNegative(shoppingCartVM.ShoppingCarts);
+            UpdateTotalSubTotalAndTax(shoppingCartVM);
 
             HttpContext.Session.SetString(SD.SessionCartMoney,
                 Math.Round((double)_unitOfWork.ShoppingCart.GetShoppingCartByUserId(userId).Sum(x => x.SubTotal), 2, MidpointRounding.AwayFromZero).ToString());

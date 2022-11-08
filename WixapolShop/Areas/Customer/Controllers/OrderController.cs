@@ -166,38 +166,45 @@ namespace WixapolShop.Areas.Customer.Controllers
         [Authorize]
         public IActionResult OrderConfirmation(int id)
         {
+
+            //TODO - clean this shit up too
             var sale = _unitOfWork.Sale.GetById(id);
             var service = new SessionService();
+
             Session session = service.Get(sale.SessionId);
+
+            SaleDisplayVM saleVM = new();
 
             if (session.PaymentStatus.ToLower() == "paid")
             {
+                var saleDetails = _unitOfWork.SaleDetail.GetBySaleId(id);
+
                 //update status
                 _unitOfWork.Sale.UpdateStatus(id, SD.StatusApproved, SD.PaymentApproved);
                 _unitOfWork.Sale.UpdateSessionInformation(id, session.Id, session.PaymentIntentId);
 
+                foreach (var saleDetail in saleDetails)
+                {
+                    _unitOfWork.Product.DecreaseQuantity(saleDetail.ProductId, saleDetail.Quantity);
+                    saleVM.Products.Add(_unitOfWork.Product.GetById(saleDetail.ProductId));
+                }
+
                 _unitOfWork.ShoppingCart.DeleteShoppingCartsByUserId(sale.UserId);
+                sale = _unitOfWork.Sale.GetById(id);
+                sale.SaleDetail = saleDetails;
 
                 HttpContext.Session.Clear();
+
+                saleVM.Sale = sale;
+                saleVM.Sale.Order = _unitOfWork.Order.GetById(saleVM.Sale.OrderId);
+                saleVM.SaleId = id;
+
+                saleVM.EmailAdress = _identityDb.Users.FirstOrDefault(x => x.Id == sale.UserId).Email;
+
+
+                return View(saleVM);
             }
-            sale = _unitOfWork.Sale.GetById(id);
-
-            sale.SaleDetail = _unitOfWork.SaleDetail.GetBySaleId(id);
-
-            SaleDisplayVM saleVM = new();
-            saleVM.Sale = sale;
-            saleVM.Products = new();
-            saleVM.Sale.Order = _unitOfWork.Order.GetById(saleVM.Sale.OrderId);
-            saleVM.SaleId = id;
-
-            saleVM.EmailAdress = _identityDb.Users.FirstOrDefault(x => x.Id == sale.UserId).Email;
-
-            foreach (var saleDetail in sale.SaleDetail)
-            {
-                saleVM.Products.Add(_unitOfWork.Product.GetById(saleDetail.ProductId));
-            }
-
-            return View(saleVM);
+            return View(new SaleDisplayVM());
         }
         private double CalculateTax(Product product)
         {

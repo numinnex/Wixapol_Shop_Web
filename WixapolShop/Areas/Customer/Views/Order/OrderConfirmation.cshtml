@@ -66,7 +66,8 @@
                                 <td width="70%">
                                     <span class="fw-bold">@Model.Products[i].ToString()</span>
                                     <div class="product-qty">
-                                        <span class="d-block text-muted">Quantity:@Model.Sale.SaleDetail[i].Quantity</span>
+                                        <span class="d-block text-muted">Quantity:<span class="d-inline text-dark"> @Model.Sale.SaleDetail[i].Quantity</span></span>
+                                        <span class="d-block text-muted">Warranty Expiration: <span class="d-inline text-dark">@Model.Sale.SaleDetail[i].WarrantyExpiration.ToShortDateString()</span></span>
                                     </div>
                                 </td>
                                 <td width="20%">
@@ -132,8 +133,12 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <div class="w-100 mt-2 text-center">
+                            <a asp-controller="Home" asp-action="Index" class="w-100 btn btn-primary">Back to Shopping</a>
+                        </div>
                     </div>
                 </div>
         </div>
     </div>
+</div>
 </div>
