@@ -35,17 +35,35 @@ namespace Wixapol_DataAccess.SaleRepository.Implementation
 
         public List<Sale> GetAll()
         {
-            throw new NotImplementedException();
+            return LoadData("db_product.spSale_GetAll", new { }, "DefualtConnection");
         }
 
         public Sale GetById(int? id)
         {
             return LoadData("db_product.spSale_GetById", new { Id = id }, "DefualtConnection").FirstOrDefault();
         }
+        public Sale GetByOrderId(int? id)
+        {
+            return LoadData("db_product.spSale_GetByOrderId", new { Id = id }, "DefualtConnection").FirstOrDefault();
+        }
+
+        public List<Sale> GetByStatus(string status)
+        {
+            return LoadData("db_product.spSale_GetByOrderStatus", new { Status = status }, "DefualtConnection");
+        }
 
         public void UpdateSale(Sale sale)
         {
-            throw new NotImplementedException();
+            SaveData("db_product.spSale_UpdateSale", new
+            {
+                Id = sale.Id,
+                sale.OrderStatus,
+                sale.PaymentStatus,
+                sale.Carrier,
+                sale.TrackingNumber,
+                sale.ShippingDate,
+
+            }, "DefualtConnection");
         }
 
         public void UpdateSessionInformation(int id, string sessionId, string paymentIntentId)

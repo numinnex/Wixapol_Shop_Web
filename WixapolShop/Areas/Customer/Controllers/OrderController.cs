@@ -177,21 +177,21 @@ namespace WixapolShop.Areas.Customer.Controllers
 
             if (session.PaymentStatus.ToLower() == "paid")
             {
-                var saleDetails = _unitOfWork.SaleDetail.GetBySaleId(id);
 
                 //update status
                 _unitOfWork.Sale.UpdateStatus(id, SD.StatusApproved, SD.PaymentApproved);
                 _unitOfWork.Sale.UpdateSessionInformation(id, session.Id, session.PaymentIntentId);
 
-                foreach (var saleDetail in saleDetails)
+                sale = _unitOfWork.Sale.GetById(id);
+                sale.SaleDetail = _unitOfWork.SaleDetail.GetBySaleId(id);
+
+                foreach (var saleDetail in sale.SaleDetail)
                 {
                     _unitOfWork.Product.DecreaseQuantity(saleDetail.ProductId, saleDetail.Quantity);
                     saleVM.Products.Add(_unitOfWork.Product.GetById(saleDetail.ProductId));
                 }
 
                 _unitOfWork.ShoppingCart.DeleteShoppingCartsByUserId(sale.UserId);
-                sale = _unitOfWork.Sale.GetById(id);
-                sale.SaleDetail = saleDetails;
 
                 HttpContext.Session.Clear();
 

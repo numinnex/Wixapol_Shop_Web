@@ -137,6 +137,11 @@
     <Build Include="db_product\Stored Procedures\spSaleDetail_GetBySaleId.sql" />
     <Build Include="db_product\Stored Procedures\spOrder_GetById.sql" />
     <Build Include="db_product\Stored Procedures\spProduct_DecreaseQuantity.sql" />
+    <Build Include="db_product\Stored Procedures\spSale_GetAll.sql" />
+    <Build Include="db_product\Stored Procedures\spSale_GetByOrderStatus.sql" />
+    <Build Include="db_product\Stored Procedures\spSale_GetByOrderId.sql" />
+    <Build Include="db_product\Stored Procedures\spSale_UpdateSale.sql" />
+    <Build Include="db_product\Stored Procedures\spOrder_Update.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishLocation\WixapolDB.publish.xml" />

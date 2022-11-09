@@ -38,9 +38,21 @@ namespace Wixapol_DataAccess.OrderRepository.Implementation
             return LoadData("db_product.spOrder_GetById", new { Id = id }, "DefualtConnection").FirstOrDefault();
         }
 
-        public void UpdateOrder(Order order)
+        public void UpdateOrder(Order order, int? orderId)
         {
-            throw new NotImplementedException();
+            SaveData("db_product.spOrder_Update", new
+            {
+                Id = orderId,
+                order.PhoneNumber,
+                order.Name,
+                order.Adress,
+                order.Email,
+                order.City,
+                order.PostalCode,
+
+
+
+            }, "DefualtConnection");
         }
     }
 }

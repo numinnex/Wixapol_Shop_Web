@@ -1,0 +1,95 @@
+﻿@model List<Sale>
+@{
+    ViewData["Title"] = "Managment";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+
+    var status = Context.Request.Query["status"];
+
+    var pending = "text-primary";
+    var inProcess = "text-primary";
+    var completed = "text-primary";
+    var approved = "text-primary";
+    var all = "text-primary";
+
+    switch (status)
+    {
+        case "pending":
+            pending = "active text-white";
+            break;
+        case "inprocess":
+            inProcess = "active text-white";
+            break;
+        case "completed":
+            completed = "active text-white";
+            break;
+        case "approved":
+            approved = "active text-white";
+            break;
+        default:
+            all = "active text-white";
+            break;
+    }
+}
+
+
+<div class=" p-2 border border-1 w-75">
+    <div class="d-flex justify-content-between p-3">
+        <div class="p-2">
+            <h2 class="text-primary">Sale List</h2>
+        </div>
+        <div class="p-2">
+            <ul class="list-group list-group-horizontal-md">
+                <a style="text-decoration:none;" asp-controller="Sale" asp-action="Managment" asp-route-status="inprocess">
+                    <li class="list-group-item @inProcess">In Process</li>
+                </a>
+                <a style="text-decoration:none;" asp-controller="Sale" asp-action="Managment" asp-route-status="pending">
+                    <li class="list-group-item @pending">Pending</li>
+                </a>
+                <a style="text-decoration:none;" asp-controller="Sale" asp-action="Managment" asp-route-status="approved">
+                    <li class="list-group-item @approved">Approved</li>
+                </a>
+                <a style="text-decoration:none;" asp-controller="Sale" asp-action="Managment" asp-route-status="completed">
+                    <li class="list-group-item @completed">Completed</li>
+                </a>
+                <a style="text-decoration:none;" asp-controller="Sale" asp-action="Managment" asp-route-status="all">
+                    <li class="list-group-item @all">All</li>
+                </a>
+
+            </ul>
+        </div>
+    </div>
+    <table class="table table-bordered table-striped mt-3 p-2  " id="salesTable" style="width:100%;">
+        <thead>
+            <tr>
+                <th>
+                    OrderId
+                </th>
+                <th>
+                    Subtotal
+                </th>
+                <th>
+                    Tax
+                </th>
+                <th>
+                    Total
+                </th>
+                <th>
+                    OrderStatus
+                </th>
+                <th>
+                    PaymentStatus
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+
+    </table>
+</div>
+
+@section Scripts
+    {
+    <script src="~/js/sale.js"></script>
+}
+

@@ -35,6 +35,7 @@ namespace Wixapol_DataAccess_Tests
             var mockMapper = new Mock<IMapper>();
             mockMapper.Setup(x => x.Map<Product, ProductDTO>(It.IsAny<Product>()));
             mockMapper.Setup(x => x.Map<Product, ProductDTOWithId>(It.IsAny<Product>()));
+            mockMapper.Setup(x => x.Map<Sale, SaleDTO>(It.IsAny<Sale>()));
 
             _sut = new UnitOfWork(mockConfiguration.Object, mockMapper.Object);
 
@@ -151,7 +152,32 @@ namespace Wixapol_DataAccess_Tests
             Assert.Equal(expected, shoppingCart.Count);
         }
 
+        [Theory]
+        [InlineData(3008, "Approved")]
 
+        public void LoadSaleById(int id, string expected)
+        {
+            var sale = _sut.Sale.GetById(id);
+            Assert.Equal(expected, sale.OrderStatus);
+        }
+
+        [Theory]
+        [InlineData(1013, "Test")]
+
+        public void LoadOrderById(int id, string expected)
+        {
+            var order = _sut.Order.GetById(id);
+            Assert.Equal(expected, order.Name);
+        }
+
+        [Theory]
+        [InlineData(3008, 3004)]
+
+        public void LoadSaleDetailsBySaleId(int saleId, int expected)
+        {
+            var saleDetails = _sut.SaleDetail.GetBySaleId(saleId);
+            Assert.Equal(expected, saleDetails[0].ProductId);
+        }
 
         //[MemberData(nameof(TestData))]
         //Multiple inputs 

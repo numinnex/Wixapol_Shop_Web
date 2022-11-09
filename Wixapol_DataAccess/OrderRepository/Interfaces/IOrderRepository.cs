@@ -11,7 +11,7 @@ namespace Wixapol_DataAccess.OrderRepository.Interfaces
     public interface IOrderRepository
     {
         public int CreateOrder(Order order);
-        public void UpdateOrder(Order order);
+        public void UpdateOrder(Order order, int? orderId);
         public void DeleteOrder(int? id);
         public List<Order> GetAll();
         public Order GetById(int? id);

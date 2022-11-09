@@ -1,0 +1,159 @@
+﻿@using Wixapol_Utils.StaticDetails
+@model Sale
+
+@{
+
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<form method="post">
+    <div class="container p-3">
+        <div class="d-flex justify-content-between align-items-center">
+        <h1 class="mt-2 text-primary ">Sale Managment</h1>
+        <a asp-action="Managment" class="btn btn-primary">Back to Sales</a>
+        </div>
+        <div class="row mt-2 gx-5">
+            <div class="col-6">
+                <input asp-for="OrderId" hidden />
+                <input asp-for="SubTotal" hidden />
+                <input asp-for="Tax" hidden />
+                <input asp-for="Total" hidden />
+                <input asp-for="OrderStatus" hidden />
+                <input asp-for="PaymentDate" hidden />
+                <div class="mb-2 mx-auto">
+                    <label asp-for="Id" class="input-label"></label>
+                    <input asp-for="Id" class="form-control" readonly />
+                </div>
+                <div class="mb-2">
+                    <label asp-for="UserId" class="input-label"></label>
+                    <input asp-for="UserId" class="form-control" readonly />
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Order.Name" class="input-label"></label>
+                    <input asp-for="Order.Name"  class="form-control"/>
+                    <span asp-validation-for="Order.Name" class="text-danger"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Order.PhoneNumber" class="input-label"></label>
+                    <input asp-for="Order.PhoneNumber"  class="form-control" />
+                    <span asp-validation-for="Order.PhoneNumber"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Order.Adress" class="input-label"></label>
+                    <input asp-for="Order.Adress"  class="form-control" />
+                    <span asp-validation-for="Order.Adress" class="text-danger"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Order.City" class="input-label"></label>
+                    <input asp-for="Order.City" class="form-control"/>
+                    <span asp-validation-for="Order.City" class="text-danger"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Order.PostalCode" class="input-label"></label>
+                    <input asp-for="Order.PostalCode  " class="form-control" />
+                    <span asp-validation-for="Order.PostalCode" class="text-danger"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Order.Email" class="input-label"></label>
+                    <input asp-for="Order.Email  "  class="form-control" />
+                    <span asp-validation-for="Order.Email" class="text-danger"></span>
+                </div> 
+                <div class="mb-2">
+                    <label asp-for="SaleDate" class="input-label"></label>
+                    <input asp-for="SaleDate" class="form-control" readonly />
+                    <span asp-validation-for="SaleDate " class="text-danger"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Carrier" class="input-label"></label>
+                    <input asp-for="Carrier" class="form-control" id="carrier"/>
+                    <span asp-validation-for="Carrier" class="text-danger"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="TrackingNumber" class="input-label"></label>
+                    <input asp-for="TrackingNumber" class="form-control" id="trackingNumber"/>
+                    <span asp-validation-for="TrackingNumber" class="text-danger"></span>
+                </div> 
+                <div class="mb-2">
+                    <label asp-for="ShippingDate" class="input-label"></label>
+                    <input asp-for="ShippingDate" class="form-control"/>
+                    <span asp-validation-for="ShippingDate" class="text-danger"></span>
+                </div> 
+                <div class="mb-2">
+                    <label asp-for="SessionId" class="input-label"></label>
+                    <input asp-for="SessionId" class="form-control" readonly>
+                    <span asp-validation-for="SessionId" class="text-danger"></span>
+                </div> 
+                <div class="mb-2">
+                    <label asp-for="PaymentIntentId" class="input-label"></label>
+                    <input asp-for="PaymentIntentId" class="form-control" readonly>
+                    <span asp-validation-for="PaymentIntentId" class="text-danger"></span>
+                </div> 
+                <div class="mb-2">
+                    <label asp-for="PaymentStatus" class="input-label"></label>
+                    <input asp-for="PaymentStatus" class="form-control" readonly/>
+                    <span asp-validation-for="PaymentStatus" class="text-danger"></span>
+                </div> 
+                <div class="w-100 text-center">
+                    <input type="submit" class="btn btn-primary w-100" value="Update Order"/>
+                </div>
+            </div>
+            <div class="col-6">
+                <label class="btn btn-outline-dark form-control my-2 mt-4">Order Status - @Model.OrderStatus</label>
+                <ul class="list-group mb-3">
+                    @foreach (var saleDetail in Model.SaleDetail)
+                        {
+                        <li class="list-group-item d-flex justify-content-between p-2 flex-wrap">
+                            <h6 class="my-0 text-primary">Product Id: @saleDetail.ProductId</h6>
+                            <small class="text-muted">SubTotal:<span class="text-dark">$@saleDetail.SubTotal</span> </small><br />
+                            <small class="text-muted">Tax:<span class="text-dark">$@saleDetail.Tax</span> </small><br />
+                            <small class="text-muted">Total:<span class="text-dark">$@saleDetail.Total</span> </small><br />
+                            <small class="text-muted">Quantity:<span class="text-dark">@saleDetail.Quantity</span> </small><br />
+                        </li>
+                        }
+                </ul>
+                @if(Model.OrderStatus == SD.StatusApproved)
+                {
+                    <input asp-action="Processing" type="submit" class="btn btn-primary form-control my-1" value="Start Processing" />
+                }
+                @if (Model.OrderStatus == SD.StatusInProcess)
+                { 
+                    <input asp-action="Shipped" onclick="return ValidateInput()" type="submit" class="btn btn-success form-control my-1" value="Ship Order" />
+                }
+                @if(Model.OrderStatus == SD.StatusRefunded || Model.OrderStatus != SD.StatusCancelled)
+                {
+                    <input asp-action="Cancelled" type="submit" class="btn btn-danger form-control my-1" value="Cancel Order" />
+                }
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts
+{
+   
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function ValidateInput() {
+            if (document.getElementById("carrier").value == "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please enter carrier name!',
+                });
+                return false;
+            }
+            if (document.getElementById("trackingNumber").value == "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please enter tracking number!',
+                });
+                return false;
+            }
+            return true;
+        }
+
+    </script>
+    
+}

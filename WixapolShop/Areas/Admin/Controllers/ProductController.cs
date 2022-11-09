@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using System.Diagnostics.CodeAnalysis;
@@ -9,6 +10,7 @@ using WixapolShop.Areas.Admin.Models;
 
 namespace WixapolShop.Areas.Admin.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitofWork;

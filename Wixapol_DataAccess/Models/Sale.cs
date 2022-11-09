@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,6 +9,7 @@ namespace Wixapol_DataAccess.Models
 {
     public class Sale
     {
+        public int Id { get; set; }
         public string UserId { get; set; }
         public DateTime? SaleDate { get; set; } = DateTime.Now;
         public DateTime? ShippingDate { get; set; }

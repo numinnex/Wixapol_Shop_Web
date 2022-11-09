@@ -8,7 +8,7 @@
 AS
 begin
 	set nocount on;
-	insert into db_product.[Order](PhoneNumber , EmailAdress , Adress , City , PostalCode ,[Name])
+	insert into db_product.[Order](PhoneNumber , Email , Adress , City , PostalCode ,[Name])
 	output Inserted.Id
 	values (@PhoneNumber , @Email , @Adress , @City , @PostalCode , @Name);
 
