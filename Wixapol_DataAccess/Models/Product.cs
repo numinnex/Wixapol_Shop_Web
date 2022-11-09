@@ -62,6 +62,7 @@ namespace Wixapol_DataAccess.Models
         [Display(Name = "Product Price")]
         public string RetailPriceStringify { get; set; }
         [Required]
+        [RegularExpression(pattern: @"(^(([0-9]{1}|[0-2]{2})m$)|(^(\d{1,2}y$)|^\d{1,2}y([0-9]{1}|[0-2]{2})m$))", ErrorMessage = "Please enter valid Warranty Length!")]
         [Display(Name = "Warranty Length")]
         public string WarrantyLength { get; set; }
 

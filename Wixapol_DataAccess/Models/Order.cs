@@ -25,7 +25,7 @@ namespace Wixapol_DataAccess.Models
         [Display(Name = "City")]
         public string City { get; set; }
         [Required]
-        
+        [RegularExpression(@"^\d{1,2}-\d{1,3}$", ErrorMessage = "Please enter valid Postal Code!")]
         [Display(Name = "Postal Code")]
         public string PostalCode { get; set; }
         [Required]
