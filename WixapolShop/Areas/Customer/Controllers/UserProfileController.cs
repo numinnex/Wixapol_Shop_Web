@@ -37,7 +37,15 @@ namespace WixapolShop.Areas.Customer.Controllers
         public IActionResult Settings()
         {
             ProfileSettingsVM vm = new ProfileSettingsVM();
-            vm.User = _db.Users.Where(x => x.Id == GetUserId()).FirstOrDefault();
+            var user = _db.Users.Where(x => x.Id == GetUserId()).FirstOrDefault();
+
+            vm.User.Adress = user.Adress;
+            vm.User.FirstName = user.FirstName;
+            vm.User.LastName = user.LastName;
+            vm.User.UserName = user.UserName;
+            vm.User.Email = user.Email;
+            vm.User.PhoneNumber = user.PhoneNumber;
+            vm.User.PostalCode = user.PostalCode;
 
             return View(vm);
         }
@@ -47,7 +55,7 @@ namespace WixapolShop.Areas.Customer.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = _db.Users.SingleOrDefault(x => x.Id == model.User.Id);
+                var user = _db.Users.SingleOrDefault(x => x.Id == GetUserId());
                 if (user is not null)
                 {
                     user.UserName = model.User.UserName;
