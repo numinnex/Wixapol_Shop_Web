@@ -15,7 +15,7 @@ using Xunit;
 
 namespace Wixapol_DataAccess_Tests
 {
-    public class ShoppingCartControllerTests
+    public sealed class ShoppingCartControllerTests
     {
         private readonly ShoppingCartController _sut;
         private readonly Mock<IUnitOfWork> _unitOfWork = new Mock<IUnitOfWork>();

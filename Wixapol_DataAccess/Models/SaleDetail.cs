@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Wixapol_DataAccess.Models
 {
-    public class SaleDetail
+    public sealed class SaleDetail
     {
         public int SaleId { get; set; }
         public int ProductId { get; set; }

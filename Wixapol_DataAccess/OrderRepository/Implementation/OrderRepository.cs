@@ -10,7 +10,7 @@ using Wixapol_DataAccess.OrderRepository.Interfaces;
 
 namespace Wixapol_DataAccess.OrderRepository.Implementation
 {
-    public class OrderRepository : Repository<Order>, IOrderRepository
+    public sealed class OrderRepository : Repository<Order>, IOrderRepository
     {
         private readonly IConfiguration _config;
         public OrderRepository(IConfiguration config) : base(config)

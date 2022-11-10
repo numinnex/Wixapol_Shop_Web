@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Wixapol_Utils.Stripe
 {
-    public class StripeSettings
+    public sealed class StripeSettings
     {
         public string SecretKey { get; set; }
         public string PublishableKey { get; set; }

@@ -142,6 +142,7 @@
     <Build Include="db_product\Stored Procedures\spSale_GetByOrderId.sql" />
     <Build Include="db_product\Stored Procedures\spSale_UpdateSale.sql" />
     <Build Include="db_product\Stored Procedures\spOrder_Update.sql" />
+    <Build Include="db_product\Stored Procedures\spSale_GetByUserId.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishLocation\WixapolDB.publish.xml" />

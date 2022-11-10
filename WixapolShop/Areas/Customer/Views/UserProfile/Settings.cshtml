@@ -1,0 +1,81 @@
+﻿@model ProfileSettingsVM
+@{
+    ViewData["Title"] = "Settings";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<form method="post" asp-action="Settings">
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <div class="mt-3 bg-white rounded-2 p-3">
+            <input asp-for="User.Id" hidden />
+            <h3>Change your profile information</h3>
+                <div class="mt-2 mb-3">
+                    @if (TempData["success"] is not null)
+                    {
+                        <div class="alert alert-success"> @TempData["success"]!.ToString()</div>
+                    }
+                    @if (TempData["error"] is not null)
+                    {
+                        <div class="alert alert-danger"> @TempData["error"]!.ToString()</div>
+                    }
+                </div>
+            <div class="mb-2 p-1">
+                <label asp-for="User.UserName" class="input-label mb-2"></label>
+                <input asp-for="User.UserName" class="form-control" />
+                <span asp-validation-for="User.UserName" class="text-danger"></span>
+            </div>
+            <div class="mb-2 p-1">
+                <label asp-for="User.FirstName" class="input-label mb-2"></label>
+                <input asp-for="User.FirstName" class="form-control" />
+                <span asp-validation-for="User.FirstName" class="text-danger"></span>
+            </div>
+            <div class="mb-2 p-1">
+                <label asp-for="User.LastName" class="input-label mb-2"></label>
+                <input asp-for="User.LastName" class="form-control" />
+                <span asp-validation-for="User.LastName" class="text-danger"></span>
+            </div>
+            <div class="mb-2 p-1">
+                <label asp-for="User.Adress" class="input-label mb-2"></label>
+                <input asp-for="User.Adress" class="form-control" />
+                <span asp-validation-for="User.Adress" class="text-danger"></span>
+            </div>
+            <div class="mb-2 p-1">
+                <label asp-for="User.PostalCode" class="input-label mb-2"></label>
+                <input asp-for="User.PostalCode" class="form-control" />
+                <span asp-validation-for="User.PostalCode" class="text-danger"></span>
+            </div>
+            <div class="mb-2 p-1">
+                <label asp-for="User.PhoneNumber" class="input-label mb-2"></label>
+                <input asp-for="User.PhoneNumber" class="form-control" />
+                <span asp-validation-for="User.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="mb-2 p-1">
+                <label asp-for="User.Email" class="input-label mb-2"></label>
+                <input asp-for="User.Email" class="form-control" />
+                <span asp-validation-for="User.Email" class="text-danger"></span>
+            </div>
+            <div class="mb-2 p-1">
+                <label class="input-label mb-2">Password</label>
+                <input type="password" class="form-control" id="pw" disabled />
+                <a asp-area="Identity" asp-controller="UserSettings" asp-action="ChangePassword" class="text-dark text-decoration-none" style="font-size:14px;">Change password</a>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary w-100">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+@section Scripts{
+
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    }
+
+
+<script>
+    document.getElementById("pw").defaultValue = "testpass69";
+</script>

@@ -10,7 +10,7 @@ using Wixapol_DataAccess.SaleDetailRepository.Interfaces;
 
 namespace Wixapol_DataAccess.SaleDetailRepository.Implemenation
 {
-    public class SaleDetailRepository : Repository<SaleDetail>, ISaleDetailRepository
+    public sealed class SaleDetailRepository : Repository<SaleDetail>, ISaleDetailRepository
     {
         private readonly IConfiguration _config;
         public SaleDetailRepository(IConfiguration config) : base(config)

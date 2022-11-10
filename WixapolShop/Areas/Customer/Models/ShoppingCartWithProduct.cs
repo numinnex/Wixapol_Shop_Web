@@ -2,7 +2,7 @@
 
 namespace WixapolShop.Areas.Customer.Models
 {
-    public class ShoppingCartWithProduct
+    public sealed class ShoppingCartWithProduct
     {
         public int Id { get; set; }
         public int Count { get; set; }

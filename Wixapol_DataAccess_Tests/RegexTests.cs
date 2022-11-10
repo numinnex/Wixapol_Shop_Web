@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Wixapol_DataAccess_Tests
 {
-    public class RegexTests
+    public sealed class RegexTests
     {
         [Theory]
         [InlineData("33-338")]

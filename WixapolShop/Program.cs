@@ -8,6 +8,7 @@ using Wixapol_DataAccess.UnitOfWork.Interface;
 using Wixapol_Utils.Stripe;
 using WixapolShop.Areas.Identity.Models.Domain;
 using WixapolShop.AuthenticationRepository.Implementation;
+using WixapolShop.AuthenticationRepository.Interfaces;
 using WixapolShop.IdentityRepository.Interfaces;
 
 namespace WixapolShop
@@ -58,6 +59,7 @@ namespace WixapolShop
             });
 
             builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
+            builder.Services.AddScoped<IUserSettingsService, UserSettingsService>();
 
 
             var app = builder.Build();

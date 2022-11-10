@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Wixapol_DataAccess.Models
 {
-    public class Sale
+    public sealed class Sale
     {
         public int Id { get; set; }
         public string UserId { get; set; }

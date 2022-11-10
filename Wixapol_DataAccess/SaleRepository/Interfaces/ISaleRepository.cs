@@ -17,6 +17,7 @@ namespace Wixapol_DataAccess.SaleRepository.Interfaces
         public void DeleteSale(int? id);
         public List<Sale> GetAll();
         public List<Sale> GetByStatus(string status);
+        public List<Sale> GetByUserId(string userId);
         public Sale GetById(int? id);
         public Sale GetByOrderId(int? id);
     }

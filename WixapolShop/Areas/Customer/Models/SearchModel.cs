@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WixapolShop.Areas.Customer.Models
 {
-    public class SearchModel
+    public sealed class SearchModel
     {
         public string? Phrase { get; set; }
         public int Categoryid { get; set; }

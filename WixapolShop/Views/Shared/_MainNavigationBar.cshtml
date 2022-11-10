@@ -1,7 +1,9 @@
-﻿@using Wixapol_Utils.StaticDetails
+﻿@using System.Security.Claims
+@using Wixapol_Utils.StaticDetails
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @inject IHttpContextAccessor HttpContextAccesor
+@inject IdentityDatabaseContext db
 
 <nav class="navbar navbar-expand-xl navbar-light shadow-sm bg-white">
     <div class="container">
@@ -29,18 +31,22 @@
                         </li>
                     }
                     <li class="nav-item dropdown-new">
-                        <a asp-area="Identity" asp-controller="UserAuthentication" asp-action="Profile" class="nav-link text-black d-flex align-items-center">
+                        <a asp-area="Customer" asp-controller="UserProfile" asp-action="Profile" class="nav-link text-black d-flex align-items-center">
                             <i class="bi bi-person" style="font-size:2.4rem; color:#4c2715;"></i>
                             <div class="text-start mx-2 ">
                                 <span>Welcome</span>
                                 <br />
-                                <span>@UserManager.GetUserName(User)</span>
+                                @{
+                                    var claimsIdentity = (ClaimsIdentity)User.Identity;
+                                    var id = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+                                    <span>@db.Users.FirstOrDefault( u => u.Id == id).UserName</span>
+                                }
                             </div>
 
                         </a>
                         <div class="dropdown-settings">
                             <ul class="dropdown-content">
-                                <li class="dropdown-item-account py-2"><a asp-area="Identity" asp-controller="UserAuthentication" asp-action="Profile" class="">Your Profile</a></li>
+                                <li class="dropdown-item-account py-2"><a asp-area="Customer" asp-controller="UserProfile" asp-action="Profile" class="">Your Profile</a></li>
                                 <li class="dropdown-item"><a href="" class="">Placeholder</a></li>
                                 <li class="dropdown-item"><a href="" class="">Placeholder</a></li>
                                 <li class="dropdown-item"><a href="" class="">Placeholder</a></li>
@@ -65,7 +71,7 @@
                     </li>
                 }
                 <li class="nav-item">
-                    <a asp-controller="ShoppingCart" asp-action="Index" class="nav-link text-black d-flex align-items-center">
+                    <a asp-area="Customer" asp-controller="ShoppingCart" asp-action="Index" class="nav-link text-black d-flex align-items-center">
                         <i class="bi bi-cart3" style="font-size:2rem; color:#4c2715;"></i>
                         @await Component.InvokeAsync("ShoppingCartMoney")
                     </a>

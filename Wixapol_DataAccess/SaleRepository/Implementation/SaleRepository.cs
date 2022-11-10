@@ -12,7 +12,7 @@ using Wixapol_DataAccess.SaleRepository.Interfaces;
 
 namespace Wixapol_DataAccess.SaleRepository.Implementation
 {
-    public class SaleRepository : Repository<Sale>, ISaleRepository
+    public sealed class SaleRepository : Repository<Sale>, ISaleRepository
     {
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
@@ -50,6 +50,11 @@ namespace Wixapol_DataAccess.SaleRepository.Implementation
         public List<Sale> GetByStatus(string status)
         {
             return LoadData("db_product.spSale_GetByOrderStatus", new { Status = status }, "DefualtConnection");
+        }
+
+        public List<Sale> GetByUserId(string userId)
+        {
+            return LoadData("db_product.spSale_GetByUserId", new { UserId = userId }, "DefualtConnection");
         }
 
         public void UpdateSale(Sale sale)

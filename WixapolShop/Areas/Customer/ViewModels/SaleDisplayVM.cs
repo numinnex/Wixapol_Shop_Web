@@ -2,7 +2,7 @@
 
 namespace WixapolShop.Areas.Customer.ViewModels
 {
-    public class SaleDisplayVM
+    public sealed class SaleDisplayVM
     {
         public Sale Sale { get; set; }
         public List<Product> Products { get; set; } = new();
