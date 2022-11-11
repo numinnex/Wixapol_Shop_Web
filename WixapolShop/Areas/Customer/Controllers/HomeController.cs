@@ -7,16 +7,19 @@ namespace WixapolShop.Areas.Customer.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IUnitOfWork unitOfWork)
         {
-            _logger = logger;
+            _unitOfWork = unitOfWork;
         }
+
 
         public IActionResult Index()
         {
-            return View();
+            var products = _unitOfWork.Product.GetAll().Where(x => x.IsDiscounted).ToList();
+
+            return View(products);
         }
 
         public IActionResult Privacy()
@@ -24,10 +27,5 @@ namespace WixapolShop.Areas.Customer.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }

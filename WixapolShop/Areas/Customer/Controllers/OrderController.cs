@@ -136,7 +136,7 @@ namespace WixapolShop.Areas.Customer.Controllers
                     {
                         PriceData = new SessionLineItemPriceDataOptions
                         {
-                            UnitAmount = (long)((Math.Round(product.RetailPrice + CalculateTax(product), 2, MidpointRounding.AwayFromZero)) * 100.00),
+                            UnitAmount = (long)((Math.Round(product.CalculateDiscountedPrice() + CalculateTax(product), 2, MidpointRounding.AwayFromZero)) * 100.00),
                             TaxBehavior = "inclusive",
                             Currency = "usd",
                             ProductData = new SessionLineItemPriceDataProductDataOptions
@@ -208,7 +208,7 @@ namespace WixapolShop.Areas.Customer.Controllers
         }
         private double CalculateTax(Product product)
         {
-            return product.RetailPrice * (product.TaxRate / 100);
+            return product.CalculateDiscountedPrice() * (product.TaxRate / 100);
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Wixapol_DataAccess.Models;
 using Wixapol_DataAccess.UnitOfWork.Interface;
+using Wixapol_Utils;
 using Wixapol_Utils.StaticDetails;
 using WixapolShop.Areas.Customer.Models;
 using WixapolShop.Areas.Customer.ViewModels;
@@ -87,7 +88,7 @@ namespace WixapolShop.Areas.Customer.Controllers
         #region Helper Methods
         private double CalculateTax(Product product, int count)
         {
-            return Math.Round(product.RetailPrice * count *
+            return Math.Round(product.CalculateDiscountedPrice() * count *
                 (product.TaxRate / 100), 2, MidpointRounding.ToEven);
         }
 
@@ -96,7 +97,8 @@ namespace WixapolShop.Areas.Customer.Controllers
 
             foreach (var shoppingCart in shoppingCartVM.ShoppingCarts)
             {
-                double subTotal = Math.Round(shoppingCart.Product.RetailPrice * shoppingCart.Count, 2, MidpointRounding.AwayFromZero);
+
+                double subTotal = Math.Round(shoppingCart.Product.CalculateDiscountedPrice() * shoppingCart.Count, 2, MidpointRounding.AwayFromZero);
                 double taxAmount = CalculateTax(shoppingCart.Product, shoppingCart.Count);
                 double total = Math.Round(subTotal + taxAmount, 2, MidpointRounding.AwayFromZero);
 
@@ -175,7 +177,7 @@ namespace WixapolShop.Areas.Customer.Controllers
             UpdateTotalSubTotalAndTax(shoppingCartVM);
 
             HttpContext.Session.SetString(SD.SessionCartMoney,
-                Math.Round((double)_unitOfWork.ShoppingCart.GetShoppingCartByUserId(userId).Sum(x => x.SubTotal), 2, MidpointRounding.AwayFromZero).ToString());
+                Math.Round((double)_unitOfWork.ShoppingCart.GetShoppingCartByUserId(userId).Sum(x => x.Total), 2, MidpointRounding.AwayFromZero).ToString());
 
             return View(shoppingCartVM);
         }

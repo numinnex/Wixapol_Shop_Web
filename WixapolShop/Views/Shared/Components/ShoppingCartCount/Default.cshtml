@@ -1,0 +1,27 @@
+﻿@model int
+
+<style>
+    .shop-count{
+        font-size: 0.4666em;
+        line-height: 2em;
+        position: absolute;
+        right: -0.4rem;
+        top: -0.1em;
+        color: rgb(255, 255, 255);
+        font-style: normal;
+        font-weight: 400;
+        height: 1.7em;
+        line-height: 1.7em;
+        text-align: center;
+        width: 1.7em;
+        background: rgb(255, 80, 60);
+        border-radius: 100%;
+    }
+</style>
+
+@if(Model > 0 )
+{
+<div class="bg-primary text-white shop-count" style="">
+    @Model
+</div>
+}

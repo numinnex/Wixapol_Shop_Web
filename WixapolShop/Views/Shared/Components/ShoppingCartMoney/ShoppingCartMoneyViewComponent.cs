@@ -28,7 +28,7 @@ namespace WixapolShop.Views.Shared.Components.ShoppingCartMoney
                 else
                 {
                     HttpContext.Session.SetString(SD.SessionCartMoney,
-                        Math.Round((double)_unitOfWork.ShoppingCart.GetShoppingCartByUserId(claim.Value).Sum(x => x.SubTotal), 2, MidpointRounding.AwayFromZero).ToString());
+                        Math.Round((double)_unitOfWork.ShoppingCart.GetShoppingCartByUserId(claim.Value).Sum(x => x.Total), 2, MidpointRounding.AwayFromZero).ToString());
 
                     return View("Default", HttpContext.Session.GetString(SD.SessionCartMoney));
                 }

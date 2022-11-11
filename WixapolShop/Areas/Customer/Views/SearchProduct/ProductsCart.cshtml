@@ -119,22 +119,36 @@
                                          @{
                                              var tuple = Model.Products[0].SpecificationParser(product.AdvancedSpec);
 
-                                             @for (int i = 0; i < tuple.SpecValues.Count; ++i)
+                                                             @for (int i = 0; i < tuple.SpecValues.Count; ++i)
                                              {
-                                                 <div class="prod-feature">
-                                                 @tuple.SpecNames[i]:
-                                                <b>@tuple.SpecValues[i]</b>
-                                                </div>
+                                                                 <div class="prod-feature">
+                                                                 @tuple.SpecNames[i]:
+                                                                <b>@tuple.SpecValues[i]</b>
+                                                                </div>
                                              }
                                           }
                                       </div>
                                 </div>
                         </div>
-                            <div class="prod-right">
+                            <div class="prod-right position-relative">
                                 <div class="">
                                     <div class="mb-4">
-                                        <div class="price">
-                                            $@product.RetailPrice
+                                        <div class="">
+                                            @{
+                                                if(product.IsDiscounted)
+                                                {
+                                                        <div class="d-flex justify-content-between align-items-center mb-2 w-50"  >
+                                                           <div class="bg-primary rounded-2 text-white px-2">-@product.DiscountAmount%</div>
+                                                           <span class="text-decoration-line-through text-muted">$@product.RetailPrice</span>
+                                                        </div>
+                                                        <span class="price">$@product.CalculateDiscountedPrice()</span> 
+                                                }
+                                                else
+                                                {
+                                                        <span class="price">$@product.RetailPrice</span> 
+                                                }
+
+                                             }
                                         </div>
                                     </div>
                                         <div class="mt-2">

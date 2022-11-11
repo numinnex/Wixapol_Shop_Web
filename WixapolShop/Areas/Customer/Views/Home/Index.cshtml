@@ -1,9 +1,67 @@
-﻿@{
+﻿@model List<Product>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<style>
+    .img-wrapper {
+        background-color: #fff;
+        height: 100%;
+        max-height: calc(100vh - 150px);
+        min-height: 150px;
+        overflow: hidden;
+        position: relative;
+    }
 
+        .img-wrapper img {
+            bottom: 0;
+            left: 0;
+            margin: auto;
+            max-height: 100%;
+            max-width: 100%;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+</style>
+
+<div class="container">
+    <div class="mt-3">
+        <div class="bg-white rounded-3 p-2">
+            <div class="row">
+                @foreach (var p in Model)
+                {
+                    <div class="col-xl-4 col-lg-6 mb-2">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12 mt-2">
+                                    <a href="">
+                                        <div class="img-wrapper">
+                                            <img src="@p.ProductImage" class="img-fluid" />
+                                        </div>
+                                        </a>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 text-center">
+                                    <p class="prod-name-style mb-2"> @p.ToString()</p>
+                                    <p class="text-muted mb-2"> @p.ShortDescription</p>
+
+                                    <div class="">
+                                        <div class="d-flex w-100 align-items-center justify-content-center">
+                                                <span class="bg-primary rounded-2 text-white py-1 " style="width:20%">-@p.DiscountAmount%</span>
+                                                <span class="text-decoration-line-through text-muted ms-1 me-3">$@p.RetailPrice</span>
+                                                <span class="fs-4" >$@p.CalculateDiscountedPrice()</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                }
+            </div>
+        </div>
+    </div>
+</div>

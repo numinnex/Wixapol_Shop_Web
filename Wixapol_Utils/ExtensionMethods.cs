@@ -17,7 +17,7 @@ namespace Wixapol_Utils
             List<string> specNames = new();
             List<string> specValues = new();
 
-            if (specification is null)
+            if (specification.SpecValue is null || specification.SpecName is null)
             {
                 return (specNames, specValues);
             }
@@ -57,6 +57,21 @@ namespace Wixapol_Utils
             WarrantyDateTime warrantyOffest = new() { Years = years, Months = months };
 
             return warrantyOffest;
+        }
+
+        public static double CalculateDiscountedPrice(this Product product)
+        {
+
+            if(product.IsDiscounted)
+            {
+                double? price = product.RetailPrice - (product.RetailPrice * (product.DiscountAmount / 100));
+                return Math.Round((double)price, 2, MidpointRounding.AwayFromZero);
+            }
+            else
+            {
+                return product.RetailPrice;
+            }
+
         }
 
     }
