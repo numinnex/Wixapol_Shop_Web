@@ -60,6 +60,7 @@ namespace WixapolShop.Areas.Customer.Controllers
 
             productsVM.Products = _unitOfWork.Product.GetAllByNamePattern(productsVM.query.Phrase);
 
+
             if (productsVM.CategoryIdList is not null)
             {
                 productsVM.Products = productsVM.Products.Where(x => productsVM.CategoryIdList.Contains(x.Category.Id)).ToList();
@@ -71,6 +72,11 @@ namespace WixapolShop.Areas.Customer.Controllers
             if (productsVM.MinPrice >= 0 && productsVM.MaxPrice >= 0)
             {
                 productsVM.Products = productsVM.Products.Where(x => x.RetailPrice >= productsVM.MinPrice && x.RetailPrice <= productsVM.MaxPrice).ToList();
+            }
+
+            if (productsVM.Products.Count == 0)
+            {
+                return View("ProductsCart", productsVM);
             }
 
             LoadSpecificationsForProduct(productsVM);

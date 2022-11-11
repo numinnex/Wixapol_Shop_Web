@@ -33,7 +33,7 @@
                         <div class="dropdown-menu" style="border-radius:0px; border:none; min-width:260px;">
                             @foreach (var category in categories)
                                 {
-                                <a href="" class="dropdown-item my-1 dropdown-link"><span style="font-weight:bold;">@category.Name</span></a>
+                                <a asp-area="Customer" asp-controller="SearchProduct" asp-action="FilterProductsCart" asp-route-CategoryIdList="@category.Id" asp-route-Query.Phrase="%" class="dropdown-item my-1 dropdown-link"><span style="font-weight:bold;">@category.Name</span></a>
 
                                 }
                         </div>
