@@ -62,8 +62,12 @@ namespace WixapolShop.Areas.Admin.Controllers
                     PaymentIntent = sale.PaymentIntentId,
                 };
 
+
                 var service = new RefundService();
-                Refund refund = service.Create(options);
+                if (options.PaymentIntent is not null)
+                {
+                    Refund refund = service.Create(options);
+                }
 
                 _unitOfWork.Sale.UpdateStatus(sale.Id, SD.StatusCancelled, SD.StatusRefunded);
             }

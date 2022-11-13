@@ -1,8 +1,73 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<style>
+    .rating {
+        border: none;
+    }
+
+        .rating > input {
+            display: none;
+        }
+
+        .rating > label:before {
+            font: var(--fa-font-solid);
+            content: '\f005';
+            margin: 5px;
+            font-size: 1.5rem;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .rating > label{
+            color: #ddd;
+            cursor:pointer;
+            float:right;
+        }
+        .rating > input:checked ~ label,
+        .rating:not(:checked) > label:hover,
+        .rating:not(:checked) > label:hover ~ label
+        {
+            color: #2ce679;
+        }
+        .rating > input:checked + label:hover,
+        .rating > input:checked ~ label:hover,
+        .rating > label:hover ~ input:checked ~ label,
+        .rating > input:checked ~ label:hover ~ label{
+            color: #2ddc76;
+        }
+
+        
+</style>
+
+<fieldset class="rating">
+    <input type="radio" id="star5" name="rating" value="5" />
+    <label for="star5" class="full"></label>
+    <input type="radio" id="star4" name="rating" value="4" />
+    <label for="star4" class="full"></label>
+    <input type="radio" id="star3" name="rating" value="3" />
+    <label for="star3" class="full"></label>
+    <input type="radio" id="star2" name="rating" value="2" />
+    <label for="star2" class="full"></label>
+    <input type="radio" id="star1" name="rating" value="1" />
+    <label for="star1" class="full"></label>
+</fieldset>
+
+<input type="number" id="rating-value" />
+
+<script>
+    let star = document.querySelector(".rating").children;
+
+    let showValue = document.querySelector("#rating-value");
+
+    for(let i = 0 ; i < star.length;i++)
+    {
+        star[i].addEventListener("click" , function(){
+            i = this.value;
+            
+            showValue.value = i;
+        })
+    }
 
 
+</script>

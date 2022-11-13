@@ -10,6 +10,7 @@ using Wixapol_DataAccess.CategoryRepository.Interface;
 using Wixapol_DataAccess.OrderRepository.Interfaces;
 using Wixapol_DataAccess.ProducentRepository.Interface;
 using Wixapol_DataAccess.ProductRepository.Interfaces;
+using Wixapol_DataAccess.RateRepository.Interfaces;
 using Wixapol_DataAccess.SaleDetailRepository.Interfaces;
 using Wixapol_DataAccess.SaleRepository.Interfaces;
 using Wixapol_DataAccess.ShoppingCartRepository.Interfaces;
@@ -32,6 +33,7 @@ namespace Wixapol_DataAccess.UnitOfWork.Implementation
 
         public ISaleDetailRepository SaleDetail { get; private set; }
 
+        public IRateRepository Rate { get; private set; }
 
         public UnitOfWork(IConfiguration config, IMapper mapper)
         {
@@ -46,6 +48,7 @@ namespace Wixapol_DataAccess.UnitOfWork.Implementation
             Order = new OrderRepository.Implementation.OrderRepository(config);
             Sale = new SaleRepository.Implementation.SaleRepository(config, mapper);
             SaleDetail = new SaleDetailRepository.Implemenation.SaleDetailRepository(config);
+            Rate = new RateRepository.Implementation.RateRepository(config);
         }
     }
 }

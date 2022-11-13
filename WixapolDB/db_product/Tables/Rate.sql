@@ -6,7 +6,8 @@
     [RateValue] INT NOT NULL,
     [Likes] INT NOT NULL DEFAULT 0,
     [DisLikes] INT NOT NULL DEFAULT 0,
-    [Text] NVARCHAR(500) NOT NULL,
-	CONSTRAINT [FK_Rate_ToUser] FOREIGN KEY (UserId) REFERENCES dbo.AspNetusers(Id),
+    [Text] NVARCHAR(500) NULL,
+	[RateDate] DATETIME2 NOT NULL DEFAULT getutcdate(), 
+    CONSTRAINT [FK_Rate_ToUser] FOREIGN KEY (UserId) REFERENCES dbo.AspNetusers(Id),
 	CONSTRAINT [FK_Rate_ToProduct] FOREIGN KEY (ProductId) REFERENCES db_product.Product(Id),
 )

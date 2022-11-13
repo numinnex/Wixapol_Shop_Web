@@ -29,7 +29,70 @@
             right: 0;
             top: 0;
     }
-   
+    .star:before
+    {
+        font: var(--fa-font-solid);
+        content: '\f005';
+        font-size: 1rem;
+        display: inline-block;
+    }
+
+    .star-smol:before {
+        font: var(--fa-font-solid);
+        content: '\f005';
+        font-size: .7rem;
+        display: inline-block;
+    }
+    .star-medium:before {
+        font: var(--fa-font-solid);
+        content: '\f005';
+        font-size: .84rem;
+        display: inline-block;
+    }
+    .review-rating-cart{
+        background: #fff;
+        border-bottom: 1px solid hsla(0,0%,80%,.5);
+        border-radius: 0;
+        box-shadow: 0 0 0 0 transparent;
+        margin-bottom: 12px;
+    }
+    .review-info{
+        max-width: 402px;
+        width: 48%;
+        display: flex;
+        align-items:center;
+        justify-content:space-between;
+    }
+    .review-create{
+    }
+    .review-stats{
+        font-size:14px;
+    }
+    .rate-percent{
+        padding: 0;
+    }
+    .percent-bar{
+
+    background: #f2f2f2;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    flex: 0 0 calc(100% - 61px);
+    height: 9px;
+    position: relative;
+    width: calc(100% - 61px);
+    }
+    .percent-bar div{
+    background: #ff503c;
+    border-radius: 8px;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    top: 0;
+    }
+    .rate-signature{
+        font-size: 14px;
+    }
+     
 </style>
 
 <div class="container-products">
@@ -52,7 +115,25 @@
                     </div>
                     <div class="mt-2">
                         <div class="" style="height:25px;">
-                            <span>RATING PLACEHOLDER</span>
+                            <span>
+                                <div class="d-flex align-items-center mb-3">
+                                    @{
+                                        var colored = "text-primary";
+                                        for (int i = 1; i <= 5; ++i)
+                                        {
+                                            if (i <= Model.AvgRate)
+                                            {
+                                                <div class="star-medium @colored"></div>
+                                            }
+                                            else
+                                            {
+                                                <div class="star-medium text-secondary "></div>
+                                            }
+                                        }
+                                    }
+                                    <span class="ms-2  text-primary" style="font-size:13px">(@Model.Rates.Count)</span>
+                                </div>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -64,8 +145,8 @@
                     if(Model.Product.IsDiscounted)
                     {
                         <div class="d-flex justify-content-between align-items-center mb-3" style="width:35%"> 
-                            <div class="bg-primary rounded-2 text-white px-2">-@Model.Product.DiscountAmount%</div>
-                            <span class="text-decoration-line-through text-muted" >$@Model.Product.RetailPrice</span>
+                        <div class="bg-primary rounded-2 text-white px-2">-@Model.Product.DiscountAmount%</div>
+                        <span class="text-decoration-line-through text-muted" >$@Model.Product.RetailPrice</span>
                         </div>
                     }
                 }
@@ -155,7 +236,7 @@
                     <div class="col-4  ps-0">
                         <div class="mt-3">
                             <span>PHYSICAL SPECIFICATION</span>
-                     </div>
+                        </div>
                     </div>
                     <div class="col-8">
                         <table class="table">
@@ -180,5 +261,114 @@
             </div>
         </div>
     </div>
+    <div class="row mt-4">
+        <div class="col-9">
+            <div class="row rounded rounded-3 bg-white p-1">
+                <div class="d-flex align-items-center mb-3">
+                        <span class="me-1">Ratings</span>
+                        <span class="me-2">(@Model.Rates.Count)</span>
+                        @{
+                            colored = "text-primary";
+                            for (int i = 1; i <= 5; ++i)
+                            {
+                                if (i <= Model.AvgRate)
+                                {
+                                    <div class="star @colored"></div>
+                                }
+                                else
+                                {
+                                    <div class="star text-secondary "></div>
+                                }
+                            }
+                        }
+                </div>
+                    <div class="review-rating-cart d-flex align-items-center justify-content-between">
+                        <div class="review-info">
+                            <div class="review-left me-2">
+                                <div class="text-primary mb-3 fs-4">
+                                    @if(Model.Rates.Count > 0)
+                                    {
+                                        <span>@Model.AvgRate/5</span>
+                                    }
+                                    else
+                                    {
+                                        <span>This product has no ratings</span>
+                                    }
+                                </div>
+                                <div class="review-stars mb-3 d-flex align-items-center">
+                                    
+                                        @for (int i = 1; i <= 5; ++i)
+                                        {
+                                            @if (i <= Model.AvgRate)
+                                            {
+                                                <div class="star @colored"></div>
+                                            }
+                                            else
+                                            {
+                                                <div class="star text-secondary "></div>
+                                            }
+                                        }
+                                    
+                                    <span class="text-primary ms-1">(@Model.Rates.Count)</span>
 
+                                </div>
+                                @if(Model.Rates.Count > 0)
+                                {
+                                    <div class="review-stats mb-2">
+                                        @Model.PercentRecommend% customers recommend<br>
+                                        <p>this product</p> 
+                                    </div>
+                                }
+                            </div>
+                        <div class="review-right" style="font-size: 13px;">
+                        @foreach (var (key, value) in Model.IndividualRatePercent)
+                        {
+                            string width = "style=width:" + Model.IndividualRatePercent[key] + "%";
+                            <div class="d-flex align-items-center position-relative " style="width:154px; ">
+                                <span class="text-primary">@key</span><div class="star-smol text-primary me-2"></div>
+                                <div class="percent-bar me-2">
+                                    <div @width>
+                                    </div>
+                                </div>
+                                <span class="text-muted">@value%</span>
+                            </div>
+                        }
+                    </div>
+                    </div>
+                    <div class="review-create">
+                        <button class="btn btn-outline-dark">Create Rating</button>
+                    </div>
+
+                    </div>
+                    <div class="mt-1">
+                        @foreach (var rate in Model.Rates)
+                        {
+                            <div class="mb-2">
+                                <div class="d-flex">
+                                    @for (int i = 1; i <= 5; ++i)
+                                    {
+                                        if (i <= rate.RateValue)
+                                        {
+                                            <div class="star-medium @colored"></div>
+                                        }
+                                        else
+                                        {
+                                            <div class="star-medium text-secondary "></div>
+                                        }
+
+                                    }
+                                </div>
+                                <div class="mt-1 mb-3">
+                                    <span>@rate.Text</span>
+                                </div>
+                                <div class="d-inline rate-signature">
+                                    <span class="fw-bold me-2 ">@rate.UserName</span>
+                                    <span class="text-muted">@rate.RateDate.ToShortDateString()</span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+            </div>
+        </div>
+    </div>
 </div>
