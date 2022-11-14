@@ -335,9 +335,7 @@
                         }
                     </div>
                     </div>
-                    <div class="review-create">
-                        <button class="btn btn-outline-dark">Create Rating</button>
-                    </div>
+                    @await Component.InvokeAsync("CreateRate" , new{ productId = Model.Product.Id })
 
                     </div>
                     <div class="mt-1">

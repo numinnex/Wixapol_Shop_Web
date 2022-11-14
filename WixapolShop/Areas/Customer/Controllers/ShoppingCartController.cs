@@ -42,6 +42,10 @@ namespace WixapolShop.Areas.Customer.Controllers
                 _unitOfWork.ShoppingCart.UpdateShoppingCartProductCount(existingCart.Id, existingCart.Count + count);
             }
         }
+        public IActionResult Test()
+        {
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]

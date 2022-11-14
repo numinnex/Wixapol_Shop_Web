@@ -1,0 +1,12 @@
+﻿@using WixapolShop.Views.CreationModels
+@model RateCM
+
+@if(ViewBag.Message != null)
+{
+    <span class="text-success">@ViewBag.Message</span>
+}
+<div class="alert-danger">
+    <span class="text-danger" asp-validation-for="@Model.Rate.Text"></span>
+    <span class="text-danger" asp-validation-for="@Model.Rate.RateValue"></span>
+</div>
+

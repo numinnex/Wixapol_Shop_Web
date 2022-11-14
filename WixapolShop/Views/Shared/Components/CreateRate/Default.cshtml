@@ -1,0 +1,164 @@
+﻿@using WixapolShop.Views.CreationModels
+@model RateCM
+
+@inject IUnitOfWork _unitOfWork
+
+@{
+    var product = _unitOfWork.Product.GetById(Model.ProductId);
+}
+<style>
+    .mod-prod-name{
+        font-size: 16px;
+        font-weight: 600;
+        margin: 0 0 20px;
+    }
+    .mod-left{
+        width: calc(60% - 30px);
+    }
+    .rating-box{
+        background: #fff;
+        border: 1px solid #cbcbcb;
+        border-radius: 8px;
+        margin-bottom: 24px;
+        padding: 18px 14px 2px;
+        position: relative;
+
+    }
+    .rating-label{
+        color: #747474;
+        font-size: 12px;
+        left: 10px;
+        padding: 3px 7px;
+        pointer-events: none;
+        position: absolute;
+        top: -3px;
+        z-index: 10;
+    }
+
+    .rating {
+        border: none;
+    }
+
+        .rating > input {
+            display: none;
+        }
+
+        .rating > label:before {
+            font: var(--fa-font-solid);
+            content: '\f005';
+            margin: 5px;
+            font-size: 1.2rem;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .rating > label {
+            color: #ddd;
+            cursor: pointer;
+            float:right;
+        }
+        .selected{
+            color: #ec7020 !important;
+        }
+
+        .rating > input:checked ~ label,
+        .rating:not(:checked) > label:hover,
+        .rating:not(:checked) > label:hover ~ label {
+                color: #ec7020;
+        }
+
+            .rating > input:checked + label:hover,
+            .rating > input:checked ~ label:hover,
+            .rating > label:hover ~ input:checked ~ label,
+            .rating > input:checked ~ label:hover ~ label {
+                color: #e95420;
+                
+            }
+            .rating-box{
+                height: 52px;
+            }
+            .rating{
+                position:absolute;
+                left:10px;
+            }
+</style>
+
+
+<div class="review-create">
+    <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Create Rating</button>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form asp-controller="Rating" asp-action="Create" method="post">
+        <input asp-for="@Model.Rate.ProductId" value="@Model.ProductId" hidden />
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <div class="text-center w-100" style="font-size:14px;"> You are creating review as @User.Identity.Name</div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                    <partial name="_ModalValidation" />
+                <div class="">
+                    <div class="d-flex align-items-center justify-content-between position-relative">
+                        <div class="mod-left">
+                            <h2 class="mod-prod-name mb-3">@product.ToString()</h2>
+                            <div class="rating-box">
+                                <div class="rating-label">
+                                    How do you rate this product?
+                                </div>
+                                <div class="rating-stars">
+                                <fieldset class="rating">
+                                    <input type="radio" id="star5" name="rating" value="5" />
+                                    <label for="star5" class="full"></label>
+                                    <input type="radio" id="star4" name="rating" value="4" />
+                                    <label for="star4" class="full"></label>
+                                    <input type="radio" id="star3" name="rating" value="3" />
+                                    <label for="star3" class="full"></label>
+                                    <input type="radio" id="star2" name="rating" value="2" />
+                                    <label for="star2" class="full"></label>
+                                    <input type="radio" id="star1" name="rating" value="1" />
+                                    <label for="star1" class="full" ></label>
+                                </fieldset>
+                                </div>
+                                    <input type="number" id="rating-value" asp-for="@Model.Rate.RateValue" hidden />
+                            </div>
+                        </div>
+                        <div class="mod-right text-center" style="width:40%">
+                            <img src="@product.ProductImage"  style="max-height: 200px; max-width:100%"/>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                            <div class="form-floating">
+                                <textarea asp-for="@Model.Rate.Text" id="floatingTextArea" class="form-control" rows="4" placeholder="Your review" style="height:150px;"></textarea>
+                                <label for="floatingTextArea">Your review</label>
+                            </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer ">
+                <button type="submit" class="btn btn-dark w-100">Submit Review</button>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+ 
+<script>
+    let star = document.querySelector(".rating").children;
+
+    $('label[for="star1"]').addClass("selected");
+    let showValue = document.querySelector("#rating-value");
+
+    for (let i = 0; i < star.length; i++) {
+        star[i].addEventListener("click", function () {
+            i = this.value;
+            showValue.value = i;
+        })
+    }
+</script>

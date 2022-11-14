@@ -1,22 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Wixapol_DataAccess.Models
 {
     public class Rate
     {
-        //TODO - Update database and model to include CreationDate prop
         public int Id { get; set; }
         public int ProductId { get; set; }
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
         public string? UserName { get; set; }
-        public int RateValue { get; set; }
+        [Required]
+        [Range(1, 5)]
+        public int RateValue { get; set; } = 1;
         public int Likes { get; set; }
         public int Dislikes { get; set; }
+        [Required]
+        [MaxLength(500)]
         public string? Text { get; set; }
-        public DateTime RateDate { get; set; }
+        public DateTime RateDate { get; set; } = DateTime.UtcNow;
     }
 }
