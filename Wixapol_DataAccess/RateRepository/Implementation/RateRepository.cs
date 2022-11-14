@@ -20,7 +20,17 @@ namespace Wixapol_DataAccess.RateRepository.Implementation
 
         public void CreateRate(Rate rate)
         {
-            throw new NotImplementedException();
+            SaveData("db_product.spRate_Insert", new
+            {
+                ProductId = rate.ProductId,
+                UserId = rate.UserId,
+                RateValue = rate.RateValue,
+                Likes = 0,
+                Dislikes = 0,
+                Text = rate.Text,
+                RateDate = rate.RateDate
+
+            }, "DefualtConnection");
         }
 
         public void DeleteRate(int id)

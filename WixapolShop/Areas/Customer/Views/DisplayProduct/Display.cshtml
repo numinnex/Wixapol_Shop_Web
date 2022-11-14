@@ -96,15 +96,29 @@
 </style>
 
 <div class="container-products">
-    <div class="row mt-5 gx-5">
-        <div class="col-9">
+    <div class="row mt-3 gx-5">
+    @if(TempData["rateCreated"] != null)
+    {
+        <div class="alert alert-success w-100 text-center mt-3">
+                <i class="bi bi-info-circle me-2"></i>
+            <span>@TempData["rateCreated"]</span>
+        </div>
+    }
+    @if(TempData["rateError"] != null)
+    {
+        <div class="alert alert-danger w-100 text-center mt-3">
+                <i class="bi bi-info-circle me-2"></i>
+            <span>@TempData["rateError"]</span>
+        </div>
+    }
+        <div class="col-9 mt-3 ">
             <div class="row rounded rounded-3" style="background-color: white">
-                <div class="col-7 py-3 " style="border-right: 1px solid grey;">
+                <div class="col-7" style="border-right: 1px solid grey;">
                     <div class="img-wrapper" >
                         <img src="@Model.Product.ProductImage" />
                     </div>
                 </div>
-                <div class="col-5 p-4">
+                <div class="col-4 p-4">
                     <div class="">
                         <h2 class="prod-name-style">
                             @Model.Product.ToString()
@@ -115,7 +129,6 @@
                     </div>
                     <div class="mt-2">
                         <div class="" style="height:25px;">
-                            <span>
                                 <div class="d-flex align-items-center mb-3">
                                     @{
                                         var colored = "text-primary";
@@ -123,31 +136,30 @@
                                         {
                                             if (i <= Model.AvgRate)
                                             {
-                                                <div class="star-medium @colored"></div>
+                                                        <div class="star-medium @colored"></div>
                                             }
                                             else
                                             {
-                                                <div class="star-medium text-secondary "></div>
+                                                        <div class="star-medium text-secondary "></div>
                                             }
                                         }
                                     }
                                     <span class="ms-2  text-primary" style="font-size:13px">(@Model.Rates.Count)</span>
                                 </div>
-                            </span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-3 rounded rounded-3 p-1 p-md-2 p-lg-4" style="background-color:white;">
+        <div class="col-3 rounded rounded-3 p-1 p-md-2 p-lg-4 mt-3" style="background-color:white;">
             <div class="">
                 @{
                     if(Model.Product.IsDiscounted)
                     {
-                        <div class="d-flex justify-content-between align-items-center mb-3" style="width:35%"> 
-                        <div class="bg-primary rounded-2 text-white px-2">-@Model.Product.DiscountAmount%</div>
-                        <span class="text-decoration-line-through text-muted" >$@Model.Product.RetailPrice</span>
-                        </div>
+                                <div class="d-flex justify-content-between align-items-center mb-3" style="width:35%"> 
+                                <div class="bg-primary rounded-2 text-white px-2">-@Model.Product.DiscountAmount%</div>
+                                <span class="text-decoration-line-through text-muted" >$@Model.Product.RetailPrice</span>
+                                </div>
                     }
                 }
                 <span class="price">$@Model.Product.CalculateDiscountedPrice()</span>
@@ -273,11 +285,11 @@
                             {
                                 if (i <= Model.AvgRate)
                                 {
-                                    <div class="star @colored"></div>
+                                            <div class="star @colored"></div>
                                 }
                                 else
                                 {
-                                    <div class="star text-secondary "></div>
+                                            <div class="star text-secondary "></div>
                                 }
                             }
                         }
@@ -341,7 +353,7 @@
                     <div class="mt-1">
                         @foreach (var rate in Model.Rates)
                         {
-                            <div class="mb-2">
+                            <div class="mb-2 border border-light border-1 border-top-0 border-start-0 border-end-0 ">
                                 <div class="d-flex">
                                     @for (int i = 1; i <= 5; ++i)
                                     {
@@ -360,7 +372,7 @@
                                     <span>@rate.Text</span>
                                 </div>
                                 <div class="d-inline rate-signature">
-                                    <span class="fw-bold me-2 ">@rate.UserName</span>
+                                    <span class="fw-bold me-2">@rate.UserName</span>
                                     <span class="text-muted">@rate.RateDate.ToShortDateString()</span>
                                 </div>
                             </div>
