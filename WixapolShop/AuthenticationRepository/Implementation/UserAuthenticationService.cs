@@ -100,7 +100,7 @@ namespace WixapolShop.AuthenticationRepository.Implementation
                 SecurityStamp = Guid.NewGuid().ToString(),
                 Email = model.Email,
                 UserName = model.UserName,
-                EmailConfirmed = false,
+                EmailConfirmed = true,
 
             };
 
