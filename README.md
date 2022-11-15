@@ -1,7 +1,7 @@
 <div align="center">
   
 ![C#](https://img.shields.io/badge/Language-C%23-blue?style=flat-square)
-[![License](https://img.shields.io/github/license/numinnex/Wixapol_Shop_Web?style=flat-square)](LICENSE)
+[![License](https://img.shields.io/github/license/numinnex/Wixapol_Shop_Web?style=flat-square)](https://github.com/numinnex/Wixapol_Shop_Web/blob/master/LICENSE.txt)
 # **Wixapol Web Shop**
 
  <img src="https://user-images.githubusercontent.com/112548209/201950007-4e1d919e-c003-459c-8883-f5f6192398ec.gif">
