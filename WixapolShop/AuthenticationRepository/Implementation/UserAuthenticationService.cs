@@ -113,6 +113,20 @@ namespace WixapolShop.AuthenticationRepository.Implementation
                 return status;
 
             }
+            //ROLES
+            if (!await _roleManager.RoleExistsAsync(model.Role))
+            {
+                await _roleManager.CreateAsync(new IdentityRole(model.Role));
+                await _userManager.AddToRoleAsync(user, model.Role);
+            }
+            else
+            {
+                await _userManager.AddToRoleAsync(user, model.Role);
+            }
+            status.StatusCode = 1;
+            status.Message = "User Registerred Successfully";
+
+            return status;
 
         }
     }
