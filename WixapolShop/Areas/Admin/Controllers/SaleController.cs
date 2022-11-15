@@ -7,7 +7,7 @@ using Wixapol_Utils.StaticDetails;
 
 namespace WixapolShop.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin")]
     public class SaleController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -104,11 +104,6 @@ namespace WixapolShop.Areas.Admin.Controllers
             }
             else
             {
-                //TODO - cba change it later
-                if (status == "completed")
-                {
-                    status = "shipped";
-                }
                 var sales = _unitOfWork.Sale.GetByStatus(status);
                 return Json(new { data = sales });
             }

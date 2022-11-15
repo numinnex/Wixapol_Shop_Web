@@ -30,9 +30,7 @@ namespace Wixapol_DataAccess.UnitOfWork.Implementation
         public IShoppingCartRepository ShoppingCart { get; private set; }
         public IOrderRepository Order { get; private set; }
         public ISaleRepository Sale { get; private set; }
-
         public ISaleDetailRepository SaleDetail { get; private set; }
-
         public IRateRepository Rate { get; private set; }
 
         public UnitOfWork(IConfiguration config, IMapper mapper)

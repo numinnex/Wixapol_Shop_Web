@@ -10,7 +10,7 @@ using WixapolShop.Areas.Admin.Models;
 
 namespace WixapolShop.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin")]
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitofWork;

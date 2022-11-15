@@ -7,7 +7,7 @@
 
     var pending = "text-primary";
     var inProcess = "text-primary";
-    var completed = "text-primary";
+    var shipped = "text-primary";
     var approved = "text-primary";
     var all = "text-primary";
 
@@ -19,8 +19,8 @@
         case "inprocess":
             inProcess = "active text-white";
             break;
-        case "completed":
-            completed = "active text-white";
+        case "shipped":
+            shipped = "active text-white";
             break;
         case "approved":
             approved = "active text-white";
@@ -48,8 +48,8 @@
                 <a style="text-decoration:none;" asp-controller="Sale" asp-action="Managment" asp-route-status="approved">
                     <li class="list-group-item @approved">Approved</li>
                 </a>
-                <a style="text-decoration:none;" asp-controller="Sale" asp-action="Managment" asp-route-status="completed">
-                    <li class="list-group-item @completed">Completed</li>
+                <a style="text-decoration:none;" asp-controller="Sale" asp-action="Managment" asp-route-status="shipped">
+                    <li class="list-group-item @shipped">Shipped</li>
                 </a>
                 <a style="text-decoration:none;" asp-controller="Sale" asp-action="Managment" asp-route-status="all">
                     <li class="list-group-item @all">All</li>

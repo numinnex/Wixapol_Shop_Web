@@ -35,7 +35,7 @@ namespace Wixapol_DataAccess.RateRepository.Implementation
 
         public void DeleteRate(int id)
         {
-            throw new NotImplementedException();
+            SaveData("db_product.spRate_Delete", new { Id = id }, "DefualtConnection");
         }
 
         public List<Rate> GetAll()

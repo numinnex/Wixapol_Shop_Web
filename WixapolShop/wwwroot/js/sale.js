@@ -6,8 +6,8 @@ $(document).ready(function () {
         loadDataTable("processing");
     }
     else {
-        if (url.includes("completed")) {
-            loadDataTable("completed");
+        if (url.includes("shipped")) {
+            loadDataTable("shipped");
         }
         else {
             if (url.includes("pending")) {

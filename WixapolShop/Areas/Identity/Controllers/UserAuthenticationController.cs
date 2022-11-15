@@ -85,21 +85,21 @@ namespace WixapolShop.Areas.Identity.Controllers
         }
 
 
-        //public async Task<IActionResult> Reg()
-        //{
-        //    var model = new RegistrationModel()
-        //    {
-        //        UserName = "admin",
-        //        Name = "Test Name",
-        //        Email = "admin@admin.com",
-        //        Password = "Admin@12345#",
-        //        Role = "admin"
-        //    };
+        public async Task<IActionResult> Reg()
+        {
+            var model = new RegisterModel()
+            {
+                UserName = "admin2",
+                Name = "Admin Name",
+                Email = "admin2@admin.com",
+                Password = "Admin@12345#",
+                Role = "admin"
+            };
 
-        //    var result = await _service.RegistrationAsync(model);
+            var result = await _service.RegistrationAsync(model);
 
-        //    return Ok(result);
-        //}
+            return Ok(result);
+        }
 
 
 

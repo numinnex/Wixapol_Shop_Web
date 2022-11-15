@@ -111,6 +111,13 @@
             <span>@TempData["rateError"]</span>
         </div>
     }
+    @if(TempData["rateDeleted"] != null)
+    {
+        <div class="alert alert-success w-100 text-center mt-3">
+                <i class="bi bi-info-circle me-2"></i>
+            <span>@TempData["rateDeleted"]</span>
+        </div>
+    }
         <div class="col-9 mt-3 ">
             <div class="row rounded rounded-3" style="background-color: white">
                 <div class="col-7" style="border-right: 1px solid grey;">
@@ -222,7 +229,7 @@
                     <div class="col-4  ps-0">
                         <div class="mt-3">
                             <span>ADVANCED SPECIFICATION</span>
-                     </div>
+                    </div>
                     </div>
                     <div class="col-8">
                         <table class="table">
@@ -285,11 +292,11 @@
                             {
                                 if (i <= Model.AvgRate)
                                 {
-                                            <div class="star @colored"></div>
+                                    <div class="star @colored"></div>
                                 }
                                 else
                                 {
-                                            <div class="star text-secondary "></div>
+                                    <div class="star text-secondary "></div>
                                 }
                             }
                         }
@@ -353,7 +360,8 @@
                     <div class="mt-1">
                         @foreach (var rate in Model.Rates)
                         {
-                            <div class="mb-2 border border-light border-1 border-top-0 border-start-0 border-end-0 ">
+                            <div class="d-flex align-items-center justify-content-between border border-light border-1 border-top-0 border-start-0 border-end-0 mb-2">
+                            <div class="mb-2  ">
                                 <div class="d-flex">
                                     @for (int i = 1; i <= 5; ++i)
                                     {
@@ -368,13 +376,18 @@
 
                                     }
                                 </div>
-                                <div class="mt-1 mb-3">
+                                <div class="mt-1 mb-3 me-2">
                                     <span>@rate.Text</span>
                                 </div>
                                 <div class="d-inline rate-signature">
                                     <span class="fw-bold me-2">@rate.UserName</span>
                                     <span class="text-muted">@rate.RateDate.ToShortDateString()</span>
                                 </div>
+                            </div>
+                            @if(User.IsInRole("admin"))
+                            {
+                                <a class="btn btn-danger" asp-controller="Rating" asp-action="Remove" asp-route-rateId="@rate.Id" asp-route-productId="@rate.ProductId">Remove</a>
+                            }
                             </div>
                         }
                     </div>

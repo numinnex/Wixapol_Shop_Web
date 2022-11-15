@@ -71,7 +71,7 @@ namespace WixapolShop.Areas.Customer.Controllers
             }
             if (productsVM.MinPrice >= 0 && productsVM.MaxPrice >= 0)
             {
-                productsVM.Products = productsVM.Products.Where(x => x.RetailPrice >= productsVM.MinPrice && x.RetailPrice <= productsVM.MaxPrice).ToList();
+                productsVM.Products = productsVM.Products.Where(x => x.CalculateDiscountedPrice() >= productsVM.MinPrice && x.CalculateDiscountedPrice() <= productsVM.MaxPrice).ToList();
             }
 
             if (productsVM.Products.Count == 0)
@@ -104,7 +104,7 @@ namespace WixapolShop.Areas.Customer.Controllers
 
             productsVM.ProductsByProducent = productsVM.Products.GroupBy(x => x.Producent.Name, p => p.Name).ToDictionary(x => x.Key, p => p.ToList());
 
-            productsVM.ProductsByPrice = new SortedDictionary<double, List<string>>(productsVM.Products.GroupBy(x => x.RetailPrice, p => p.Name).ToDictionary(x => x.Key, p => p.ToList()));
+            productsVM.ProductsByPrice = new SortedDictionary<double, List<string>>(productsVM.Products.GroupBy(x => x.CalculateDiscountedPrice(), p => p.Name).ToDictionary(x => x.Key, p => p.ToList()));
         }
 
     }

@@ -16,8 +16,7 @@
             <ul class="navbar-nav g-3 align-items-xl-center ms-auto ">
                 @if (SignInManager.IsSignedIn(User))
                 {
-                    //TODO - Change later to admin
-                    @if (User.IsInRole("user"))
+                    @if (User.IsInRole("admin"))
                     {
                         <li class="nav-item">
                             <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="nav-link text-black d-flex align-items-center">

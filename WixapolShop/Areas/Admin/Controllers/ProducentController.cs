@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Wixapol_DataAccess.Models;
 using Wixapol_DataAccess.UnitOfWork.Interface;
 
 namespace WixapolShop.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class ProducentController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

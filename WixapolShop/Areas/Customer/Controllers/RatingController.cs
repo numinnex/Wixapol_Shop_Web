@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.VisualBasic;
 using System.Security.Claims;
 using Wixapol_DataAccess.UnitOfWork.Interface;
 using WixapolShop.Views.CreationModels;
@@ -42,6 +43,14 @@ namespace WixapolShop.Areas.Customer.Controllers
                 return RedirectToAction("Display", "DisplayProduct", new { productId = rateCM.Rate.ProductId });
             }
 
+        }
+        public IActionResult Remove(int rateId, int productId)
+        {
+            _unitOfWork.Rate.DeleteRate(rateId);
+
+            TempData["rateDeleted"] = "Review deleted successfully";
+
+            return RedirectToAction("Display", "DisplayProduct", new { productId = productId });
         }
     }
 }

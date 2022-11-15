@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Wixapol_DataAccess.UnitOfWork.Interface;
 using Wixapol_DataAccess.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WixapolShop.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

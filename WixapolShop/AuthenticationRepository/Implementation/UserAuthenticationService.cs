@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore.Internal;
 using System.Security.Claims;
+using System.Security.Policy;
 using WixapolShop.Areas.Identity.Models.Domain;
 using WixapolShop.Areas.Identity.Models.DTO;
 using WixapolShop.IdentityRepository.Interfaces;
@@ -13,7 +15,8 @@ namespace WixapolShop.AuthenticationRepository.Implementation
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public UserAuthenticationService(SignInManager<ApplicationUser> signInManger, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public UserAuthenticationService(SignInManager<ApplicationUser> signInManger,
+            UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _signInManger = signInManger;
             _userManager = userManager;
@@ -22,6 +25,7 @@ namespace WixapolShop.AuthenticationRepository.Implementation
 
         public async Task<Status> LoginAsync(LoginModel model)
         {
+
             Status status = new();
 
             var user = await _userManager.FindByNameAsync(model.UserName);
@@ -79,6 +83,7 @@ namespace WixapolShop.AuthenticationRepository.Implementation
 
         public async Task<Status> RegistrationAsync(RegisterModel model)
         {
+
             Status status = new();
 
             var userExists = await _userManager.FindByNameAsync(model.UserName);
@@ -95,7 +100,7 @@ namespace WixapolShop.AuthenticationRepository.Implementation
                 SecurityStamp = Guid.NewGuid().ToString(),
                 Email = model.Email,
                 UserName = model.UserName,
-                EmailConfirmed = true,
+                EmailConfirmed = false,
 
             };
 
@@ -106,21 +111,9 @@ namespace WixapolShop.AuthenticationRepository.Implementation
                 status.StatusCode = 0;
                 status.Message = "User creation failed";
                 return status;
+
             }
 
-            //ROLES
-            if (!await _roleManager.RoleExistsAsync(model.Role))
-            {
-                await _roleManager.CreateAsync(new IdentityRole(model.Role));
-            }
-            else
-            {
-                await _userManager.AddToRoleAsync(user, model.Role);
-            }
-            status.StatusCode = 1;
-            status.Message = "User Registerred Successfully";
-
-            return status;
         }
     }
 }

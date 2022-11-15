@@ -91,7 +91,6 @@ namespace WixapolShop.Areas.Customer.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Checkout(Sale sale)
         {
-            //TODO - clean this shit up
             if (ModelState.IsValid)
             {
                 List<ShoppingCart> shoppingCarts = _unitOfWork.ShoppingCart.GetShoppingCartByUserId(sale.UserId);
@@ -117,37 +116,7 @@ namespace WixapolShop.Areas.Customer.Controllers
 
                 var domain = "https://localhost:7068/";
 
-                var options = new SessionCreateOptions
-                {
-                    PaymentMethodTypes = new List<string>
-                    {
-                        "card",
-                    },
-
-                    LineItems = new List<SessionLineItemOptions>(),
-                    Mode = "payment",
-                    SuccessUrl = domain + $"customer/order/OrderConfirmation?id={saleId}",
-                    CancelUrl = domain + "customer/shoppingcart/index"
-                };
-                foreach (var shoppingCart in shoppingCarts)
-                {
-                    Product product = _unitOfWork.Product.GetById(shoppingCart.ProductId);
-                    var sesionLineItem = new SessionLineItemOptions
-                    {
-                        PriceData = new SessionLineItemPriceDataOptions
-                        {
-                            UnitAmount = (long)((Math.Round(product.CalculateDiscountedPrice() + CalculateTax(product), 2, MidpointRounding.AwayFromZero)) * 100.00),
-                            TaxBehavior = "inclusive",
-                            Currency = "usd",
-                            ProductData = new SessionLineItemPriceDataProductDataOptions
-                            {
-                                Name = product.Name
-                            },
-                        },
-                        Quantity = shoppingCart.Count,
-                    };
-                    options.LineItems.Add(sesionLineItem);
-                }
+                var options = CreateStripeOptions(domain, saleId, shoppingCarts);
 
                 var service = new SessionService();
                 Session session = service.Create(options);
@@ -162,12 +131,45 @@ namespace WixapolShop.Areas.Customer.Controllers
 
             return View(sale);
         }
+        private SessionCreateOptions CreateStripeOptions(string domain, int saleId, List<ShoppingCart> shoppingCarts)
+        {
+            var options = new SessionCreateOptions
+            {
+                PaymentMethodTypes = new List<string>
+                    {
+                        "card",
+                    },
+
+                LineItems = new List<SessionLineItemOptions>(),
+                Mode = "payment",
+                SuccessUrl = domain + $"customer/order/OrderConfirmation?id={saleId}",
+                CancelUrl = domain + "customer/shoppingcart/index"
+            };
+            foreach (var shoppingCart in shoppingCarts)
+            {
+                Product product = _unitOfWork.Product.GetById(shoppingCart.ProductId);
+                var sesionLineItem = new SessionLineItemOptions
+                {
+                    PriceData = new SessionLineItemPriceDataOptions
+                    {
+                        UnitAmount = (long)((Math.Round(product.CalculateDiscountedPrice() + CalculateTax(product), 2, MidpointRounding.AwayFromZero)) * 100.00),
+                        TaxBehavior = "inclusive",
+                        Currency = "usd",
+                        ProductData = new SessionLineItemPriceDataProductDataOptions
+                        {
+                            Name = product.Name
+                        },
+                    },
+                    Quantity = shoppingCart.Count,
+                };
+                options.LineItems.Add(sesionLineItem);
+            }
+            return options;
+        }
 
         [Authorize]
         public IActionResult OrderConfirmation(int id)
         {
-
-            //TODO - clean this shit up too
             var sale = _unitOfWork.Sale.GetById(id);
             var service = new SessionService();
 
@@ -187,6 +189,7 @@ namespace WixapolShop.Areas.Customer.Controllers
 
                 foreach (var saleDetail in sale.SaleDetail)
                 {
+                    //this should be a transaction
                     _unitOfWork.Product.DecreaseQuantity(saleDetail.ProductId, saleDetail.Quantity);
                     saleVM.Products.Add(_unitOfWork.Product.GetById(saleDetail.ProductId));
                 }
